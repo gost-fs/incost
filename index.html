@@ -16,7 +16,7 @@
 <meta property="og:description" content="Sheet metal, nesting, 3D printing and machining quotes in seconds. Free for Windows.">
 <meta property="og:image" content="https://gost-fs.github.io/incost/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "InCost", "url": "https://gost-fs.github.io/incost/", "image": "https://gost-fs.github.io/incost/og.png", "description": "Cost estimating software for sheet metal, laser cutting, nesting, 3D printing and machining. Reads DXF, STEP and 3MF files.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Manufacturing cost estimating", "operatingSystem": "Windows 10, Windows 11", "softwareVersion": "0.9.15", "fileSize": "6 MB", "downloadUrl": "https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip", "offers": [{"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD", "category": "subscription"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the free plan really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Free has no time limit and no account. The 4-day Pro trial starts on first launch and needs no card."}}, {"@type": "Question", "name": "How do I install InCost?", "acceptedAnswer": {"@type": "Answer", "text": "Download the ZIP, extract it to any folder and run InCost. No installer and no admin rights needed. New versions arrive inside the app automatically."}}, {"@type": "Question", "name": "Does it need an internet connection?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything runs on your PC. Internet is used once to activate a Pro license."}}, {"@type": "Question", "name": "Does it work in metric?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. InCost works in inches and millimeters, pounds and kilograms, and converts between them as you type."}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "InCost", "url": "https://gost-fs.github.io/incost/", "image": "https://gost-fs.github.io/incost/og.png", "description": "Cost estimating and engineering software for sheet metal, laser cutting, nesting, 3D printing and machining. Turns STEP models into shop drawings, edits DXF files, prints branded quotes and quality certificates.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Manufacturing cost estimating", "operatingSystem": "Windows 10, Windows 11", "softwareVersion": "0.9.15", "fileSize": "6 MB", "downloadUrl": "https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip", "offers": [{"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD", "category": "subscription"}], "featureList": ["Sheet metal and laser cutting cost from DXF", "Automatic nesting with sheet yield", "3D printing cost from STEP, 3MF and STL", "Machining cost estimates", "Shop drawings from STEP, IGES and STL to PDF and DXF", "DXF editor and cleanup", "Batch DXF quoting", "Branded PDF quotes and quote log", "Assemblies and bill of materials", "Travelers and routing cards", "Quality control: AQL ISO 2859-1, EN 10204 3.1 certificates", "Structural calculations to ASCE 7, ACI 318, AISC 360 and Eurocode", "40 engineering calculators", "Inventory", "Team mode"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the free plan really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Free has no time limit and no account. The 4-day Pro trial starts on first launch and needs no card."}}, {"@type": "Question", "name": "How do I install InCost?", "acceptedAnswer": {"@type": "Answer", "text": "Download the ZIP, extract it to any folder and run InCost. No installer and no admin rights needed. New versions arrive inside the app automatically."}}, {"@type": "Question", "name": "Does it need an internet connection?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything runs on your PC. Internet is used once to activate a Pro license."}}, {"@type": "Question", "name": "Does it work in metric?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. InCost works in inches and millimeters, pounds and kilograms, and converts between them as you type."}}]}]}</script>
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
 /* Layout: fast conversion page — system fonts only, one blue accent, proof (live quote) above the fold, ROI math before pricing, one CTA repeated */
@@ -168,6 +168,38 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgroun
 .pro{font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:2px}
 @media (max-width:860px){.tabs{grid-template-columns:1fr}.tablist{grid-template-columns:repeat(2,1fr)}.panel{grid-template-columns:1fr;padding:24px}}
 
+/* modules */
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mod{border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:10px;align-content:start;background:var(--bg);min-width:0;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.mod:hover{transform:translateY(-3px);box-shadow:0 18px 40px -24px rgba(10,30,80,.35)}
+.mod .ic{width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.mod h3{font-size:19px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mod p{color:var(--ink-2);font-size:15px}
+.mod.hero-mod{grid-column:1/-1;grid-template-columns:1fr 1.15fr;gap:28px;align-items:center;padding:30px;background:var(--bg-2)}
+.mod.hero-mod h3{font-size:clamp(24px,3vw,32px)}
+.mod.hero-mod p{font-size:17px}
+.mod.hero-mod svg.sheet{width:100%;height:auto;max-width:100%;display:block}
+.mod .new{font:700 11px var(--font);color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:2px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chips span{font:600 12px var(--font-mono);padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink-2)}
+@media (max-width:960px){.mods{grid-template-columns:repeat(2,1fr)}.mod.hero-mod{grid-template-columns:1fr}}
+@media (max-width:600px){.mods{grid-template-columns:1fr}}
+
+/* comparison */
+.cmp-wrap{margin-top:48px;max-width:900px}
+.cmp-h{font-size:24px;margin-bottom:16px}
+.cmp-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--bg)}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;min-width:520px}
+.cmp th,.cmp td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+.cmp tr:last-child td{border-bottom:0}
+.cmp thead th{font-size:13px;color:var(--ink-2);font-weight:600;background:var(--bg-2)}
+.cmp th:nth-child(n+2),.cmp td:nth-child(n+2){width:26%}
+.cmp td:nth-child(3){background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.cmp thead th:nth-child(3){color:var(--accent)}
+.cmp .v{color:var(--ink-2);font-size:14px}
+.cmp td:nth-child(3) .v{color:var(--ink);font-weight:600}
+.cmp .no{color:var(--ink-2);opacity:.5}
+
 /* roi */
 .roi{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:20px;overflow:hidden}
 .roi>*{min-width:0}
@@ -287,7 +319,7 @@ main.swap{opacity:.4}
     </a>
     <ul>
       <li><a href="#how" data-i="nav.how">How it works</a></li>
-      <li><a href="#features" data-i="nav.features">Features</a></li>
+      <li><a href="#modules" data-i="nav.features">Features</a></li>
       <li><a href="#roi" data-i="nav.roi">Savings</a></li>
       <li><a href="#pricing" data-i="nav.pricing">Pricing</a></li>
       <li><a href="#faq" data-i="nav.faq">FAQ</a></li>
@@ -315,7 +347,7 @@ main.swap{opacity:.4}
     <div>
       <a class="pill" href="#get" data-i="hero.pill"><b>New</b> Version 0.9 for Windows is out</a>
       <h1 data-i="hero.h1">Stop quoting parts <span>in spreadsheets.</span></h1>
-      <p class="lead" data-i="hero.lead">InCost prices sheet metal, 3D printed and machined parts in seconds. Open a DXF or STEP file, pick a material, and get a cost you can send.</p>
+      <p class="lead" data-i="hero.lead">InCost prices sheet metal, 3D printed and machined parts in seconds and turns 3D models into shop drawings. Open a DXF or STEP file, pick a material and get a cost you can send.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#get">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M1 3.2l6.5-.9v6.2H1zM8.4 2.2L17 1v7.5H8.4zM1 9.5h6.5v6.2L1 14.8zM8.4 9.5H17V17l-8.6-1.2z"/></svg>
@@ -383,6 +415,7 @@ main.swap{opacity:.4}
         <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 16h10M5 12.5h8M6 9h6M6.5 2h5v3.5h-5z"/></svg><span data-i="s3">3D printing</span></li>
         <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6.5"/><path d="M9 2.5v13M2.5 9h13"/></svg><span data-i="s4">Machining</span></li>
         <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h12l-3-3M15 12H3l3 3"/></svg><span data-i="s5">Imperial and metric</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2.5" width="14" height="13" rx="1.5"/><path d="M5 6h4v6H5zM11 6h2M11 9h2M2 12.5h14"/></svg><span data-i="s6">Drawings from STEP</span></li>
       </ul>
     </div>
   </div>
@@ -438,6 +471,18 @@ main.swap{opacity:.4}
         </div>
         <div class="panel" id="pnl" role="tabpanel" aria-labelledby="t0"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section id="modules">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="md.k">Inside InCost</p>
+        <h2 data-i="md.h">Much more than a cost calculator.</h2>
+        <p data-i="md.p">Everything a technologist and design engineer does every day, in one desktop app.</p>
+      </div>
+      <div class="mods" id="mods"></div>
     </div>
   </section>
 
@@ -507,9 +552,10 @@ main.swap{opacity:.4}
           <div class="price">$0 <small data-i="fr.f">forever</small></div>
           <p class="muted" data-i="fr.d">For quick estimates and everyday engineering math.</p>
           <ul>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fr1">Manual sheet metal and machining estimates</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fr2">Unit converter and design helpers</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fr3">Core materials library</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fx1">All cost calculations on screen</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fx2">Drawings from 3D models on screen</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fx3">40 engineer calculators and unit converter</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fx4">Up to 5 saved estimates</span></li>
           </ul>
           <a class="btn btn-secondary" href="#get" data-i="cta.free">Download free</a>
         </div>
@@ -519,16 +565,21 @@ main.swap{opacity:.4}
           <div class="price"><span id="pv">$19</span> <small id="pp">/ month</small></div>
           <p class="muted" data-i="pro.d">For anyone who sends quotes to customers.</p>
           <ul>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p1">Everything in Free</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p2">DXF import with automatic cut length and pierces</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p3">Nesting with sheet yield</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p4">STEP and 3MF cost for 3D printing</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p5">Full library, including composites</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p6">Branded PDF quotes and analytics</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px1">Everything in Free, without limits</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px2">PDF quotes, reports and travelers with your logo</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px3">Shop drawings exported to PDF and DXF</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px4">Automatic nesting and the full DXF editor</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px5">Batch quoting for whole folders</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px6">Quality protocols and EN 10204 certificates</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px7">All structural tools, 3D print prep and team mode</span></li>
           </ul>
           <a class="btn btn-primary" href="#get" data-i="pro.btn">Start free 4-day trial</a>
           <p class="fine" data-i="pro.fine">Secure checkout by Lemon Squeezy. Cancel anytime.</p>
         </div>
+      </div>
+      <div class="cmp-wrap rv">
+        <h3 class="cmp-h" data-i="cmp.h">What you get with Pro</h3>
+        <div class="cmp-scroll"><table class="cmp" id="cmp"></table></div>
       </div>
     </div>
   </section>
@@ -637,7 +688,7 @@ main.swap{opacity:.4}
     "nav.how":"Як це працює","nav.features":"Можливості","nav.roi":"Економія","nav.pricing":"Ціни","nav.faq":"Питання",
     "cta.free":"Завантажити","cta.win":"Завантажити для Windows безкоштовно",
     "hero.pill":"<b>Нове</b> Вийшла версія 0.9 для Windows","hero.h1":"Досить рахувати деталі <span>в таблицях.</span>",
-    "hero.lead":"InCost рахує вартість листових, надрукованих на 3D-принтері та фрезерованих деталей за секунди. Відкрийте DXF або STEP, оберіть матеріал і отримайте ціну, яку можна відправити клієнту.",
+    "hero.lead":"InCost за секунди рахує вартість листових, надрукованих і фрезерованих деталей і робить креслення з 3D-моделей. Відкрийте DXF або STEP, оберіть матеріал і отримайте ціну, яку можна відправити клієнту.",
     "hero.cta2":"Як це працює","chk1":"Безкоштовний план назавжди","chk2":"4 дні Pro без картки","chk3":"Без реєстрації",
     "app.tag":"Спробуйте","f.mat":"Матеріал","m.crs":"Холоднокатана сталь A1008","m.al":"Алюміній 5052-H32","m.ss":"Нержавіюча сталь 304",
     "f.th":"Товщина","f.w":"Ширина","f.h":"Висота","f.holes":"Отвори","f.qty":"Кількість","tot":"Ціна за деталь",
@@ -655,8 +706,8 @@ main.swap{opacity:.4}
     "tr3h":"Відкривається миттєво","tr3p":"Легка програма для ПК. Без вкладок браузера, без входу в акаунт, без очікування сервера.",
     "pr.k":"Ціни","pr.h":"Прості ціни. Почніть безкоштовно.","pr.p":"Кожне завантаження включає 4 дні Pro. Потім лишайтеся на Free або додайте ліцензійний ключ.",
     "pr.m":"Щомісяця","pr.y":"Щороку <em>−30%</em>","fr.f":"назавжди","fr.d":"Для швидких оцінок і щоденних інженерних розрахунків.",
-    "fr1":"Ручні розрахунки листового металу і мехобробки","fr2":"Конвертер одиниць і помічники конструктора","fr3":"Базова бібліотека матеріалів",
-    "pro.b":"Найпопулярніший","pro.d":"Для всіх, хто надсилає кошториси клієнтам.","p1":"Усе з Free","p2":"Імпорт DXF з автоматичною довжиною різу і врізками","p3":"Розкрій з використанням листа","p4":"Вартість 3D-друку зі STEP і 3MF","p5":"Повна бібліотека, включно з композитами","p6":"Брендовані PDF-кошториси й аналітика",
+    
+    "pro.b":"Найпопулярніший","pro.d":"Для всіх, хто надсилає кошториси клієнтам.",
     "pro.btn":"Почати 4 дні безкоштовно","pro.fine":"Безпечна оплата через Lemon Squeezy. Скасування будь-коли.",
     "fq.h":"Питання перед завантаженням.",
     "q1":"Безкоштовний план справді безкоштовний?","a1x":"Так. Free не має обмеження за часом і не потребує акаунта. 4 дні Pro починаються з першого запуску, картка не потрібна.",
@@ -671,13 +722,13 @@ main.swap{opacity:.4}
     "ct.fh":"Напишіть повідомлення","ct.name":"Ім'я","ct.mail":"Email","ct.topic":"Тема","tp.q":"Питання","tp.bug":"Повідомити про помилку","tp.feat":"Побажання до функцій","tp.lic":"Ліцензія або оплата","tp.biz":"Співпраця",
     "ct.msg":"Повідомлення","ph.name":"Іван Петренко","ph.msg":"Що ви рахуєте і що зробило б InCost кращим для вас?","ct.send":"Надіслати","ct.priv":"Ваш email використовуємо лише для відповіді.",
     "ct.fill":"Вкажіть ім'я, правильний email і повідомлення щонайменше з 10 символів.","ct.sent":"Повідомлення надіслано. Відповімо протягом 1–2 робочих днів.","ct.fail":"Не вдалося надіслати. Скопіюйте повідомлення і надішліть на {email}.",
-    "ct.mailto":"Має відкритися ваша поштова програма з готовим листом. Якщо не відкрилася, скопіюйте повідомлення і надішліть на {email}.","ct.copyMsg":"Копіювати повідомлення","q7":"Як встановити InCost?","a7x":"Завантажте ZIP, розпакуйте в будь-яку папку і запустіть InCost. Інсталятор і права адміністратора не потрібні. Нові версії приходять у самій програмі автоматично."
+    "ct.mailto":"Має відкритися ваша поштова програма з готовим листом. Якщо не відкрилася, скопіюйте повідомлення і надішліть на {email}.","ct.copyMsg":"Копіювати повідомлення","s6":"Креслення зі STEP","md.k":"Що всередині","md.h":"Набагато більше, ніж калькулятор собівартості.","md.p":"Усе, що щодня роблять технолог і конструктор, в одній програмі.","cmp.h":"Що дає Pro","fx1":"Усі розрахунки собівартості на екрані","fx2":"Креслення з 3D-моделі на екрані","fx3":"40 калькуляторів конструктора і конвертер одиниць","fx4":"До 5 збережених розрахунків","px1":"Усе з Free без обмежень","px2":"PDF-пропозиції, звіти й маршрутні карти з вашим логотипом","px3":"Експорт креслень у PDF і DXF","px4":"Автоматична розкладка і повний DXF-редактор","px5":"Пакетний розрахунок цілих папок","px6":"Протоколи випробувань і сертифікати EN 10204","px7":"Усі інструменти будівельника, підготовка 3D-друку, командна робота","q7":"Як встановити InCost?","a7x":"Завантажте ZIP, розпакуйте в будь-яку папку і запустіть InCost. Інсталятор і права адміністратора не потрібні. Нові версії приходять у самій програмі автоматично."
   },
   de:{
     "nav.how":"So funktioniert's","nav.features":"Funktionen","nav.roi":"Ersparnis","nav.pricing":"Preise","nav.faq":"FAQ",
     "cta.free":"Kostenlos laden","cta.win":"Kostenlos für Windows laden",
     "hero.pill":"<b>Neu</b> Version 0.9 für Windows ist da","hero.h1":"Schluss mit Kalkulationen <span>in Tabellen.</span>",
-    "hero.lead":"InCost kalkuliert Blech-, 3D-Druck- und Frästeile in Sekunden. DXF oder STEP öffnen, Material wählen und einen Preis erhalten, den Sie verschicken können.",
+    "hero.lead":"InCost kalkuliert Blech-, 3D-Druck- und Frästeile in Sekunden und erstellt Zeichnungen aus 3D-Modellen. DXF oder STEP öffnen, Material wählen und einen Preis erhalten, den Sie verschicken können.",
     "hero.cta2":"So funktioniert's","chk1":"Dauerhaft kostenloser Plan","chk2":"4 Tage Pro ohne Kreditkarte","chk3":"Kein Konto nötig",
     "app.tag":"Ausprobieren","f.mat":"Werkstoff","m.crs":"Kaltgewalzter Stahl A1008","m.al":"Aluminium 5052-H32","m.ss":"Edelstahl 304",
     "f.th":"Dicke","f.w":"Breite","f.h":"Höhe","f.holes":"Bohrungen","f.qty":"Stückzahl","tot":"Preis pro Teil",
@@ -695,8 +746,8 @@ main.swap{opacity:.4}
     "tr3h":"Startet sofort","tr3p":"Eine leichte Desktop-App. Keine Browser-Tabs, kein Login, kein Warten auf einen Server.",
     "pr.k":"Preise","pr.h":"Einfache Preise. Kostenlos starten.","pr.p":"Jeder Download enthält 4 Tage Pro. Danach bleiben Sie bei Free oder fügen einen Lizenzschlüssel hinzu.",
     "pr.m":"Monatlich","pr.y":"Jährlich <em>−30 %</em>","fr.f":"für immer","fr.d":"Für schnelle Schätzungen und tägliche Ingenieursmathematik.",
-    "fr1":"Manuelle Blech- und Zerspanungskalkulation","fr2":"Einheitenrechner und Konstruktionshelfer","fr3":"Basis-Werkstoffbibliothek",
-    "pro.b":"Am beliebtesten","pro.d":"Für alle, die Angebote an Kunden senden.","p1":"Alles aus Free","p2":"DXF-Import mit automatischer Schnittlänge und Einstichen","p3":"Verschachtelung mit Blechausnutzung","p4":"3D-Druck-Kosten aus STEP und 3MF","p5":"Volle Bibliothek inklusive Verbundwerkstoffe","p6":"PDF-Angebote mit Ihrem Logo und Analysen",
+    
+    "pro.b":"Am beliebtesten","pro.d":"Für alle, die Angebote an Kunden senden.",
     "pro.btn":"4 Tage kostenlos testen","pro.fine":"Sichere Zahlung über Lemon Squeezy. Jederzeit kündbar.",
     "fq.h":"Fragen vor dem Download.",
     "q1":"Ist der kostenlose Plan wirklich kostenlos?","a1x":"Ja. Free hat kein Zeitlimit und braucht kein Konto. Die 4 Tage Pro starten beim ersten Start, ohne Kreditkarte.",
@@ -711,13 +762,13 @@ main.swap{opacity:.4}
     "ct.fh":"Nachricht senden","ct.name":"Name","ct.mail":"E-Mail","ct.topic":"Thema","tp.q":"Frage","tp.bug":"Fehlermeldung","tp.feat":"Funktionswunsch","tp.lic":"Lizenz oder Zahlung","tp.biz":"Partnerschaft",
     "ct.msg":"Nachricht","ph.name":"Max Müller","ph.msg":"Was kalkulieren Sie und was würde InCost für Sie besser machen?","ct.send":"Senden","ct.priv":"Ihre E-Mail nutzen wir nur für die Antwort.",
     "ct.fill":"Bitte Namen, eine gültige E-Mail und eine Nachricht mit mindestens 10 Zeichen angeben.","ct.sent":"Nachricht gesendet. Sie erhalten innerhalb von 1–2 Werktagen eine Antwort.","ct.fail":"Die Nachricht wurde nicht gesendet. Kopieren Sie sie und senden Sie sie an {email}.",
-    "ct.mailto":"Ihr E-Mail-Programm sollte sich mit der fertigen Nachricht öffnen. Falls nicht, kopieren Sie sie und senden Sie sie an {email}.","ct.copyMsg":"Nachricht kopieren","q7":"Wie installiere ich InCost?","a7x":"ZIP herunterladen, in einen beliebigen Ordner entpacken und InCost starten. Kein Installer und keine Administratorrechte nötig. Neue Versionen kommen automatisch in der App an."
+    "ct.mailto":"Ihr E-Mail-Programm sollte sich mit der fertigen Nachricht öffnen. Falls nicht, kopieren Sie sie und senden Sie sie an {email}.","ct.copyMsg":"Nachricht kopieren","s6":"Zeichnungen aus STEP","md.k":"In InCost","md.h":"Viel mehr als ein Kostenrechner.","md.p":"Alles, was Technologen und Konstrukteure täglich tun, in einer Desktop-App.","cmp.h":"Was Pro bietet","fx1":"Alle Kostenkalkulationen am Bildschirm","fx2":"Zeichnungen aus 3D-Modellen am Bildschirm","fx3":"40 Konstrukteurs-Rechner und Einheitenumrechner","fx4":"Bis zu 5 gespeicherte Kalkulationen","px1":"Alles aus Free ohne Grenzen","px2":"PDF-Angebote, Berichte und Laufkarten mit Ihrem Logo","px3":"Zeichnungen als PDF und DXF exportieren","px4":"Automatische Verschachtelung und voller DXF-Editor","px5":"Stapelkalkulation ganzer Ordner","px6":"Prüfprotokolle und Zeugnisse nach EN 10204","px7":"Alle Statik-Werkzeuge, 3D-Druck-Vorbereitung und Teammodus","q7":"Wie installiere ich InCost?","a7x":"ZIP herunterladen, in einen beliebigen Ordner entpacken und InCost starten. Kein Installer und keine Administratorrechte nötig. Neue Versionen kommen automatisch in der App an."
   },
   es:{
     "nav.how":"Cómo funciona","nav.features":"Funciones","nav.roi":"Ahorro","nav.pricing":"Precios","nav.faq":"Preguntas",
     "cta.free":"Descargar gratis","cta.win":"Descargar gratis para Windows",
     "hero.pill":"<b>Nuevo</b> Ya está la versión 0.9 para Windows","hero.h1":"Deja de cotizar piezas <span>en hojas de cálculo.</span>",
-    "hero.lead":"InCost calcula el costo de piezas de chapa, impresas en 3D y mecanizadas en segundos. Abre un DXF o STEP, elige el material y obtén un precio listo para enviar.",
+    "hero.lead":"InCost calcula en segundos el costo de piezas de chapa, impresas en 3D y mecanizadas, y convierte modelos 3D en planos. Abre un DXF o STEP, elige el material y obtén un precio listo para enviar.",
     "hero.cta2":"Cómo funciona","chk1":"Plan gratuito para siempre","chk2":"4 días de Pro sin tarjeta","chk3":"Sin cuenta",
     "app.tag":"Pruébalo","f.mat":"Material","m.crs":"Acero laminado en frío A1008","m.al":"Aluminio 5052-H32","m.ss":"Acero inoxidable 304",
     "f.th":"Espesor","f.w":"Ancho","f.h":"Alto","f.holes":"Agujeros","f.qty":"Cantidad","tot":"Precio por pieza",
@@ -735,8 +786,8 @@ main.swap{opacity:.4}
     "tr3h":"Abre al instante","tr3p":"Una app de escritorio ligera. Sin pestañas, sin inicio de sesión, sin esperar a un servidor.",
     "pr.k":"Precios","pr.h":"Precios simples. Empieza gratis.","pr.p":"Cada descarga incluye 4 días de Pro. Después, sigue con Free o añade una clave de licencia.",
     "pr.m":"Mensual","pr.y":"Anual <em>−30 %</em>","fr.f":"para siempre","fr.d":"Para estimaciones rápidas y cálculos de ingeniería diarios.",
-    "fr1":"Estimaciones manuales de chapa y mecanizado","fr2":"Conversor de unidades y ayudas de diseño","fr3":"Biblioteca básica de materiales",
-    "pro.b":"El más popular","pro.d":"Para quien envía cotizaciones a clientes.","p1":"Todo lo de Free","p2":"Importación DXF con longitud de corte y perforaciones automáticas","p3":"Anidado con aprovechamiento de lámina","p4":"Costo de impresión 3D desde STEP y 3MF","p5":"Biblioteca completa, con compuestos","p6":"Cotizaciones PDF con tu marca y analíticas",
+    
+    "pro.b":"El más popular","pro.d":"Para quien envía cotizaciones a clientes.",
     "pro.btn":"Prueba gratis 4 días","pro.fine":"Pago seguro con Lemon Squeezy. Cancela cuando quieras.",
     "fq.h":"Preguntas antes de descargar.",
     "q1":"¿El plan gratuito es realmente gratis?","a1x":"Sí. Free no tiene límite de tiempo ni requiere cuenta. Los 4 días de Pro empiezan al abrir la app y no piden tarjeta.",
@@ -751,13 +802,13 @@ main.swap{opacity:.4}
     "ct.fh":"Enviar un mensaje","ct.name":"Nombre","ct.mail":"Correo","ct.topic":"Tema","tp.q":"Pregunta","tp.bug":"Informar de un error","tp.feat":"Solicitud de función","tp.lic":"Licencia o pago","tp.biz":"Colaboración",
     "ct.msg":"Mensaje","ph.name":"Ana García","ph.msg":"¿Qué cotizas y qué haría InCost mejor para ti?","ct.send":"Enviar mensaje","ct.priv":"Solo usamos tu correo para responderte.",
     "ct.fill":"Añade tu nombre, un correo válido y un mensaje de al menos 10 caracteres.","ct.sent":"Mensaje enviado. Te responderemos en 1–2 días hábiles.","ct.fail":"No se pudo enviar. Copia el mensaje y envíalo a {email}.",
-    "ct.mailto":"Debería abrirse tu app de correo con el mensaje listo. Si no se abrió, copia el mensaje y envíalo a {email}.","ct.copyMsg":"Copiar mensaje","q7":"¿Cómo instalo InCost?","a7x":"Descarga el ZIP, descomprímelo en cualquier carpeta y ejecuta InCost. No necesitas instalador ni permisos de administrador. Las nuevas versiones llegan automáticamente dentro de la app."
+    "ct.mailto":"Debería abrirse tu app de correo con el mensaje listo. Si no se abrió, copia el mensaje y envíalo a {email}.","ct.copyMsg":"Copiar mensaje","s6":"Planos desde STEP","md.k":"Dentro de InCost","md.h":"Mucho más que una calculadora de costos.","md.p":"Todo lo que hacen a diario un tecnólogo y un ingeniero de diseño, en una sola app.","cmp.h":"Qué incluye Pro","fx1":"Todos los cálculos de costo en pantalla","fx2":"Planos desde modelos 3D en pantalla","fx3":"40 calculadoras de ingeniería y conversor de unidades","fx4":"Hasta 5 cálculos guardados","px1":"Todo lo de Free, sin límites","px2":"Cotizaciones, informes y hojas de ruta PDF con tu logo","px3":"Planos exportados a PDF y DXF","px4":"Anidado automático y editor DXF completo","px5":"Cotización por lotes de carpetas enteras","px6":"Protocolos de ensayo y certificados EN 10204","px7":"Todas las herramientas estructurales, preparación 3D y modo equipo","q7":"¿Cómo instalo InCost?","a7x":"Descarga el ZIP, descomprímelo en cualquier carpeta y ejecuta InCost. No necesitas instalador ni permisos de administrador. Las nuevas versiones llegan automáticamente dentro de la app."
   },
   pl:{
     "nav.how":"Jak to działa","nav.features":"Funkcje","nav.roi":"Oszczędności","nav.pricing":"Cennik","nav.faq":"FAQ",
     "cta.free":"Pobierz za darmo","cta.win":"Pobierz za darmo na Windows",
     "hero.pill":"<b>Nowość</b> Wersja 0.9 na Windows już jest","hero.h1":"Koniec z wyceną części <span>w arkuszach.</span>",
-    "hero.lead":"InCost wycenia części z blachy, drukowane 3D i obrabiane w kilka sekund. Otwórz DXF lub STEP, wybierz materiał i dostań cenę gotową do wysłania.",
+    "hero.lead":"InCost w kilka sekund wycenia części z blachy, drukowane 3D i obrabiane oraz tworzy rysunki z modeli 3D. Otwórz DXF lub STEP, wybierz materiał i dostań cenę gotową do wysłania.",
     "hero.cta2":"Jak to działa","chk1":"Darmowy plan na zawsze","chk2":"4 dni Pro bez karty","chk3":"Bez zakładania konta",
     "app.tag":"Wypróbuj","f.mat":"Materiał","m.crs":"Stal walcowana na zimno A1008","m.al":"Aluminium 5052-H32","m.ss":"Stal nierdzewna 304",
     "f.th":"Grubość","f.w":"Szerokość","f.h":"Wysokość","f.holes":"Otwory","f.qty":"Ilość","tot":"Cena za sztukę",
@@ -775,8 +826,8 @@ main.swap{opacity:.4}
     "tr3h":"Startuje od razu","tr3p":"Lekka aplikacja na komputer. Bez kart przeglądarki, bez logowania, bez czekania na serwer.",
     "pr.k":"Cennik","pr.h":"Prosty cennik. Zacznij za darmo.","pr.p":"Każde pobranie zawiera 4 dni Pro. Potem zostań przy Free albo dodaj klucz licencyjny.",
     "pr.m":"Miesięcznie","pr.y":"Rocznie <em>−30%</em>","fr.f":"na zawsze","fr.d":"Do szybkich szacunków i codziennych obliczeń inżynierskich.",
-    "fr1":"Ręczne wyceny blachy i obróbki","fr2":"Konwerter jednostek i pomocnicy konstruktora","fr3":"Podstawowa biblioteka materiałów",
-    "pro.b":"Najpopularniejszy","pro.d":"Dla każdego, kto wysyła oferty klientom.","p1":"Wszystko z Free","p2":"Import DXF z automatyczną długością cięcia i przebiciami","p3":"Nesting z wykorzystaniem arkusza","p4":"Koszt druku 3D ze STEP i 3MF","p5":"Pełna biblioteka, w tym kompozyty","p6":"Oferty PDF z twoim logo i analityka",
+    
+    "pro.b":"Najpopularniejszy","pro.d":"Dla każdego, kto wysyła oferty klientom.",
     "pro.btn":"Wypróbuj 4 dni za darmo","pro.fine":"Bezpieczna płatność przez Lemon Squeezy. Anulujesz w każdej chwili.",
     "fq.h":"Pytania przed pobraniem.",
     "q1":"Czy darmowy plan jest naprawdę darmowy?","a1x":"Tak. Free nie ma limitu czasu i nie wymaga konta. 4 dni Pro zaczynają się przy pierwszym uruchomieniu, bez karty.",
@@ -791,7 +842,7 @@ main.swap{opacity:.4}
     "ct.fh":"Wyślij wiadomość","ct.name":"Imię","ct.mail":"E-mail","ct.topic":"Temat","tp.q":"Pytanie","tp.bug":"Zgłoszenie błędu","tp.feat":"Propozycja funkcji","tp.lic":"Licencja lub płatność","tp.biz":"Współpraca",
     "ct.msg":"Wiadomość","ph.name":"Jan Kowalski","ph.msg":"Co wyceniasz i co ulepszyłoby InCost dla ciebie?","ct.send":"Wyślij","ct.priv":"Twój e-mail wykorzystamy tylko do odpowiedzi.",
     "ct.fill":"Podaj imię, poprawny e-mail i wiadomość o długości co najmniej 10 znaków.","ct.sent":"Wiadomość wysłana. Odpowiemy w ciągu 1–2 dni roboczych.","ct.fail":"Nie udało się wysłać. Skopiuj wiadomość i wyślij ją na {email}.",
-    "ct.mailto":"Powinien otworzyć się program pocztowy z gotową wiadomością. Jeśli nie, skopiuj ją i wyślij na {email}.","ct.copyMsg":"Kopiuj wiadomość","q7":"Jak zainstalować InCost?","a7x":"Pobierz ZIP, rozpakuj do dowolnego folderu i uruchom InCost. Bez instalatora i uprawnień administratora. Nowe wersje przychodzą automatycznie w aplikacji."
+    "ct.mailto":"Powinien otworzyć się program pocztowy z gotową wiadomością. Jeśli nie, skopiuj ją i wyślij na {email}.","ct.copyMsg":"Kopiuj wiadomość","s6":"Rysunki ze STEP","md.k":"W InCost","md.h":"Dużo więcej niż kalkulator kosztów.","md.p":"Wszystko, co technolog i konstruktor robią na co dzień, w jednej aplikacji.","cmp.h":"Co daje Pro","fx1":"Wszystkie wyceny kosztów na ekranie","fx2":"Rysunki z modeli 3D na ekranie","fx3":"40 kalkulatorów inżyniera i konwerter jednostek","fx4":"Do 5 zapisanych wycen","px1":"Wszystko z Free bez limitów","px2":"Oferty, raporty i karty PDF z twoim logo","px3":"Eksport rysunków do PDF i DXF","px4":"Automatyczny nesting i pełny edytor DXF","px5":"Wsadowa wycena całych folderów","px6":"Protokoły prób i świadectwa EN 10204","px7":"Wszystkie narzędzia budowlane, przygotowanie druku 3D i praca zespołowa","q7":"Jak zainstalować InCost?","a7x":"Pobierz ZIP, rozpakuj do dowolnego folderu i uruchom InCost. Bez instalatora i uprawnień administratora. Nowe wersje przychodzą automatycznie w aplikacji."
   }};
 
   /* dynamic strings */
@@ -819,29 +870,29 @@ main.swap{opacity:.4}
     '<svg class="ill" viewBox="0 0 300 200" aria-hidden="true"><path d="M70 140a80 80 0 0 1 160 0" fill="none" stroke="var(--accent)" stroke-width="3"/><path d="M70 140a80 80 0 0 0 160 0" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M70 140h160" stroke="var(--ink-2)" stroke-width="1.5"/><text x="150" y="132" text-anchor="middle" font-size="13" font-family="Consolas,monospace" fill="var(--ink)">{dia}</text><text x="150" y="40" text-anchor="middle" font-size="12" font-family="Consolas,monospace" fill="var(--ink-2)">{conv}</text></svg>'
   ];
   var T={
-    en:[["Sheet metal","Open a DXF and InCost reads every contour, then prices the part with your laser rate.",["Cut length and pierce count"+PRO,"Blank weight from the material library","Laser time by thickness and material","Setup cost spread across the order"]],
-        ["Nesting","Lay parts on a standard sheet to see how many fit and what the scrap really costs.",["{sheet} and custom sheets"+PRO,"Sheet yield in percent","Scrap cost added to each part","Mix different parts on one sheet"]],
-        ["3D printing","Drop in a STEP or 3MF model and get the cost per piece, including machine time.",["Volume and grams of filament"+PRO,"Print time estimate","PLA, PETG, ABS, nylon and more","Machine rate and failure margin"]],
+    en:[["Sheet metal","Open a DXF and InCost reads every contour, then prices the part with your laser rate.",["Cut length and pierce count","Blank weight from the material library","Laser time by thickness and material","Setup cost spread across the order"]],
+        ["Nesting","Lay parts on a standard sheet to see how many fit and what the scrap really costs.",["Automatic nesting on {sheet} or custom sheets"+PRO,"Sheet yield in percent","Scrap cost added to each part","Mix different parts on one sheet"]],
+        ["3D printing","Drop in a STEP or 3MF model and get the cost per piece, including machine time.",["Volume and grams of filament","Print time estimate","PLA, PETG, ABS, nylon and more","Best orientation and supports"+PRO]],
         ["Machining","Estimate milling and turning from stock size and operations, priced with your shop rate.",["Stock size and material removal","Cycle time per operation","Shop rate and setup per order","Aluminum, steel, brass and plastics"]],
         ["Engineer tools","The small calculations that interrupt your day, solved in one place.",["Unit converter for length, mass, pressure, torque","Full diameter from a partial arc","Materials with density and price","Clean PDF quotes"+PRO]]],
-    uk:[["Листовий метал","Відкрийте DXF, і InCost прочитає кожен контур та порахує деталь за вашою ставкою лазера.",["Довжина різу і кількість врізок"+PRO,"Вага заготовки з бібліотеки матеріалів","Час лазера за товщиною і матеріалом","Налагодження розподіляється на замовлення"]],
-        ["Розкрій","Розкладіть деталі на стандартному листі й побачте, скільки влізе і скільки насправді коштують відходи.",["Листи {sheet} і власні розміри"+PRO,"Використання листа у відсотках","Вартість відходів у кожній деталі","Різні деталі на одному листі"]],
-        ["3D-друк","Завантажте модель STEP або 3MF і отримайте вартість за штуку разом з машинним часом.",["Об'єм і грами філаменту"+PRO,"Оцінка часу друку","PLA, PETG, ABS, нейлон та інші","Ставка принтера і запас на брак"]],
+    uk:[["Листовий метал","Відкрийте DXF, і InCost прочитає кожен контур та порахує деталь за вашою ставкою лазера.",["Довжина різу і кількість врізок","Вага заготовки з бібліотеки матеріалів","Час лазера за товщиною і матеріалом","Налагодження розподіляється на замовлення"]],
+        ["Розкрій","Розкладіть деталі на стандартному листі й побачте, скільки влізе і скільки насправді коштують відходи.",["Автоматична розкладка на {sheet} або свій лист"+PRO,"Використання листа у відсотках","Вартість відходів у кожній деталі","Різні деталі на одному листі"]],
+        ["3D-друк","Завантажте модель STEP або 3MF і отримайте вартість за штуку разом з машинним часом.",["Об'єм і грами філаменту","Оцінка часу друку","PLA, PETG, ABS, нейлон та інші","Найкраща орієнтація і підтримки"+PRO]],
         ["Мехобробка","Оцінка фрезерування і токарки за розміром заготовки й операціями з вашою ставкою.",["Розмір заготовки і знімання матеріалу","Час циклу на операцію","Ставка цеху і налагодження","Алюміній, сталь, латунь і пластики"]],
         ["Інструменти інженера","Дрібні розрахунки, які відволікають щодня, зібрані в одному місці.",["Конвертер довжини, маси, тиску, моменту","Повний діаметр за частиною дуги","Матеріали з густиною і ціною","Охайні PDF-кошториси"+PRO]]],
-    de:[["Blech","DXF öffnen: InCost liest jede Kontur und kalkuliert das Teil mit Ihrem Lasersatz.",["Schnittlänge und Einstiche"+PRO,"Rohteilgewicht aus der Werkstoffbibliothek","Laserzeit nach Dicke und Werkstoff","Rüstkosten auf den Auftrag verteilt"]],
-        ["Verschachtelung","Teile auf einer Standardtafel anordnen und sehen, wie viele passen und was der Verschnitt kostet.",["{sheet} und eigene Tafeln"+PRO,"Ausnutzung in Prozent","Verschnittkosten pro Teil","Verschiedene Teile auf einer Tafel"]],
-        ["3D-Druck","STEP- oder 3MF-Modell laden und Kosten pro Stück inklusive Maschinenzeit erhalten.",["Volumen und Gramm Filament"+PRO,"Geschätzte Druckzeit","PLA, PETG, ABS, Nylon und mehr","Maschinensatz und Ausschussreserve"]],
+    de:[["Blech","DXF öffnen: InCost liest jede Kontur und kalkuliert das Teil mit Ihrem Lasersatz.",["Schnittlänge und Einstiche","Rohteilgewicht aus der Werkstoffbibliothek","Laserzeit nach Dicke und Werkstoff","Rüstkosten auf den Auftrag verteilt"]],
+        ["Verschachtelung","Teile auf einer Standardtafel anordnen und sehen, wie viele passen und was der Verschnitt kostet.",["Automatische Verschachtelung auf {sheet} oder eigenen Tafeln"+PRO,"Ausnutzung in Prozent","Verschnittkosten pro Teil","Verschiedene Teile auf einer Tafel"]],
+        ["3D-Druck","STEP- oder 3MF-Modell laden und Kosten pro Stück inklusive Maschinenzeit erhalten.",["Volumen und Gramm Filament","Geschätzte Druckzeit","PLA, PETG, ABS, Nylon und mehr","Beste Ausrichtung und Stützen"+PRO]],
         ["Zerspanung","Fräsen und Drehen aus Rohteilgröße und Arbeitsgängen schätzen, mit Ihrem Stundensatz.",["Rohteilgröße und Zerspanvolumen","Zykluszeit pro Arbeitsgang","Stundensatz und Rüsten pro Auftrag","Aluminium, Stahl, Messing und Kunststoffe"]],
         ["Ingenieur-Tools","Die kleinen Rechnungen, die den Tag unterbrechen, an einem Ort.",["Umrechner für Länge, Masse, Druck, Drehmoment","Voller Durchmesser aus Teilbogen","Werkstoffe mit Dichte und Preis","Saubere PDF-Angebote"+PRO]]],
-    es:[["Chapa","Abre un DXF: InCost lee cada contorno y calcula la pieza con tu tarifa de láser.",["Longitud de corte y perforaciones"+PRO,"Peso desde la biblioteca de materiales","Tiempo láser por espesor y material","Preparación repartida en el pedido"]],
-        ["Anidado","Coloca piezas en una lámina estándar y ve cuántas caben y cuánto cuesta el desperdicio.",["Láminas {sheet} y a medida"+PRO,"Aprovechamiento en porcentaje","Costo del desperdicio en cada pieza","Piezas distintas en una lámina"]],
-        ["Impresión 3D","Carga un modelo STEP o 3MF y obtén el costo por pieza con tiempo de máquina.",["Volumen y gramos de filamento"+PRO,"Tiempo de impresión estimado","PLA, PETG, ABS, nylon y más","Tarifa de máquina y margen de fallos"]],
+    es:[["Chapa","Abre un DXF: InCost lee cada contorno y calcula la pieza con tu tarifa de láser.",["Longitud de corte y perforaciones","Peso desde la biblioteca de materiales","Tiempo láser por espesor y material","Preparación repartida en el pedido"]],
+        ["Anidado","Coloca piezas en una lámina estándar y ve cuántas caben y cuánto cuesta el desperdicio.",["Anidado automático en {sheet} o a medida"+PRO,"Aprovechamiento en porcentaje","Costo del desperdicio en cada pieza","Piezas distintas en una lámina"]],
+        ["Impresión 3D","Carga un modelo STEP o 3MF y obtén el costo por pieza con tiempo de máquina.",["Volumen y gramos de filamento","Tiempo de impresión estimado","PLA, PETG, ABS, nylon y más","Mejor orientación y soportes"+PRO]],
         ["Mecanizado","Estima fresado y torneado a partir del tocho y las operaciones, con tu tarifa.",["Tamaño del tocho y material removido","Tiempo de ciclo por operación","Tarifa del taller y preparación","Aluminio, acero, latón y plásticos"]],
         ["Herramientas","Los pequeños cálculos que interrumpen tu día, en un solo lugar.",["Conversor de longitud, masa, presión, par","Diámetro completo desde un arco parcial","Materiales con densidad y precio","Cotizaciones PDF limpias"+PRO]]],
-    pl:[["Blacha","Otwórz DXF: InCost odczyta każdy kontur i wyceni część według twojej stawki lasera.",["Długość cięcia i liczba przebić"+PRO,"Masa wykroju z biblioteki materiałów","Czas lasera wg grubości i materiału","Przezbrojenie rozłożone na zamówienie"]],
-        ["Nesting","Ułóż części na standardowym arkuszu i zobacz, ile się zmieści i ile kosztuje odpad.",["Arkusze {sheet} i własne"+PRO,"Wykorzystanie arkusza w procentach","Koszt odpadu w każdej części","Różne części na jednym arkuszu"]],
-        ["Druk 3D","Wczytaj model STEP lub 3MF i dostań koszt sztuki z czasem maszyny.",["Objętość i gramy filamentu"+PRO,"Szacowany czas druku","PLA, PETG, ABS, nylon i inne","Stawka maszyny i zapas na braki"]],
+    pl:[["Blacha","Otwórz DXF: InCost odczyta każdy kontur i wyceni część według twojej stawki lasera.",["Długość cięcia i liczba przebić","Masa wykroju z biblioteki materiałów","Czas lasera wg grubości i materiału","Przezbrojenie rozłożone na zamówienie"]],
+        ["Nesting","Ułóż części na standardowym arkuszu i zobacz, ile się zmieści i ile kosztuje odpad.",["Automatyczny nesting na {sheet} lub własnych arkuszach"+PRO,"Wykorzystanie arkusza w procentach","Koszt odpadu w każdej części","Różne części na jednym arkuszu"]],
+        ["Druk 3D","Wczytaj model STEP lub 3MF i dostań koszt sztuki z czasem maszyny.",["Objętość i gramy filamentu","Szacowany czas druku","PLA, PETG, ABS, nylon i inne","Najlepsza orientacja i podpory"+PRO]],
         ["Obróbka","Szacuj frezowanie i toczenie z wymiaru półfabrykatu i operacji, według twojej stawki.",["Półfabrykat i usuwany materiał","Czas cyklu na operację","Stawka warsztatu i przezbrojenie","Aluminium, stal, mosiądz i tworzywa"]],
         ["Narzędzia inżyniera","Drobne obliczenia, które przerywają dzień, w jednym miejscu.",["Konwerter długości, masy, ciśnienia, momentu","Pełna średnica z części łuku","Materiały z gęstością i ceną","Czytelne oferty PDF"+PRO]]]
   };
@@ -989,6 +1040,139 @@ main.swap{opacity:.4}
     }
   });
 
+
+  /* ===== modules and Free/Pro comparison ===== */
+  var MI={
+    drw:'<path d="M3 4h18v16H3z"/><path d="M6 8h5v6H6zM14 8h4v6h-4zM3 17h18M6 11h5"/>',
+    dxf:'<path d="M4 18l6-12 4 8 2-3 4 7z"/><circle cx="10" cy="6" r="1.6"/><circle cx="16" cy="11" r="1.6"/>',
+    batch:'<path d="M3 7h6l2 2h10v10H3z"/><path d="M7 13h10M7 16h6"/>',
+    quote:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 14h7M9 17h4"/>',
+    asm:'<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>',
+    trav:'<path d="M5 4h14v16H5z"/><path d="M8 8h1M11 8h5M8 12h1M11 12h5M8 16h1M11 16h5"/>',
+    qc:'<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    civ:'<path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/>',
+    eng:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+    adv:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
+    stock:'<path d="M3 8l9-5 9 5v10l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v10"/>',
+    maker:'<path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/>',
+    team:'<circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2.5 20c.5-3.5 2.8-5.5 5.5-5.5s5 2 5.5 5.5M14 15.5c2.8-.6 5.6.8 6.5 4.5"/>'
+  };
+  var MODS={
+    en:[["drw","Drawings from 3D models","Open STEP, IGES or STL and get a shop drawing: views, sections, dimensions, hole tables and an ISO or ANSI title block. Flat patterns for bent and rolled parts."],
+        ["dxf","DXF editor and cleanup","Finds duplicate lines, gaps and splines and fixes them in one click. Add micro-joints, lead-ins, bend lines and marking, then re-price."],
+        ["batch","Batch quoting","Drop a folder of DXF files. Thickness, quantity and material are read from the file names, and every part is priced."],
+        ["quote","Quotes and win rate","Branded PDF quotes with your logo, sales tax or VAT and Incoterms. Every quote is logged as sent, won or lost."],
+        ["asm","Assemblies and BOM","Combine parts from any module with purchased items, welding, painting and packing into one product price."],
+        ["trav","Travelers","Routing cards with operations, setup and cycle times, ready for the shop floor."],
+        ["qc","Quality control","Tensile, hardness, impact and spring tests, AQL sampling to ISO 2859-1, control charts and EN 10204 3.1 certificates with QR check."],
+        ["civ","Structural helper","15 tools for loads, concrete, steel, foundations and anchors to ASCE 7, ACI 318, AISC 360 or Eurocode."],
+        ["eng","Engineer toolkit","40 calculators: bolted joints to VDI 2230, tolerance stacks, press fits, shafts, belts and threads."],
+        ["adv","Process advisor","Compares milling, turning, laser, casting, molding and 3D printing for your part and quantity."],
+        ["stock","Inventory","Link stock to materials, see what an order needs and write it off when the job starts."],
+        ["maker","Maker pricing","Price handmade products: materials, time, tools, marketplace fees and the price that pays your hourly rate."],
+        ["team","Team mode","Share materials, machines, projects and stock through a shared folder."]],
+    uk:[["drw","Креслення з 3D-моделі","Відкрийте STEP, IGES або STL і отримайте робоче креслення: види, розрізи, розміри, таблиці отворів, основний напис за ISO або ANSI. Розгортки гнутих і вальцьованих деталей."],
+        ["dxf","DXF-редактор і очищення","Знаходить дублікати ліній, розриви й сплайни та виправляє їх одним кліком. Мікроперемички, підводи, лінії гибу й маркування, потім перерахунок ціни."],
+        ["batch","Пакетний розрахунок","Перетягніть папку з DXF. Товщина, кількість і матеріал читаються з назв файлів, і кожна деталь отримує ціну."],
+        ["quote","Пропозиції та конверсія","PDF-пропозиції з вашим логотипом, ПДВ і Incoterms. Кожна пропозиція в журналі: надіслано, виграно чи програно."],
+        ["asm","Вироби і специфікації","Деталі з будь-якого модуля, покупні вироби, зварювання, фарбування й пакування в одній ціні виробу."],
+        ["trav","Маршрутні карти","Операції, підготовчо-заключний і штучний час, розряди. Готово для цеху."],
+        ["qc","Контроль якості","Розтяг, твердість, удар, пружини, вибірка AQL за ISO 2859-1, контрольні карти і сертифікати 3.1 за EN 10204 з QR-перевіркою."],
+        ["civ","Помічник будівельника","15 інструментів: навантаження, бетон, сталь, фундаменти й анкери за ASCE 7, ACI 318, AISC 360 або Eurocode."],
+        ["eng","Інструменти конструктора","40 калькуляторів: болтові з'єднання за VDI 2230, розмірні ланцюги, посадки з натягом, вали, передачі, різьби."],
+        ["adv","Радник технології","Порівнює фрезерування, токарну обробку, лазер, лиття й 3D-друк для вашої деталі й партії."],
+        ["stock","Склад","Залишки прив'язані до матеріалів: скільки потрібно на замовлення і списання при запуску в роботу."],
+        ["maker","Ціни для майстрів","Ціна виробів ручної роботи: матеріали, час, інструмент, комісії майданчиків і ціна, що окупає вашу годину."],
+        ["team","Командна робота","Спільні матеріали, верстати, проєкти й склад через спільну папку."]],
+    de:[["drw","Zeichnungen aus 3D-Modellen","STEP, IGES oder STL öffnen und eine Fertigungszeichnung erhalten: Ansichten, Schnitte, Bemaßung, Bohrungstabellen, Schriftfeld nach ISO oder ANSI. Abwicklungen für Biege- und Rollteile."],
+        ["dxf","DXF-Editor und Bereinigung","Findet doppelte Linien, Lücken und Splines und behebt sie mit einem Klick. Microjoints, Anfahrfahnen, Biegelinien und Beschriftung, danach neu kalkulieren."],
+        ["batch","Stapelkalkulation","Einen Ordner mit DXF-Dateien ablegen. Dicke, Stückzahl und Werkstoff werden aus den Dateinamen gelesen, jedes Teil bekommt einen Preis."],
+        ["quote","Angebote und Erfolgsquote","PDF-Angebote mit Ihrem Logo, MwSt. und Incoterms. Jedes Angebot wird protokolliert: gesendet, gewonnen oder verloren."],
+        ["asm","Baugruppen und Stücklisten","Teile aus allen Modulen mit Zukaufteilen, Schweißen, Lackieren und Verpacken zu einem Produktpreis kombinieren."],
+        ["trav","Laufkarten","Arbeitsgänge mit Rüst- und Stückzeiten, bereit für die Werkstatt."],
+        ["qc","Qualitätskontrolle","Zug-, Härte-, Kerbschlag- und Federprüfungen, AQL-Stichproben nach ISO 2859-1, Regelkarten und 3.1-Zeugnisse nach EN 10204 mit QR-Prüfung."],
+        ["civ","Statik-Helfer","15 Werkzeuge für Lasten, Beton, Stahl, Fundamente und Dübel nach Eurocode, ASCE 7, ACI 318 oder AISC 360."],
+        ["eng","Konstrukteurs-Werkzeuge","40 Rechner: Schraubenverbindungen nach VDI 2230, Toleranzketten, Pressverbände, Wellen, Riemen und Gewinde."],
+        ["adv","Verfahrensberater","Vergleicht Fräsen, Drehen, Laser, Guss, Spritzguss und 3D-Druck für Ihr Teil und Ihre Stückzahl."],
+        ["stock","Lager","Bestände mit Werkstoffen verknüpfen, Bedarf je Auftrag sehen und beim Start abbuchen."],
+        ["maker","Preise für Handgemachtes","Kalkulation für Handarbeit: Material, Zeit, Werkzeug, Marktplatzgebühren und der Preis, der Ihren Stundensatz deckt."],
+        ["team","Teammodus","Werkstoffe, Maschinen, Projekte und Lager über einen gemeinsamen Ordner teilen."]],
+    es:[["drw","Planos desde modelos 3D","Abre STEP, IGES o STL y obtén un plano de taller: vistas, cortes, cotas, tablas de agujeros y cajetín ISO o ANSI. Desarrollos de piezas plegadas y roladas."],
+        ["dxf","Editor y limpieza de DXF","Encuentra líneas duplicadas, huecos y splines y los corrige con un clic. Microuniones, entradas, líneas de plegado y marcado, y luego recalcula el precio."],
+        ["batch","Cotización por lotes","Suelta una carpeta de DXF. El espesor, la cantidad y el material se leen del nombre de archivo y cada pieza recibe su precio."],
+        ["quote","Cotizaciones y tasa de éxito","Cotizaciones PDF con tu logo, impuestos e Incoterms. Cada cotización queda registrada: enviada, ganada o perdida."],
+        ["asm","Conjuntos y lista de materiales","Combina piezas de cualquier módulo con compras, soldadura, pintura y embalaje en un solo precio de producto."],
+        ["trav","Hojas de ruta","Operaciones con tiempos de preparación y de ciclo, listas para el taller."],
+        ["qc","Control de calidad","Ensayos de tracción, dureza, impacto y resortes, muestreo AQL según ISO 2859-1, gráficos de control y certificados 3.1 EN 10204 con verificación QR."],
+        ["civ","Asistente estructural","15 herramientas para cargas, hormigón, acero, cimentaciones y anclajes según ASCE 7, ACI 318, AISC 360 o Eurocódigo."],
+        ["eng","Herramientas de ingeniería","40 calculadoras: uniones atornilladas VDI 2230, cadenas de tolerancias, ajustes a presión, ejes, transmisiones y roscas."],
+        ["adv","Asesor de procesos","Compara fresado, torneado, láser, fundición, inyección e impresión 3D para tu pieza y cantidad."],
+        ["stock","Inventario","Vincula el stock a los materiales, ve lo que necesita cada pedido y descuéntalo al iniciar el trabajo."],
+        ["maker","Precios para artesanos","Calcula productos hechos a mano: materiales, tiempo, herramientas, comisiones y el precio que paga tu hora."],
+        ["team","Modo equipo","Comparte materiales, máquinas, proyectos e inventario mediante una carpeta compartida."]],
+    pl:[["drw","Rysunki z modeli 3D","Otwórz STEP, IGES lub STL i dostań rysunek warsztatowy: widoki, przekroje, wymiary, tabele otworów, tabliczka ISO lub ANSI. Rozwinięcia części giętych i walcowanych."],
+        ["dxf","Edytor i czyszczenie DXF","Wykrywa zdublowane linie, przerwy i splajny i naprawia je jednym kliknięciem. Mikromostki, najazdy, linie gięcia i znakowanie, potem ponowna wycena."],
+        ["batch","Wycena wsadowa","Upuść folder z plikami DXF. Grubość, ilość i materiał są odczytywane z nazw plików, a każda część dostaje cenę."],
+        ["quote","Oferty i skuteczność","Oferty PDF z twoim logo, VAT i Incoterms. Każda oferta trafia do rejestru: wysłana, wygrana lub przegrana."],
+        ["asm","Wyroby i BOM","Łącz części z dowolnego modułu z zakupami, spawaniem, malowaniem i pakowaniem w jedną cenę wyrobu."],
+        ["trav","Karty technologiczne","Operacje z czasami przygotowawczymi i jednostkowymi, gotowe dla warsztatu."],
+        ["qc","Kontrola jakości","Próby rozciągania, twardości, udarności i sprężyn, próbkowanie AQL wg ISO 2859-1, karty kontrolne i świadectwa 3.1 wg EN 10204 z weryfikacją QR."],
+        ["civ","Pomocnik budowlany","15 narzędzi: obciążenia, beton, stal, fundamenty i kotwy wg Eurokodu, ASCE 7, ACI 318 lub AISC 360."],
+        ["eng","Narzędzia inżyniera","40 kalkulatorów: połączenia śrubowe wg VDI 2230, łańcuchy wymiarowe, wciski, wały, przekładnie i gwinty."],
+        ["adv","Doradca technologii","Porównuje frezowanie, toczenie, laser, odlewanie, wtrysk i druk 3D dla twojej części i ilości."],
+        ["stock","Magazyn","Powiąż stany z materiałami, zobacz potrzeby zlecenia i rozchoduj przy starcie produkcji."],
+        ["maker","Ceny rękodzieła","Wycena rękodzieła: materiały, czas, narzędzia, prowizje platform i cena, która pokrywa twoją stawkę."],
+        ["team","Praca zespołowa","Wspólne materiały, maszyny, projekty i magazyn przez wspólny folder."]]
+  };
+  var NEWW={en:"New",uk:"Нове",de:"Neu",es:"Nuevo",pl:"Nowość"};
+  var DRW_SVG='<svg class="sheet" viewBox="0 0 520 320" aria-hidden="true" font-family="Consolas,monospace">'+
+    '<rect x="6" y="6" width="508" height="308" rx="4" fill="var(--bg)" stroke="var(--ink-2)" stroke-width="1.5"/>'+
+    '<rect x="20" y="20" width="480" height="280" fill="none" stroke="var(--ink-2)" stroke-width=".8"/>'+
+    '<g stroke="var(--ink)" stroke-width="1.8" fill="none">'+
+      '<rect x="60" y="60" width="170" height="90"/><circle cx="85" cy="85" r="8"/><circle cx="205" cy="85" r="8"/><circle cx="85" cy="125" r="8"/><circle cx="205" cy="125" r="8"/><circle cx="145" cy="105" r="18"/>'+
+      '<rect x="270" y="60" width="40" height="90"/>'+
+      '<rect x="60" y="190" width="170" height="40"/>'+
+    '</g>'+
+    '<g stroke="var(--ink-2)" stroke-width="1" stroke-dasharray="6 4" fill="none"><path d="M270 77h40M270 93h40M270 117h40M270 133h40M127 190v40M163 190v40"/></g>'+
+    '<g stroke="var(--accent)" stroke-width="1" stroke-dasharray="14 3 2 3" fill="none"><path d="M145 52v106M52 105h186M290 52v106"/></g>'+
+    '<g stroke="var(--accent)" stroke-width="1" fill="var(--accent)">'+
+      '<path d="M60 44h170" fill="none"/><path d="M60 44l7-3v6zM230 44l-7-3v6z"/><path d="M60 60v-20M230 60v-20" fill="none"/>'+
+      '<path d="M44 60v90" fill="none"/><path d="M44 60l-3 7h6zM44 150l-3-7h6z"/><path d="M60 60h-20M60 150h-20" fill="none"/>'+
+      '<path d="M250 190v40" fill="none"/><path d="M250 190l-3 7h6zM250 230l-3-7h6z"/><path d="M230 190h24M230 230h24" fill="none"/>'+
+    '</g>'+
+    '<g fill="var(--accent)" font-size="11"><text x="145" y="39" text-anchor="middle">170</text><text x="36" y="109" text-anchor="middle" transform="rotate(-90 36 105)">90</text><text x="262" y="214">10</text>'+
+      '<text x="180" y="78">4× Ø16</text><text x="168" y="101">Ø36</text></g>'+
+    '<g fill="none" stroke="var(--ink-2)" stroke-width=".8"><rect x="330" y="240" width="170" height="60"/><path d="M330 260h170M330 280h170M420 240v60"/></g>'+
+    '<g fill="var(--ink-2)" font-size="9"><text x="336" y="254">PLATE-120</text><text x="426" y="254">A36</text><text x="336" y="274">ISO 2768-m</text><text x="426" y="274">1:2  A4</text><text x="336" y="294">InCost</text><text x="426" y="294">2.1 lb</text></g>'+
+    '<g fill="var(--ink-2)" font-size="10"><text x="60" y="176">A–A</text><text x="270" y="176">L</text></g>'+
+  '</svg>';
+  var CMP={
+    en:{h:"Feature",rows:[["Cost of sheet metal, machining, 3D printing, welding and composites",1,1],["Drawings from 3D models","On screen","+ PDF and DXF export"],["DXF editor","View and check","Edit, fix and save"],["Automatic nesting",0,1],["Batch DXF quoting","Up to 3 files","Unlimited"],["Saved estimates","5","Unlimited"],["Assemblies and inventory","Up to 3 items","Unlimited"],["PDF quotes, reports and travelers with your logo",0,1],["Quality tests","Up to 3, on screen","Unlimited + PDF protocols and certificates"],["Structural helper","5 tools","All 15 tools"],["40 engineer calculators",1,1],["3D print preparation",0,1],["Bulk price update when costs change",0,1],["Team mode and DXF/CSV export",0,1],["Automatic updates",1,1]]},
+    uk:{h:"Можливість",rows:[["Собівартість листового металу, мехобробки, 3D-друку, зварювання й композитів",1,1],["Креслення з 3D-моделі","На екрані","+ експорт у PDF і DXF"],["DXF-редактор","Перегляд і перевірка","Правки, виправлення, збереження"],["Автоматична розкладка",0,1],["Пакетний розрахунок DXF","До 3 файлів","Без обмежень"],["Збережені розрахунки","5","Без обмежень"],["Вироби та склад","До 3 позицій","Без обмежень"],["PDF-пропозиції, звіти й маршрутні карти з вашим логотипом",0,1],["Випробування","До 3, на екрані","Без обмежень + PDF-протоколи й сертифікати"],["Помічник будівельника","5 інструментів","Усі 15"],["40 калькуляторів конструктора",1,1],["Підготовка до 3D-друку",0,1],["Перерахунок цін при зміні вартості",0,1],["Командна робота й експорт DXF/CSV",0,1],["Автоматичні оновлення",1,1]]},
+    de:{h:"Funktion",rows:[["Kosten für Blech, Zerspanung, 3D-Druck, Schweißen und Verbundwerkstoffe",1,1],["Zeichnungen aus 3D-Modellen","Am Bildschirm","+ Export als PDF und DXF"],["DXF-Editor","Ansehen und prüfen","Bearbeiten, reparieren, speichern"],["Automatische Verschachtelung",0,1],["DXF-Stapelkalkulation","Bis 3 Dateien","Unbegrenzt"],["Gespeicherte Kalkulationen","5","Unbegrenzt"],["Baugruppen und Lager","Bis 3 Positionen","Unbegrenzt"],["PDF-Angebote, Berichte und Laufkarten mit Ihrem Logo",0,1],["Prüfungen","Bis 3, am Bildschirm","Unbegrenzt + PDF-Protokolle und Zeugnisse"],["Statik-Helfer","5 Werkzeuge","Alle 15"],["40 Konstrukteurs-Rechner",1,1],["3D-Druck-Vorbereitung",0,1],["Preise aktualisieren bei Kostenänderung",0,1],["Teammodus und DXF/CSV-Export",0,1],["Automatische Updates",1,1]]},
+    es:{h:"Función",rows:[["Costo de chapa, mecanizado, impresión 3D, soldadura y compuestos",1,1],["Planos desde modelos 3D","En pantalla","+ exportación a PDF y DXF"],["Editor DXF","Ver y revisar","Editar, corregir y guardar"],["Anidado automático",0,1],["Cotización DXF por lotes","Hasta 3 archivos","Ilimitado"],["Cálculos guardados","5","Ilimitados"],["Conjuntos e inventario","Hasta 3 elementos","Ilimitado"],["Cotizaciones, informes y hojas de ruta PDF con tu logo",0,1],["Ensayos de calidad","Hasta 3, en pantalla","Ilimitados + protocolos y certificados PDF"],["Asistente estructural","5 herramientas","Las 15"],["40 calculadoras de ingeniería",1,1],["Preparación de impresión 3D",0,1],["Actualización masiva de precios",0,1],["Modo equipo y exportación DXF/CSV",0,1],["Actualizaciones automáticas",1,1]]},
+    pl:{h:"Funkcja",rows:[["Koszt blachy, obróbki, druku 3D, spawania i kompozytów",1,1],["Rysunki z modeli 3D","Na ekranie","+ eksport do PDF i DXF"],["Edytor DXF","Podgląd i sprawdzenie","Edycja, naprawa, zapis"],["Automatyczny nesting",0,1],["Wsadowa wycena DXF","Do 3 plików","Bez limitu"],["Zapisane wyceny","5","Bez limitu"],["Wyroby i magazyn","Do 3 pozycji","Bez limitu"],["Oferty, raporty i karty PDF z twoim logo",0,1],["Próby jakości","Do 3, na ekranie","Bez limitu + protokoły i świadectwa PDF"],["Pomocnik budowlany","5 narzędzi","Wszystkie 15"],["40 kalkulatorów inżyniera",1,1],["Przygotowanie do druku 3D",0,1],["Masowa aktualizacja cen",0,1],["Praca zespołowa i eksport DXF/CSV",0,1],["Automatyczne aktualizacje",1,1]]}
+  };
+  function icon(id){return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+MI[id]+'</svg>'}
+  function renderMods(){
+    var L=MODS[LANG]||MODS.en,h="";
+    L.forEach(function(m,i){
+      if(i===0){h+='<article class="mod hero-mod"><div style="display:grid;gap:12px;align-content:start"><span class="ic">'+icon(m[0])+'</span><h3>'+esc(m[1])+' <span class="new">'+esc(NEWW[LANG]||NEWW.en)+'</span></h3><p>'+esc(m[2])+'</p><div class="chips"><span>STEP</span><span>IGES</span><span>STL</span><span>→ PDF</span><span>→ DXF</span><span>ISO</span><span>ANSI</span></div></div>'+DRW_SVG+'</article>';return}
+      h+='<article class="mod"><span class="ic">'+icon(m[0])+'</span><h3>'+esc(m[1])+'</h3><p>'+esc(m[2])+'</p></article>';
+    });
+    $("mods").innerHTML=h;
+  }
+  function cell(v){
+    if(v===1)return '<svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" role="img" aria-label="yes"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg>';
+    if(v===0)return '<span class="no" aria-label="no">—</span>';
+    return '<span class="v">'+esc(v)+'</span>';
+  }
+  function renderCmp(){
+    var c=CMP[LANG]||CMP.en;
+    $("cmp").innerHTML='<thead><tr><th scope="col">'+esc(c.h)+'</th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead><tbody>'+
+      c.rows.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td>'+cell(r[1])+'</td><td>'+cell(r[2])+'</td></tr>'}).join("")+'</tbody>';
+  }
+
   /* ===== language ===== */
   var nodes=[].slice.call(document.querySelectorAll("[data-i]")),phs=[].slice.call(document.querySelectorAll("[data-ip]"));
   D.en={};nodes.forEach(function(el){var k=el.getAttribute("data-i");if(!(k in D.en))D.en[k]=el.innerHTML});
@@ -1005,7 +1189,7 @@ main.swap{opacity:.4}
     var go=function(){
       nodes.forEach(function(el){var v=D[lang][el.getAttribute("data-i")];if(v==null)v=D.en[el.getAttribute("data-i")];if(v!=null)el.innerHTML=v});
       phs.forEach(function(el){el.placeholder=tr(el.getAttribute("data-ip"))});
-      st.hidden=true;renderContact();
+      st.hidden=true;renderContact();renderMods();renderCmp();
       lastPay=lastMult="";setUnits(lang==="en"?"in":"mm",true);roi();show(cur);bill(yearly);
       document.querySelector("main").classList.remove("swap");
     };
