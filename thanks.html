@@ -39,7 +39,12 @@ footer a{color:var(--ink-2);text-decoration:none}
 <main class="wrap">
 <h1>Thank you for buying InCost Pro!</h1>
 <p class="upd">Your payment was successful.</p>
-<div class="box"><strong>Your license key is on its way.</strong> It is sent to the email address you used at checkout, usually within a few minutes. If you don't see it, check your spam folder.</div>
+<div class="box" id="keybox"><strong>Your license key is on its way.</strong> It is sent to the email address you used at checkout, usually within a few minutes. If you don't see it, check your spam folder.</div>
+<div class="box" id="keyready" hidden>
+<p style="margin:0 0 10px"><strong>Your license key</strong> <span id="keymeta" style="color:var(--ink-2)"></span></p>
+<textarea id="key" readonly rows="4" style="width:100%;font:13px Consolas,monospace;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical"></textarea>
+<p style="margin:10px 0 0"><button type="button" id="copykey" style="font:600 15px var(--font);padding:10px 18px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer">Copy key</button></p>
+</div>
 <h2>How to activate Pro</h2>
 <ol>
 <li>Open InCost on your computer. If you don't have it yet, <a href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip">download it here</a>.</li>
@@ -51,5 +56,30 @@ footer a{color:var(--ink-2);text-decoration:none}
 <p>Write to <a href="mailto:hello@incost.app">hello@incost.app</a> and include the email address you used for the purchase.</p>
 </main>
 <footer><div class="wrap"><nav><a href="/">Home</a><a href="terms.html">Terms of Service</a><a href="privacy.html">Privacy Policy</a><a href="refund.html">Refund Policy</a><a href="mailto:hello@incost.app">hello@incost.app</a></nav><p>© 2026 InCost</p></div></footer>
+<script>
+(function(){
+  var API="https://api.incost.app";
+  var txn=new URLSearchParams(location.search).get("txn");
+  if(!txn||!/^txn_[a-z0-9]{20,40}$/i.test(txn))return;
+  var box=document.getElementById("keybox"),ready=document.getElementById("keyready"),tries=0;
+  box.innerHTML="<strong>Preparing your license key…</strong> This usually takes a few seconds. It is also sent to your email.";
+  function poll(){
+    tries++;
+    fetch(API+"/key?txn="+encodeURIComponent(txn),{cache:"no-store"}).then(function(r){return r.json().then(function(j){return {s:r.status,j:j}})}).then(function(o){
+      if(o.s===200&&o.j.key){
+        document.getElementById("key").value=o.j.key;
+        document.getElementById("keymeta").textContent=(o.j.exp?"· valid until "+new Date(o.j.exp+"T12:00:00Z").toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):"")+(o.j.email?" · also sent to "+o.j.email:"");
+        ready.hidden=false;box.hidden=true;return;
+      }
+      if(tries<40)setTimeout(poll,3000);else box.innerHTML="<strong>Your key is taking longer than usual.</strong> It will arrive by email shortly. If it doesn't, write to <a href=\"mailto:hello@incost.app\">hello@incost.app</a>.";
+    }).catch(function(){if(tries<40)setTimeout(poll,3000)});
+  }
+  poll();
+  document.getElementById("copykey").addEventListener("click",function(){
+    var t=document.getElementById("key"),b=this;
+    try{navigator.clipboard.writeText(t.value).then(function(){b.textContent="Copied"},function(){t.select()})}catch(e){t.select()}
+  });
+})();
+</script>
 </body>
 </html>

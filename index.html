@@ -1178,6 +1178,7 @@ main.swap{opacity:.4}
 
   /* ===== Paddle checkout ===== */
   var PADDLE={
+    sandbox:false,                              // true only while testing with Paddle sandbox token/prices
     enabled:false,                              // switch to true once Paddle approves the account and license delivery works
     token:"live_110a0cbe498012ebe2991558b8f",   // public client-side token (safe to publish)
     monthly:"pri_01m5ssz9w8k3egkad5dv1cjrf8",   // $19 / month
@@ -1187,7 +1188,7 @@ main.swap{opacity:.4}
   function loadPaddle(){
     if(!PADDLE.enabled||!PADDLE.token||paddleReady)return;
     var sc=document.createElement("script");sc.src="https://cdn.paddle.com/paddle/v2/paddle.js";
-    sc.onload=function(){try{Paddle.Initialize({token:PADDLE.token});paddleReady=true}catch(e){}};
+    sc.onload=function(){try{if(PADDLE.sandbox)Paddle.Environment.set("sandbox");Paddle.Initialize({token:PADDLE.token,eventCallback:function(ev){if(ev&&ev.name==="checkout.completed"&&ev.data&&ev.data.transaction_id){setTimeout(function(){location.href="/thanks.html?txn="+ev.data.transaction_id},1500)}}});paddleReady=true}catch(e){}};
     document.head.appendChild(sc);
   }
   function buy(e){
@@ -1195,7 +1196,7 @@ main.swap{opacity:.4}
     e.preventDefault();
     if(!paddleReady||!window.Paddle){loadPaddle();setTimeout(function(){buy(e)},600);return}
     var loc={en:"en",uk:"uk",de:"de",es:"es",pl:"pl"}[LANG]||"en";
-    Paddle.Checkout.open({items:[{priceId:yearly?PADDLE.yearly:PADDLE.monthly,quantity:1}],settings:{displayMode:"overlay",theme:"light",locale:loc,successUrl:"https://incost.app/thanks.html"}});
+    Paddle.Checkout.open({items:[{priceId:yearly?PADDLE.yearly:PADDLE.monthly,quantity:1}],settings:{displayMode:"overlay",theme:"light",locale:loc}});
   }
   [].forEach.call(document.querySelectorAll("[data-buy]"),function(a){a.addEventListener("click",buy)});
   loadPaddle();
