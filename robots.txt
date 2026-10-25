@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gost-fs.github.io/incost/sitemap.xml
+Sitemap: https://incost.app/sitemap.xml
