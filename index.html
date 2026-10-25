@@ -244,6 +244,8 @@ input[type=range]{width:100%;accent-color:var(--accent);height:24px}
 .price small{font:400 16px var(--font);color:var(--ink-2);letter-spacing:0}
 .plan ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .plan li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:16px}
+.buy-row{display:flex;flex-wrap:wrap;gap:10px}
+.buy-row .btn{flex:1 1 180px}
 .plan .fine{font-size:13px;color:var(--ink-2)}
 @media (max-width:720px){.plans{grid-template-columns:1fr}}
 
@@ -573,7 +575,7 @@ main.swap{opacity:.4}
             <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px6">Quality protocols and EN 10204 certificates</span></li>
             <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="px7">All structural tools, 3D print prep and team mode</span></li>
           </ul>
-          <a class="btn btn-primary" href="#get" data-i="pro.btn">Start free 4-day trial</a>
+          <div class="buy-row"><a class="btn btn-primary" href="#get" data-buy="1" id="buyPro"><span data-i="pro.buy">Buy Pro</span></a><a class="btn btn-secondary" href="#get" data-i="pro.btn">Start free 4-day trial</a></div>
           <p class="fine" data-i="pro.fine">Secure checkout by Paddle. Cancel anytime.</p>
         </div>
       </div>
@@ -661,7 +663,7 @@ main.swap{opacity:.4}
             <span data-i="fn.btn">Download for Windows</span> <small>v0.9.15 · ZIP · 6 MB</small>
           </a>
         </div>
-        <p class="meta"><span data-i="fn.meta">Windows 10 and 11, 64-bit · Already tried it?</span> <a href="#contact" data-i="fn.buy">Buy a Pro license</a></p>
+        <p class="meta"><span data-i="fn.meta">Windows 10 and 11, 64-bit · Already tried it?</span> <a href="#pricing" data-buy="1" data-i="fn.buy">Buy a Pro license</a></p>
       </div>
     </div>
   </section>
@@ -708,7 +710,7 @@ main.swap{opacity:.4}
     "pr.m":"Щомісяця","pr.y":"Щороку <em>−30%</em>","fr.f":"назавжди","fr.d":"Для швидких оцінок і щоденних інженерних розрахунків.",
     
     "pro.b":"Найпопулярніший","pro.d":"Для всіх, хто надсилає кошториси клієнтам.",
-    "pro.btn":"Почати 4 дні безкоштовно","pro.fine":"Безпечна оплата через Paddle. Скасування будь-коли.",
+    "pro.buy":"Купити Pro","pro.btn":"Почати 4 дні безкоштовно","pro.fine":"Безпечна оплата через Paddle. Скасування будь-коли.",
     "fq.h":"Питання перед завантаженням.",
     "q1":"Безкоштовний план справді безкоштовний?","a1x":"Так. Free не має обмеження за часом і не потребує акаунта. 4 дні Pro починаються з першого запуску, картка не потрібна.",
     "q2":"Windows показує попередження SmartScreen. Це безпечно?","a2x":"InCost нова програма і поки не має цифрового підпису, тому Windows може попросити підтвердження. Натисніть «Докладніше», потім «Усе одно запустити».",
@@ -748,7 +750,7 @@ main.swap{opacity:.4}
     "pr.m":"Monatlich","pr.y":"Jährlich <em>−30 %</em>","fr.f":"für immer","fr.d":"Für schnelle Schätzungen und tägliche Ingenieursmathematik.",
     
     "pro.b":"Am beliebtesten","pro.d":"Für alle, die Angebote an Kunden senden.",
-    "pro.btn":"4 Tage kostenlos testen","pro.fine":"Sichere Zahlung über Paddle. Jederzeit kündbar.",
+    "pro.buy":"Pro kaufen","pro.btn":"4 Tage kostenlos testen","pro.fine":"Sichere Zahlung über Paddle. Jederzeit kündbar.",
     "fq.h":"Fragen vor dem Download.",
     "q1":"Ist der kostenlose Plan wirklich kostenlos?","a1x":"Ja. Free hat kein Zeitlimit und braucht kein Konto. Die 4 Tage Pro starten beim ersten Start, ohne Kreditkarte.",
     "q2":"Windows zeigt eine SmartScreen-Warnung. Ist das sicher?","a2x":"InCost ist neu und noch nicht code-signiert, daher fragt Windows eventuell nach. Klicken Sie auf „Weitere Informationen“ und dann „Trotzdem ausführen“.",
@@ -788,7 +790,7 @@ main.swap{opacity:.4}
     "pr.m":"Mensual","pr.y":"Anual <em>−30 %</em>","fr.f":"para siempre","fr.d":"Para estimaciones rápidas y cálculos de ingeniería diarios.",
     
     "pro.b":"El más popular","pro.d":"Para quien envía cotizaciones a clientes.",
-    "pro.btn":"Prueba gratis 4 días","pro.fine":"Pago seguro con Paddle. Cancela cuando quieras.",
+    "pro.buy":"Comprar Pro","pro.btn":"Prueba gratis 4 días","pro.fine":"Pago seguro con Paddle. Cancela cuando quieras.",
     "fq.h":"Preguntas antes de descargar.",
     "q1":"¿El plan gratuito es realmente gratis?","a1x":"Sí. Free no tiene límite de tiempo ni requiere cuenta. Los 4 días de Pro empiezan al abrir la app y no piden tarjeta.",
     "q2":"Windows muestra un aviso de SmartScreen. ¿Es seguro?","a2x":"InCost es una app nueva y aún no tiene firma digital, así que Windows puede pedir confirmación. Haz clic en «Más información» y luego en «Ejecutar de todas formas».",
@@ -828,7 +830,7 @@ main.swap{opacity:.4}
     "pr.m":"Miesięcznie","pr.y":"Rocznie <em>−30%</em>","fr.f":"na zawsze","fr.d":"Do szybkich szacunków i codziennych obliczeń inżynierskich.",
     
     "pro.b":"Najpopularniejszy","pro.d":"Dla każdego, kto wysyła oferty klientom.",
-    "pro.btn":"Wypróbuj 4 dni za darmo","pro.fine":"Bezpieczna płatność przez Paddle. Anulujesz w każdej chwili.",
+    "pro.buy":"Kup Pro","pro.btn":"Wypróbuj 4 dni za darmo","pro.fine":"Bezpieczna płatność przez Paddle. Anulujesz w każdej chwili.",
     "fq.h":"Pytania przed pobraniem.",
     "q1":"Czy darmowy plan jest naprawdę darmowy?","a1x":"Tak. Free nie ma limitu czasu i nie wymaga konta. 4 dni Pro zaczynają się przy pierwszym uruchomieniu, bez karty.",
     "q2":"Windows pokazuje ostrzeżenie SmartScreen. Czy to bezpieczne?","a2x":"InCost to nowa aplikacja i nie ma jeszcze podpisu cyfrowego, więc Windows może poprosić o potwierdzenie. Kliknij „Więcej informacji”, a potem „Uruchom mimo to”.",
@@ -1172,6 +1174,30 @@ main.swap{opacity:.4}
     $("cmp").innerHTML='<thead><tr><th scope="col">'+esc(c.h)+'</th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead><tbody>'+
       c.rows.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td>'+cell(r[1])+'</td><td>'+cell(r[2])+'</td></tr>'}).join("")+'</tbody>';
   }
+
+
+  /* ===== Paddle checkout ===== */
+  var PADDLE={
+    token:"",                                   // client-side token (live_...) from Paddle → Developer tools → Authentication
+    monthly:"pri_01m5ssz9w8k3egkad5dv1cjrf8",   // $19 / month
+    yearly:"pri_01m5st1w37dwbm72ppsb8hhhcs"     // $159 / year
+  };
+  var paddleReady=false;
+  function loadPaddle(){
+    if(!PADDLE.token||paddleReady)return;
+    var sc=document.createElement("script");sc.src="https://cdn.paddle.com/paddle/v2/paddle.js";
+    sc.onload=function(){try{Paddle.Initialize({token:PADDLE.token});paddleReady=true}catch(e){}};
+    document.head.appendChild(sc);
+  }
+  function buy(e){
+    if(!PADDLE.token)return;                     // no token yet: button keeps its normal link
+    e.preventDefault();
+    if(!paddleReady||!window.Paddle){loadPaddle();setTimeout(function(){buy(e)},600);return}
+    var loc={en:"en",uk:"uk",de:"de",es:"es",pl:"pl"}[LANG]||"en";
+    Paddle.Checkout.open({items:[{priceId:yearly?PADDLE.yearly:PADDLE.monthly,quantity:1}],settings:{displayMode:"overlay",theme:"light",locale:loc,successUrl:"https://incost.app/thanks.html"}});
+  }
+  [].forEach.call(document.querySelectorAll("[data-buy]"),function(a){a.addEventListener("click",buy)});
+  loadPaddle();
 
   /* ===== language ===== */
   var nodes=[].slice.call(document.querySelectorAll("[data-i]")),phs=[].slice.call(document.querySelectorAll("[data-ip]"));
