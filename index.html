@@ -1178,19 +1178,20 @@ main.swap{opacity:.4}
 
   /* ===== Paddle checkout ===== */
   var PADDLE={
-    token:"",                                   // client-side token (live_...) from Paddle → Developer tools → Authentication
+    enabled:false,                              // switch to true once Paddle approves the account and license delivery works
+    token:"live_110a0cbe498012ebe2991558b8f",   // public client-side token (safe to publish)
     monthly:"pri_01m5ssz9w8k3egkad5dv1cjrf8",   // $19 / month
     yearly:"pri_01m5st1w37dwbm72ppsb8hhhcs"     // $159 / year
   };
   var paddleReady=false;
   function loadPaddle(){
-    if(!PADDLE.token||paddleReady)return;
+    if(!PADDLE.enabled||!PADDLE.token||paddleReady)return;
     var sc=document.createElement("script");sc.src="https://cdn.paddle.com/paddle/v2/paddle.js";
     sc.onload=function(){try{Paddle.Initialize({token:PADDLE.token});paddleReady=true}catch(e){}};
     document.head.appendChild(sc);
   }
   function buy(e){
-    if(!PADDLE.token)return;                     // no token yet: button keeps its normal link
+    if(!PADDLE.enabled||!PADDLE.token)return;    // checkout off: button keeps its normal link
     e.preventDefault();
     if(!paddleReady||!window.Paddle){loadPaddle();setTimeout(function(){buy(e)},600);return}
     var loc={en:"en",uk:"uk",de:"de",es:"es",pl:"pl"}[LANG]||"en";
