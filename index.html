@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>InCost — Cost estimating for sheet metal, 3D printing and machining</title>
+<meta name="description" content="Price sheet metal, 3D printed and machined parts in seconds. Open a DXF or STEP file, pick a material and get a quote. Free Windows app with a 4-day Pro trial.">
+<meta name="theme-color" content="#0B5CFF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="InCost — Stop quoting parts in spreadsheets">
+<meta property="og:description" content="Sheet metal, nesting, 3D printing and machining quotes in seconds. Free for Windows.">
+<meta property="og:image" content="https://gost-fs.github.io/incost/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: fast conversion page — system fonts only, one blue accent, proof (live quote) above the fold, ROI math before pricing, one CTA repeated */
+:root{
+  --bg:#FFFFFF;
+  --bg-2:#F5F7FA;
+  --ink:#111418;
+  --ink-2:#5B6472;
+  --line:#E3E7ED;
+  --accent:#0B5CFF;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#EBF1FF;
+  --good:#0C8A5B;
+  --bad:#C2410C;
+  --font:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-display:"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,"SF Pro Display",Roboto,Arial,sans-serif;
+  --font-mono:"Cascadia Mono",Consolas,ui-monospace,"SF Mono",Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1013;--bg-2:#161A20;--ink:#EEF1F5;--ink-2:#9AA3B0;--line:#262C35;--accent:#4C86FF;--accent-ink:#FFFFFF;--accent-soft:#16233F;--good:#34C78A;--bad:#F08A4B;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1013;--bg-2:#161A20;--ink:#EEF1F5;--ink-2:#9AA3B0;--line:#262C35;--accent:#4C86FF;--accent-ink:#FFFFFF;--accent-soft:#16233F;--good:#34C78A;--bad:#F08A4B;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.02em;line-height:1.08}
+p{margin:0}
+.kicker{font-size:14px;font-weight:600;color:var(--accent)}
+.muted{color:var(--ink-2)}
+section{padding-block:96px;content-visibility:auto;contain-intrinsic-size:auto 800px}
+.head{display:grid;gap:14px;max-width:700px;margin-bottom:44px}
+.head h2{font-size:clamp(30px,4.4vw,46px);font-weight:700}
+.head p{font-size:19px;color:var(--ink-2)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:12px;font:600 16px/1.2 var(--font);text-decoration:none;text-align:center;border:1px solid transparent;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .2s}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 8px 24px -10px var(--accent)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px var(--accent)}
+.btn-primary:active{transform:none}
+.btn-secondary{border-color:var(--line);background:var(--bg)}
+.btn-secondary:hover{background:var(--bg-2)}
+.btn small{font-weight:400;opacity:.8;font-size:13px}
+.btn svg{flex:none}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:20px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font:700 19px/1 var(--font-display);text-decoration:none;letter-spacing:-.02em}
+.nav ul{display:flex;gap:24px;list-style:none;margin:0 auto 0 12px;padding:0;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--ink-2);white-space:nowrap}
+.nav ul a:hover{color:var(--ink)}
+.nav-r{display:flex;align-items:center;gap:10px;margin-left:auto}
+.nav-r .btn{min-height:40px;padding:0 16px;font-size:15px;white-space:nowrap}
+.lang{position:relative;display:flex;align-items:center}
+.lang svg{position:absolute;left:10px;pointer-events:none;color:var(--ink-2)}
+.lang select{appearance:none;-webkit-appearance:none;min-height:40px;padding:0 28px 0 32px;border-radius:10px;border:1px solid var(--line);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238A93A0' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 10px center;color:var(--ink);font:600 14px var(--font);cursor:pointer}
+.lang select:hover{background-color:var(--bg-2)}
+@media (max-width:1000px){.nav ul{display:none}}
+@media (max-width:420px){.nav-r .btn{display:none}}
+
+/* hero */
+.hero{padding-block:64px 72px;display:grid;grid-template-columns:1fr 1.02fr;gap:56px;align-items:center}
+.hero>*{min-width:0}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:14px;font-weight:600;text-decoration:none}
+.pill b{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:2px 9px;font-size:12px}
+.hero h1{font-size:clamp(38px,5.4vw,62px);font-weight:700;margin:20px 0 18px}
+.hero h1 span{color:var(--accent)}
+.hero .lead{font-size:20px;color:var(--ink-2);max-width:31em}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.checks{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:20px 0 0;font-size:14px;color:var(--ink-2)}
+.checks li{display:flex;align-items:center;gap:7px}
+@media (max-width:920px){.hero{grid-template-columns:1fr;gap:40px;padding-top:40px}}
+
+/* app demo */
+.app{border:1px solid var(--line);border-radius:16px;background:var(--bg);box-shadow:0 40px 80px -40px rgba(10,30,80,.35),0 2px 6px rgba(10,30,80,.06);overflow:hidden;animation:in .9s var(--ease) .1s both}
+@keyframes in{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.bar{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;border-bottom:1px solid var(--line);background:var(--bg-2);font-size:13px;color:var(--ink-2)}
+.bar .t{flex:1;font-family:var(--font-mono);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.app-body{display:grid;grid-template-columns:1fr 1fr}
+.app-body>*{min-width:0}
+.in{padding:18px;display:grid;gap:12px;border-right:1px solid var(--line);align-content:start}
+.f{display:grid;gap:5px}
+.f label{font-size:12px;font-weight:600;color:var(--ink-2)}
+.f select,.f input,.f textarea{width:100%;min-height:40px;font:15px var(--font);padding:0 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+.f textarea{min-height:140px;padding:10px;resize:vertical;line-height:1.5}
+.f select:focus,.f input:focus,.f textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.f.bad input,.f.bad textarea{border-color:var(--bad)}
+.seg{display:inline-flex;padding:2px;border-radius:8px;background:var(--bg);border:1px solid var(--line);flex:none}
+.seg button{all:unset;cursor:pointer;padding:2px 9px;border-radius:6px;font:600 12px/1.5 var(--font);color:var(--ink-2);transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.out{padding:18px;display:grid;gap:12px;align-content:start}
+.out svg{width:100%;height:auto;max-width:100%;display:block;border-radius:10px;background:var(--bg-2)}
+.ln{display:grid;gap:6px;font-size:13px;font-variant-numeric:tabular-nums}
+.ln div{display:flex;justify-content:space-between;gap:8px;color:var(--ink-2)}
+.ln b{color:var(--ink);font-weight:600;white-space:nowrap}
+.tot{display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.tot span{font-size:13px;color:var(--ink-2)}
+.tot strong{font:700 32px/1 var(--font-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.app-foot{padding:9px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-2);background:var(--bg-2)}
+@media (max-width:520px){.app-body{grid-template-columns:1fr}.in{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* process strip */
+.strip{border-block:1px solid var(--line);background:var(--bg-2);padding-block:22px;content-visibility:visible}
+.strip ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 34px;font-weight:600;color:var(--ink-2);font-size:15px}
+.strip li{display:flex;align-items:center;gap:8px}
+.strip svg{color:var(--accent)}
+
+/* before / after */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.vs>*{min-width:0}
+.col{border:1px solid var(--line);border-radius:18px;padding:30px;display:grid;gap:18px;align-content:start}
+.col.after{border-color:var(--accent);background:var(--accent-soft)}
+.col h3{font-size:22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.col h3 .time{font:600 14px var(--font-mono);color:var(--bad);white-space:nowrap}
+.col.after h3 .time{color:var(--good)}
+.col ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.col li{display:grid;grid-template-columns:22px 1fr;gap:10px;color:var(--ink-2)}
+.col.after li{color:var(--ink)}
+@media (max-width:760px){.vs{grid-template-columns:1fr}}
+
+/* tabs */
+.tabs{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:start}
+.tabs>*{min-width:0}
+.tablist{display:grid;gap:6px}
+.tablist button{all:unset;cursor:pointer;display:grid;gap:2px;padding:14px 16px;border-radius:12px;border:1px solid transparent;transition:background .2s,border-color .2s}
+.tablist button:hover{background:var(--bg)}
+.tablist button[aria-selected="true"]{background:var(--bg);border-color:var(--line);box-shadow:0 6px 18px -10px rgba(10,30,80,.25)}
+.tablist button:focus-visible{outline:2px solid var(--accent)}
+.tablist b{font-size:17px}
+.tablist span{font-size:13px;color:var(--ink-2)}
+.tablist button[aria-selected="true"] b{color:var(--accent)}
+.panel{border:1px solid var(--line);border-radius:18px;background:var(--bg);padding:32px;display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;animation:fade .45s var(--ease)}
+.panel>*{min-width:0}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.panel h3{font-size:28px;margin-bottom:12px}
+.panel p{color:var(--ink-2)}
+.panel ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.panel li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:16px}
+.panel svg.ill{width:100%;height:auto;max-width:100%}
+.pro{font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:2px}
+@media (max-width:860px){.tabs{grid-template-columns:1fr}.tablist{grid-template-columns:repeat(2,1fr)}.panel{grid-template-columns:1fr;padding:24px}}
+
+/* roi */
+.roi{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.roi>*{min-width:0}
+.roi-in{padding:32px;display:grid;gap:26px;background:var(--bg)}
+.sl{display:grid;gap:10px}
+.sl-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.sl label{font-weight:600;font-size:15px}
+.sl output{font:700 20px var(--font-display);font-variant-numeric:tabular-nums;color:var(--accent);white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--accent);height:24px}
+.roi-out{padding:32px;background:var(--ink);color:var(--bg);display:grid;gap:22px;align-content:center}
+.roi-out .big{font:700 clamp(44px,6vw,64px)/1 var(--font-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.roi-out .lbl{font-size:14px;opacity:.7}
+.roi-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:1px solid color-mix(in srgb,var(--bg) 20%,transparent);padding-top:20px}
+.roi-row>div{min-width:0}
+.roi-row b{display:block;font:700 26px/1.15 var(--font-display);font-variant-numeric:tabular-nums;margin-top:4px}
+.roi-mult{display:inline-flex;align-items:center;gap:8px;font-size:15px;padding:8px 14px;border-radius:999px;background:color-mix(in srgb,var(--good) 22%,transparent);color:var(--bg);justify-self:start}
+.roi-mult b{font-variant-numeric:tabular-nums}
+.roi-note{font-size:13px;opacity:.65}
+.flash{animation:flash .35s var(--ease)}
+@keyframes flash{from{opacity:.35;transform:translateY(3px)}}
+@media (max-width:820px){.roi{grid-template-columns:1fr}}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.trust>div{display:grid;gap:10px;align-content:start;min-width:0;padding-top:20px;border-top:2px solid var(--ink)}
+.trust h3{font-size:20px}
+.trust p{color:var(--ink-2);font-size:16px}
+@media (max-width:760px){.trust{grid-template-columns:1fr}}
+
+/* pricing */
+.switch{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--bg);border:1px solid var(--line);margin-bottom:28px}
+.switch button{all:unset;cursor:pointer;padding:9px 18px;border-radius:9px;font-size:15px;font-weight:600;color:var(--ink-2);transition:background .25s,color .25s}
+.switch button[aria-pressed="true"]{background:var(--bg-2);color:var(--ink);box-shadow:0 2px 8px rgba(10,30,80,.12)}
+.switch button:focus-visible{outline:2px solid var(--accent)}
+.switch em{font-style:normal;color:var(--good);font-size:13px;margin-left:4px}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px}
+.plan{border:1px solid var(--line);border-radius:20px;padding:32px;display:grid;gap:20px;align-content:start;min-width:0;background:var(--bg)}
+.plan.pro-plan{border:2px solid var(--accent);position:relative}
+.plan .badge{position:absolute;top:-13px;left:28px;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+.plan h3{font-size:22px}
+.price{font:700 50px/1 var(--font-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.price small{font:400 16px var(--font);color:var(--ink-2);letter-spacing:0}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.plan li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:16px}
+.plan .fine{font-size:13px;color:var(--ink-2)}
+@media (max-width:720px){.plans{grid-template-columns:1fr}}
+
+/* faq */
+.faq{max-width:780px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-weight:600;font-size:18px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:10px;height:10px;margin-top:7px;border-right:2px solid var(--ink-2);border-bottom:2px solid var(--ink-2);transform:rotate(45deg);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(225deg)}
+.faq p{color:var(--ink-2);padding-bottom:20px;max-width:65ch}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;align-items:start}
+.contact>*{min-width:0}
+.chans{display:grid;gap:14px}
+.chan{border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:10px;background:var(--bg)}
+.chan .ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.chan h3{font-size:19px}
+.chan p{color:var(--ink-2);font-size:15px}
+.chan .btn{justify-self:start;min-height:42px}
+.addr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr code{flex:1;min-width:0;font:600 15px var(--font-mono);padding:10px 12px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);user-select:all;overflow-wrap:anywhere}
+.copy{min-height:42px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 14px var(--font);cursor:pointer;transition:color .2s,border-color .2s}
+.copy:hover{background:var(--bg-2)}
+.copy.ok{color:var(--good);border-color:var(--good)}
+.resp{font-size:14px;color:var(--ink-2);display:flex;gap:8px;align-items:center;padding-left:4px}
+.cform{border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;background:var(--bg-2)}
+.cform h3{font-size:22px}
+.cform .btn{justify-self:start}
+.cform .priv{font-size:13px;color:var(--ink-2)}
+.status{font-size:15px;padding:14px 16px;border-radius:12px;display:grid;gap:10px;justify-items:start;border:1px solid var(--line);background:var(--bg)}
+.status.ok{border-color:var(--good)}
+.status.err{border-color:var(--bad)}
+@media (max-width:820px){.contact{grid-template-columns:1fr}.cform{padding:22px}}
+
+/* final */
+.final{background:var(--ink);color:var(--bg);border-radius:28px;padding:clamp(40px,7vw,80px) 24px;text-align:center;display:grid;gap:18px;justify-items:center}
+.final h2{font-size:clamp(32px,5vw,54px)}
+.final p{opacity:.75;font-size:19px;max-width:32em}
+.final .btn-primary{box-shadow:none}
+.final .meta{font-size:14px;opacity:.6}
+
+footer{padding-block:32px 110px;font-size:14px;color:var(--ink-2);border-top:1px solid var(--line)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+.foot nav{display:flex;gap:22px;flex-wrap:wrap}
+.foot a{text-decoration:none}
+@media (min-width:821px){footer{padding-bottom:40px}}
+
+/* mobile sticky cta */
+.mcta{position:fixed;left:0;right:0;bottom:0;z-index:35;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:none;transform:translateY(110%);transition:transform .4s var(--ease)}
+.mcta.show{transform:none}
+.mcta .btn{width:100%}
+@media (max-width:820px){.mcta{display:block}}
+
+/* reveal (visible at rest; only animates when supported) */
+@supports (animation-timeline:view()){
+  .rv{animation:up linear both;animation-timeline:view();animation-range:entry 0% cover 22%}
+  @keyframes up{from{opacity:.2;transform:translateY(36px)}}
+}
+main{transition:opacity .2s}
+main.swap{opacity:.4}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="InCost">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="var(--accent)"/><path d="M9.5 20V8m5 12v-7.5h3.4a3.4 3.4 0 0 1 0 6.8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      InCost
+    </a>
+    <ul>
+      <li><a href="#how" data-i="nav.how">How it works</a></li>
+      <li><a href="#features" data-i="nav.features">Features</a></li>
+      <li><a href="#roi" data-i="nav.roi">Savings</a></li>
+      <li><a href="#pricing" data-i="nav.pricing">Pricing</a></li>
+      <li><a href="#faq" data-i="nav.faq">FAQ</a></li>
+      <li><a href="#contact" data-i="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <label class="lang">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6.3"/><path d="M1.7 8h12.6M8 1.7c1.8 1.8 2.6 3.9 2.6 6.3S9.8 12.5 8 14.3M8 1.7C6.2 3.5 5.4 5.6 5.4 8s.8 4.5 2.6 6.3"/></svg>
+        <select id="lang" aria-label="Language">
+          <option value="en">EN</option>
+          <option value="uk">UA</option>
+          <option value="de">DE</option>
+          <option value="es">ES</option>
+          <option value="pl">PL</option>
+        </select>
+      </label>
+      <a class="btn btn-primary" href="#get" data-i="cta.free">Download free</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div>
+      <a class="pill" href="#get" data-i="hero.pill"><b>New</b> Version 0.9 for Windows is out</a>
+      <h1 data-i="hero.h1">Stop quoting parts <span>in spreadsheets.</span></h1>
+      <p class="lead" data-i="hero.lead">InCost prices sheet metal, 3D printed and machined parts in seconds. Open a DXF or STEP file, pick a material, and get a cost you can send.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#get">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M1 3.2l6.5-.9v6.2H1zM8.4 2.2L17 1v7.5H8.4zM1 9.5h6.5v6.2L1 14.8zM8.4 9.5H17V17l-8.6-1.2z"/></svg>
+          <span data-i="cta.win">Download free for Windows</span>
+        </a>
+        <a class="btn btn-secondary" href="#how" data-i="hero.cta2">See how it works</a>
+      </div>
+      <ul class="checks">
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg><span data-i="chk1">Free forever plan</span></li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg><span data-i="chk2">4-day Pro trial, no card</span></li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg><span data-i="chk3">No account needed</span></li>
+      </ul>
+    </div>
+
+    <div class="app" aria-label="InCost">
+      <div class="bar">
+        <svg width="16" height="16" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="var(--accent)"/></svg>
+        <span class="t">InCost — bracket_L120.dxf</span>
+        <div class="seg" role="group" aria-label="Units"><button type="button" id="uin" aria-pressed="true">in</button><button type="button" id="umm" aria-pressed="false">mm</button></div>
+        <span class="tag" data-i="app.tag">Try it</span>
+      </div>
+      <div class="app-body">
+        <div class="in">
+          <div class="f">
+            <label for="mat" data-i="f.mat">Material</label>
+            <select id="mat">
+              <option value="crs" data-i="m.crs">Cold-rolled steel A1008</option>
+              <option value="al" data-i="m.al">Aluminum 5052-H32</option>
+              <option value="ss" data-i="m.ss">Stainless 304</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="th" data-i="f.th">Thickness</label>
+            <select id="th">
+              <option value="0.048">18 ga · 0.048 in</option>
+              <option value="0.060" selected>16 ga · 0.060 in</option>
+              <option value="0.075">14 ga · 0.075 in</option>
+              <option value="0.120">11 ga · 0.120 in</option>
+            </select>
+          </div>
+          <div class="r2">
+            <div class="f"><label for="w"><span data-i="f.w">Width</span>, <span class="uu">in</span></label><input id="w" type="number" inputmode="decimal" min="0.5" max="60" step="0.1" value="6"></div>
+            <div class="f"><label for="h"><span data-i="f.h">Height</span>, <span class="uu">in</span></label><input id="h" type="number" inputmode="decimal" min="0.5" max="60" step="0.1" value="4"></div>
+          </div>
+          <div class="r2">
+            <div class="f"><label for="holes"><span data-i="f.holes">Holes</span> <span id="uho">Ø0.25 in</span></label><input id="holes" type="number" inputmode="numeric" min="0" max="8" step="1" value="4"></div>
+            <div class="f"><label for="qty" data-i="f.qty">Quantity</label><input id="qty" type="number" inputmode="numeric" min="1" step="1" value="50"></div>
+          </div>
+        </div>
+        <div class="out">
+          <svg id="sk" viewBox="0 0 220 130" aria-hidden="true"></svg>
+          <div class="ln" id="ln"></div>
+          <div class="tot"><span data-i="tot">Price per part</span><strong id="unit">$0.00</strong></div>
+        </div>
+      </div>
+      <div class="app-foot" data-i="app.foot">Sample rates: laser $120/h, setup $35, margin 15%. You set your own in the app.</div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="wrap">
+      <ul>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="2"/><circle cx="6" cy="7" r="1.2"/></svg><span data-i="s1">Laser and sheet metal</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="10" y="2" width="6" height="9" rx="1"/><rect x="2" y="10" width="6" height="6" rx="1"/></svg><span data-i="s2">Nesting</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 16h10M5 12.5h8M6 9h6M6.5 2h5v3.5h-5z"/></svg><span data-i="s3">3D printing</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6.5"/><path d="M9 2.5v13M2.5 9h13"/></svg><span data-i="s4">Machining</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h12l-3-3M15 12H3l3 3"/></svg><span data-i="s5">Imperial and metric</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="how.k">Why InCost</p>
+        <h2 data-i="how.h">The same quote. A fraction of the time.</h2>
+        <p data-i="how.p">Most shops still price parts with a calculator, a spreadsheet and a lot of memory. InCost does the measuring and the math for you.</p>
+      </div>
+      <div class="vs">
+        <div class="col rv">
+          <h3><span data-i="vs.b">Spreadsheet quote</span> <span class="time" data-i="vs.bt">~20 min</span></h3>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--bad)" stroke-width="2" aria-hidden="true"><path d="M5 5l8 8M13 5l-8 8"/></svg><span data-i="b1">Measure cut length by hand in CAD</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--bad)" stroke-width="2" aria-hidden="true"><path d="M5 5l8 8M13 5l-8 8"/></svg><span data-i="b2">Look up density and price per pound</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--bad)" stroke-width="2" aria-hidden="true"><path d="M5 5l8 8M13 5l-8 8"/></svg><span data-i="b3">Convert mm to inches and back</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--bad)" stroke-width="2" aria-hidden="true"><path d="M5 5l8 8M13 5l-8 8"/></svg><span data-i="b4">Guess scrap and setup costs</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--bad)" stroke-width="2" aria-hidden="true"><path d="M5 5l8 8M13 5l-8 8"/></svg><span data-i="b5">Copy numbers into a quote by hand</span></li>
+          </ul>
+        </div>
+        <div class="col after rv">
+          <h3><span data-i="vs.a">With InCost</span> <span class="time" data-i="vs.at">~3 min</span></h3>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="a1">Open the DXF, cut length and pierces are read automatically</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="a2">Pick a material from the built-in library</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="a3">Units convert as you type</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="a4">Nesting shows real sheet yield</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="a5">Export a clean PDF quote in one click</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" style="background:var(--bg-2)">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="ft.k">Features</p>
+        <h2 data-i="ft.h">Every process your shop quotes.</h2>
+        <p data-i="ft.p">Switch tools without switching apps. Your rates, materials and margins carry across all of them.</p>
+      </div>
+      <div class="tabs">
+        <div class="tablist" role="tablist" aria-label="InCost">
+          <button role="tab" id="t0" aria-selected="true" aria-controls="pnl" tabindex="0"><b data-i="tb0">Sheet metal</b><span data-i="ts0">DXF → cut length → price</span></button>
+          <button role="tab" id="t1" aria-selected="false" aria-controls="pnl" tabindex="-1"><b data-i="tb1">Nesting</b><span data-i="ts1">Sheet yield and scrap</span></button>
+          <button role="tab" id="t2" aria-selected="false" aria-controls="pnl" tabindex="-1"><b data-i="tb2">3D printing</b><span data-i="ts2">STEP and 3MF cost</span></button>
+          <button role="tab" id="t3" aria-selected="false" aria-controls="pnl" tabindex="-1"><b data-i="tb3">Machining</b><span data-i="ts3">Cycle time × shop rate</span></button>
+          <button role="tab" id="t4" aria-selected="false" aria-controls="pnl" tabindex="-1"><b data-i="tb4">Engineer tools</b><span data-i="ts4">Units, geometry, PDF</span></button>
+        </div>
+        <div class="panel" id="pnl" role="tabpanel" aria-labelledby="t0"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI -->
+  <section id="roi">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="roi.k">Savings calculator</p>
+        <h2 data-i="roi.h">See when Pro pays for itself.</h2>
+        <p data-i="roi.p">Move the sliders to match your week.</p>
+      </div>
+      <div class="roi rv">
+        <div class="roi-in">
+          <div class="sl">
+            <div class="sl-top"><label for="q" data-i="roi.q">Quotes per week</label><output id="qo" for="q">10</output></div>
+            <input id="q" type="range" min="1" max="60" value="10">
+          </div>
+          <div class="sl">
+            <div class="sl-top"><label for="m" data-i="roi.m">Minutes per quote today</label><output id="mo" for="m">20 min</output></div>
+            <input id="m" type="range" min="5" max="90" step="5" value="20">
+          </div>
+          <div class="sl">
+            <div class="sl-top"><label for="r" data-i="roi.r">Your hourly cost</label><output id="ro" for="r">$45</output></div>
+            <input id="r" type="range" min="15" max="150" step="5" value="45">
+          </div>
+        </div>
+        <div class="roi-out" aria-live="polite">
+          <div>
+            <div class="lbl" data-i="roi.saved">Time saved every month</div>
+            <div class="big" id="hrs">12 h</div>
+          </div>
+          <div class="roi-row">
+            <div><span class="lbl" data-i="roi.worth">Worth per month</span><b id="usd">$553</b></div>
+            <div><span class="lbl" data-i="roi.pay">Pro pays for itself after</span><b id="pay">2 quotes</b></div>
+          </div>
+          <span class="roi-mult" id="mult"></span>
+          <p class="roi-note" data-i="roi.note">Assumes about 3 minutes per quote in InCost and Pro at $19 per month. Your results will vary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section style="padding-top:0">
+    <div class="wrap trust">
+      <div class="rv"><h3 data-i="tr1h">Tested on real jobs</h3><p data-i="tr1p">Built by a working design engineer. Every release is checked by process technologists who quote parts every day.</p></div>
+      <div class="rv"><h3 data-i="tr2h">Your data stays yours</h3><p data-i="tr2p">InCost runs on your PC. Drawings, prices and customer quotes never leave your machine.</p></div>
+      <div class="rv"><h3 data-i="tr3h">Opens instantly</h3><p data-i="tr3p">A light desktop app. No browser tabs, no login screen, no waiting for a server.</p></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" style="background:var(--bg-2)">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="pr.k">Pricing</p>
+        <h2 data-i="pr.h">Simple pricing. Start free.</h2>
+        <p data-i="pr.p">Every download includes 4 days of Pro. When it ends, keep using Free or add a license key.</p>
+      </div>
+      <div class="switch" role="group" aria-label="Billing">
+        <button type="button" id="bm" aria-pressed="true" data-i="pr.m">Monthly</button>
+        <button type="button" id="by" aria-pressed="false" data-i="pr.y">Yearly <em>−30%</em></button>
+      </div>
+      <div class="plans">
+        <div class="plan rv">
+          <h3>Free</h3>
+          <div class="price">$0 <small data-i="fr.f">forever</small></div>
+          <p class="muted" data-i="fr.d">For quick estimates and everyday engineering math.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fr1">Manual sheet metal and machining estimates</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fr2">Unit converter and design helpers</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--ink-2)" stroke-width="2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="fr3">Core materials library</span></li>
+          </ul>
+          <a class="btn btn-secondary" href="#get" data-i="cta.free">Download free</a>
+        </div>
+        <div class="plan pro-plan rv">
+          <span class="badge" data-i="pro.b">Most popular</span>
+          <h3>Pro</h3>
+          <div class="price"><span id="pv">$19</span> <small id="pp">/ month</small></div>
+          <p class="muted" data-i="pro.d">For anyone who sends quotes to customers.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p1">Everything in Free</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p2">DXF import with automatic cut length and pierces</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p3">Nesting with sheet yield</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p4">STEP and 3MF cost for 3D printing</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p5">Full library, including composites</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg><span data-i="p6">Branded PDF quotes and analytics</span></li>
+          </ul>
+          <a class="btn btn-primary" href="#get" data-i="pro.btn">Start free 4-day trial</a>
+          <p class="fine" data-i="pro.fine">Secure checkout by Lemon Squeezy. Cancel anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head rv"><p class="kicker" data-i="nav.faq">FAQ</p><h2 data-i="fq.h">Questions before you download.</h2></div>
+      <div class="faq">
+        <details><summary data-i="q1">Is the free plan really free?</summary><p data-i="a1x">Yes. Free has no time limit and no account. The 4-day Pro trial starts on first launch and needs no card.</p></details>
+        <details><summary data-i="q2">Windows shows a SmartScreen warning. Is it safe?</summary><p data-i="a2x">InCost is a new app and is not code-signed yet, so Windows may ask you to confirm. Click "More info", then "Run anyway".</p></details>
+        <details><summary data-i="q3">Does it need an internet connection?</summary><p data-i="a3x">No. Everything runs on your PC. Internet is used once to activate a Pro license.</p></details>
+        <details><summary data-i="q4">Can I use my own machine rates and material prices?</summary><p data-i="a4x">Yes. Rates, setup costs, margins and prices per pound are all editable and saved for next time.</p></details>
+        <details><summary data-i="q5">Does it work in metric?</summary><p data-i="a5x">Yes. InCost works in inches and millimeters, pounds and kilograms, and converts between them as you type.</p></details>
+        <details><summary data-i="q6">How do I get a Pro license?</summary><p data-i="a6x">Buy through Lemon Squeezy and you receive a license key by email. Paste it into InCost to unlock Pro.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="nav.contact">Contact</p>
+        <h2 data-i="ct.h">Talk to the person who builds InCost.</h2>
+        <p data-i="ct.p">A question, a bug, a feature your shop needs or help with a license. You get an answer from the developer, not a bot.</p>
+      </div>
+      <div class="contact">
+        <div class="chans">
+          <div class="chan rv">
+            <span class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="M3 5.5l7 5.5 7-5.5"/></svg></span>
+            <h3 data-i="ct.email">Email</h3>
+            <p data-i="ct.emailD">Best for licenses, invoices and detailed questions.</p>
+            <div class="addr"><code id="cmail">hello@incost.app</code><button type="button" class="copy" id="ccopy" data-i="ct.copy">Copy</button></div>
+          </div>
+          <div class="chan rv" id="chtg">
+            <span class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 3.5L2.5 9.3l5 1.9 1.9 5.3 2.8-3.4 3.6 2.6z"/><path d="M7.5 11.2l10-7.7"/></svg></span>
+            <h3>Telegram</h3>
+            <p data-i="ct.tgD">Quick questions and screenshots.</p>
+            <a class="btn btn-secondary" id="ctg" href="https://t.me/incost_app" target="_blank" rel="noopener">@incost_app</a>
+          </div>
+          <p class="resp"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.5V8l2.4 1.6"/></svg><span data-i="ct.resp">Replies within 1–2 business days.</span></p>
+        </div>
+        <form class="cform rv" id="cform" novalidate>
+          <h3 data-i="ct.fh">Send a message</h3>
+          <div class="r2">
+            <div class="f"><label for="cn" data-i="ct.name">Name</label><input id="cn" type="text" autocomplete="name" data-ip="ph.name" placeholder="Jane Smith"></div>
+            <div class="f"><label for="ce" data-i="ct.mail">Email</label><input id="ce" type="email" autocomplete="email" inputmode="email" data-ip="ph.mail" placeholder="you@company.com"></div>
+          </div>
+          <div class="f">
+            <label for="ctp" data-i="ct.topic">Topic</label>
+            <select id="ctp">
+              <option value="question" data-i="tp.q">Question</option>
+              <option value="bug" data-i="tp.bug">Bug report</option>
+              <option value="feature" data-i="tp.feat">Feature request</option>
+              <option value="license" data-i="tp.lic">License or payment</option>
+              <option value="partner" data-i="tp.biz">Partnership</option>
+            </select>
+          </div>
+          <div class="f"><label for="cm" data-i="ct.msg">Message</label><textarea id="cm" data-ip="ph.msg" placeholder="What do you quote, and what would make InCost better for you?"></textarea></div>
+          <button type="submit" class="btn btn-primary" id="csend" data-i="ct.send">Send message</button>
+          <div class="status" id="cstat" role="status" aria-live="polite" hidden></div>
+          <p class="priv" data-i="ct.priv">We only use your email to reply.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="get" style="padding-top:0">
+    <div class="wrap">
+      <div class="final rv">
+        <h2 data-i="fn.h">Your next quote can take three minutes.</h2>
+        <p data-i="fn.p">Download InCost free. Pro is unlocked for your first 4 days.</p>
+        <div class="cta" style="justify-content:center">
+          <a class="btn btn-primary" href="https://github.com/gost-fs/incost/releases/latest/download/InCost-Setup.exe">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M1 3.2l6.5-.9v6.2H1zM8.4 2.2L17 1v7.5H8.4zM1 9.5h6.5v6.2L1 14.8zM8.4 9.5H17V17l-8.6-1.2z"/></svg>
+            <span data-i="fn.btn">Download for Windows</span> <small>v0.9 · ~25 MB</small>
+          </a>
+        </div>
+        <p class="meta"><span data-i="fn.meta">Windows 10 and 11, 64-bit · Already tried it?</span> <a href="#contact" data-i="fn.buy">Buy a Pro license</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 InCost · <span id="fmail">hello@incost.app</span></span>
+    <nav><a href="#features" data-i="nav.features">Features</a><a href="#pricing" data-i="nav.pricing">Pricing</a><a href="#faq" data-i="nav.faq">FAQ</a><a href="#contact" data-i="nav.contact">Contact</a><a href="#get" data-i="cta.free">Download free</a></nav>
+  </div>
+</footer>
+
+<div class="mcta" id="mcta"><a class="btn btn-primary" href="#get" data-i="cta.win">Download free for Windows</a></div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var LANG="en";
+
+  /* ===== translations (English is read from the page itself) ===== */
+  var D={
+  uk:{
+    "nav.how":"Як це працює","nav.features":"Можливості","nav.roi":"Економія","nav.pricing":"Ціни","nav.faq":"Питання",
+    "cta.free":"Завантажити","cta.win":"Завантажити для Windows безкоштовно",
+    "hero.pill":"<b>Нове</b> Вийшла версія 0.9 для Windows","hero.h1":"Досить рахувати деталі <span>в таблицях.</span>",
+    "hero.lead":"InCost рахує вартість листових, надрукованих на 3D-принтері та фрезерованих деталей за секунди. Відкрийте DXF або STEP, оберіть матеріал і отримайте ціну, яку можна відправити клієнту.",
+    "hero.cta2":"Як це працює","chk1":"Безкоштовний план назавжди","chk2":"4 дні Pro без картки","chk3":"Без реєстрації",
+    "app.tag":"Спробуйте","f.mat":"Матеріал","m.crs":"Холоднокатана сталь A1008","m.al":"Алюміній 5052-H32","m.ss":"Нержавіюча сталь 304",
+    "f.th":"Товщина","f.w":"Ширина","f.h":"Висота","f.holes":"Отвори","f.qty":"Кількість","tot":"Ціна за деталь",
+    "app.foot":"Приклад ставок: лазер $120/год, налагодження $35, націнка 15%. У програмі ви ставите свої.",
+    "s1":"Лазер і листовий метал","s2":"Розкрій","s3":"3D-друк","s4":"Мехобробка","s5":"Дюйми і метрика",
+    "how.k":"Чому InCost","how.h":"Той самий розрахунок. У рази швидше.","how.p":"Більшість виробництв досі рахують деталі на калькуляторі, в таблиці й по пам'яті. InCost сам вимірює і рахує за вас.",
+    "vs.b":"Розрахунок у таблиці","vs.bt":"~20 хв","b1":"Міряти довжину різу вручну в CAD","b2":"Шукати густину і ціну за кілограм","b3":"Переводити мм у дюйми і назад","b4":"Вгадувати відходи і налагодження","b5":"Переносити цифри в кошторис вручну",
+    "vs.a":"З InCost","vs.at":"~3 хв","a1":"Відкрили DXF, довжина різу і врізки зчитуються автоматично","a2":"Матеріал обирається з вбудованої бібліотеки","a3":"Одиниці переводяться під час введення","a4":"Розкрій показує реальне використання листа","a5":"PDF-кошторис в один клік",
+    "ft.k":"Можливості","ft.h":"Усі процеси, які рахує ваше виробництво.","ft.p":"Перемикайте інструменти, не перемикаючи програми. Ваші ставки, матеріали й націнки працюють усюди.",
+    "tb0":"Листовий метал","ts0":"DXF → довжина різу → ціна","tb1":"Розкрій","ts1":"Використання листа і відходи","tb2":"3D-друк","ts2":"Вартість зі STEP і 3MF","tb3":"Мехобробка","ts3":"Час циклу × ставка","tb4":"Інструменти інженера","ts4":"Одиниці, геометрія, PDF",
+    "roi.k":"Калькулятор економії","roi.h":"Подивіться, коли Pro окупиться.","roi.p":"Рухайте повзунки під свій тиждень.","roi.q":"Розрахунків на тиждень","roi.m":"Хвилин на один розрахунок зараз","roi.r":"Ваша вартість години",
+    "roi.saved":"Зекономлений час щомісяця","roi.worth":"Вартість цього часу на місяць","roi.pay":"Pro окупиться після","roi.note":"Розрахунок припускає близько 3 хвилин на розрахунок в InCost і Pro за $19 на місяць. Ваші результати можуть відрізнятися.",
+    "tr1h":"Перевірено на реальних замовленнях","tr1p":"Створено практикуючим інженером-конструктором. Кожен реліз перевіряють технологи, які щодня рахують деталі.",
+    "tr2h":"Ваші дані лишаються у вас","tr2p":"InCost працює на вашому ПК. Креслення, ціни й кошториси нікуди не передаються.",
+    "tr3h":"Відкривається миттєво","tr3p":"Легка програма для ПК. Без вкладок браузера, без входу в акаунт, без очікування сервера.",
+    "pr.k":"Ціни","pr.h":"Прості ціни. Почніть безкоштовно.","pr.p":"Кожне завантаження включає 4 дні Pro. Потім лишайтеся на Free або додайте ліцензійний ключ.",
+    "pr.m":"Щомісяця","pr.y":"Щороку <em>−30%</em>","fr.f":"назавжди","fr.d":"Для швидких оцінок і щоденних інженерних розрахунків.",
+    "fr1":"Ручні розрахунки листового металу і мехобробки","fr2":"Конвертер одиниць і помічники конструктора","fr3":"Базова бібліотека матеріалів",
+    "pro.b":"Найпопулярніший","pro.d":"Для всіх, хто надсилає кошториси клієнтам.","p1":"Усе з Free","p2":"Імпорт DXF з автоматичною довжиною різу і врізками","p3":"Розкрій з використанням листа","p4":"Вартість 3D-друку зі STEP і 3MF","p5":"Повна бібліотека, включно з композитами","p6":"Брендовані PDF-кошториси й аналітика",
+    "pro.btn":"Почати 4 дні безкоштовно","pro.fine":"Безпечна оплата через Lemon Squeezy. Скасування будь-коли.",
+    "fq.h":"Питання перед завантаженням.",
+    "q1":"Безкоштовний план справді безкоштовний?","a1x":"Так. Free не має обмеження за часом і не потребує акаунта. 4 дні Pro починаються з першого запуску, картка не потрібна.",
+    "q2":"Windows показує попередження SmartScreen. Це безпечно?","a2x":"InCost нова програма і поки не має цифрового підпису, тому Windows може попросити підтвердження. Натисніть «Докладніше», потім «Усе одно запустити».",
+    "q3":"Чи потрібен інтернет?","a3x":"Ні. Усе працює на вашому ПК. Інтернет потрібен один раз, щоб активувати ліцензію Pro.",
+    "q4":"Чи можна задати власні ставки і ціни на матеріали?","a4x":"Так. Ставки, налагодження, націнки й ціни за одиницю ваги редагуються і зберігаються.",
+    "q5":"Чи працює в метричній системі?","a5x":"Так. InCost працює з дюймами й міліметрами, фунтами й кілограмами і переводить між ними під час введення.",
+    "q6":"Як отримати ліцензію Pro?","a6x":"Оплатіть через Lemon Squeezy, і ключ прийде на пошту. Вставте його в InCost, щоб увімкнути Pro.",
+    "fn.h":"Ваш наступний розрахунок займе три хвилини.","fn.p":"Завантажте InCost безкоштовно. Перші 4 дні Pro відкритий повністю.","fn.btn":"Завантажити для Windows","fn.meta":"Windows 10 і 11, 64-біт · Вже спробували?","fn.buy":"Купити ліцензію Pro",
+    "nav.contact":"Контакти","ct.h":"Пишіть напряму розробнику InCost.","ct.p":"Питання, помилка, потрібна функція чи допомога з ліцензією. Відповідає сам розробник, а не бот.",
+    "ct.email":"Пошта","ct.emailD":"Для ліцензій, рахунків і детальних питань.","ct.copy":"Копіювати","ct.copied":"Скопійовано","ct.tgD":"Швидкі питання і скриншоти.","ct.resp":"Відповідаємо протягом 1–2 робочих днів.",
+    "ct.fh":"Напишіть повідомлення","ct.name":"Ім'я","ct.mail":"Email","ct.topic":"Тема","tp.q":"Питання","tp.bug":"Повідомити про помилку","tp.feat":"Побажання до функцій","tp.lic":"Ліцензія або оплата","tp.biz":"Співпраця",
+    "ct.msg":"Повідомлення","ph.name":"Іван Петренко","ph.msg":"Що ви рахуєте і що зробило б InCost кращим для вас?","ct.send":"Надіслати","ct.priv":"Ваш email використовуємо лише для відповіді.",
+    "ct.fill":"Вкажіть ім'я, правильний email і повідомлення щонайменше з 10 символів.","ct.sent":"Повідомлення надіслано. Відповімо протягом 1–2 робочих днів.","ct.fail":"Не вдалося надіслати. Скопіюйте повідомлення і надішліть на {email}.",
+    "ct.mailto":"Має відкритися ваша поштова програма з готовим листом. Якщо не відкрилася, скопіюйте повідомлення і надішліть на {email}.","ct.copyMsg":"Копіювати повідомлення"
+  },
+  de:{
+    "nav.how":"So funktioniert's","nav.features":"Funktionen","nav.roi":"Ersparnis","nav.pricing":"Preise","nav.faq":"FAQ",
+    "cta.free":"Kostenlos laden","cta.win":"Kostenlos für Windows laden",
+    "hero.pill":"<b>Neu</b> Version 0.9 für Windows ist da","hero.h1":"Schluss mit Kalkulationen <span>in Tabellen.</span>",
+    "hero.lead":"InCost kalkuliert Blech-, 3D-Druck- und Frästeile in Sekunden. DXF oder STEP öffnen, Material wählen und einen Preis erhalten, den Sie verschicken können.",
+    "hero.cta2":"So funktioniert's","chk1":"Dauerhaft kostenloser Plan","chk2":"4 Tage Pro ohne Kreditkarte","chk3":"Kein Konto nötig",
+    "app.tag":"Ausprobieren","f.mat":"Werkstoff","m.crs":"Kaltgewalzter Stahl A1008","m.al":"Aluminium 5052-H32","m.ss":"Edelstahl 304",
+    "f.th":"Dicke","f.w":"Breite","f.h":"Höhe","f.holes":"Bohrungen","f.qty":"Stückzahl","tot":"Preis pro Teil",
+    "app.foot":"Beispielsätze: Laser $120/h, Rüsten $35, Marge 15 %. In der App setzen Sie Ihre eigenen.",
+    "s1":"Laser und Blech","s2":"Verschachtelung","s3":"3D-Druck","s4":"Zerspanung","s5":"Zoll und metrisch",
+    "how.k":"Warum InCost","how.h":"Dieselbe Kalkulation. Ein Bruchteil der Zeit.","how.p":"Die meisten Betriebe kalkulieren noch mit Taschenrechner, Tabelle und viel Erfahrung. InCost misst und rechnet für Sie.",
+    "vs.b":"Kalkulation in Tabelle","vs.bt":"~20 Min.","b1":"Schnittlänge im CAD von Hand messen","b2":"Dichte und Preis pro Kilo nachschlagen","b3":"mm in Zoll umrechnen und zurück","b4":"Verschnitt und Rüstkosten schätzen","b5":"Zahlen von Hand ins Angebot übertragen",
+    "vs.a":"Mit InCost","vs.at":"~3 Min.","a1":"DXF öffnen, Schnittlänge und Einstiche werden automatisch gelesen","a2":"Werkstoff aus der integrierten Bibliothek wählen","a3":"Einheiten werden beim Tippen umgerechnet","a4":"Verschachtelung zeigt die echte Blechausnutzung","a5":"Sauberes PDF-Angebot mit einem Klick",
+    "ft.k":"Funktionen","ft.h":"Jeder Prozess, den Ihr Betrieb kalkuliert.","ft.p":"Werkzeug wechseln, ohne die App zu wechseln. Ihre Sätze, Werkstoffe und Margen gelten überall.",
+    "tb0":"Blech","ts0":"DXF → Schnittlänge → Preis","tb1":"Verschachtelung","ts1":"Ausnutzung und Verschnitt","tb2":"3D-Druck","ts2":"Kosten aus STEP und 3MF","tb3":"Zerspanung","ts3":"Zykluszeit × Stundensatz","tb4":"Ingenieur-Tools","ts4":"Einheiten, Geometrie, PDF",
+    "roi.k":"Ersparnisrechner","roi.h":"Sehen Sie, wann sich Pro rechnet.","roi.p":"Stellen Sie die Regler auf Ihre Woche ein.","roi.q":"Angebote pro Woche","roi.m":"Minuten pro Angebot heute","roi.r":"Ihre Kosten pro Stunde",
+    "roi.saved":"Gesparte Zeit pro Monat","roi.worth":"Wert pro Monat","roi.pay":"Pro rechnet sich nach","roi.note":"Annahme: etwa 3 Minuten pro Angebot in InCost und Pro für $19 pro Monat. Ihre Ergebnisse können abweichen.",
+    "tr1h":"An echten Aufträgen getestet","tr1p":"Entwickelt von einem aktiven Konstrukteur. Jede Version wird von Technologen geprüft, die täglich Teile kalkulieren.",
+    "tr2h":"Ihre Daten bleiben bei Ihnen","tr2p":"InCost läuft auf Ihrem PC. Zeichnungen, Preise und Angebote verlassen Ihren Rechner nicht.",
+    "tr3h":"Startet sofort","tr3p":"Eine leichte Desktop-App. Keine Browser-Tabs, kein Login, kein Warten auf einen Server.",
+    "pr.k":"Preise","pr.h":"Einfache Preise. Kostenlos starten.","pr.p":"Jeder Download enthält 4 Tage Pro. Danach bleiben Sie bei Free oder fügen einen Lizenzschlüssel hinzu.",
+    "pr.m":"Monatlich","pr.y":"Jährlich <em>−30 %</em>","fr.f":"für immer","fr.d":"Für schnelle Schätzungen und tägliche Ingenieursmathematik.",
+    "fr1":"Manuelle Blech- und Zerspanungskalkulation","fr2":"Einheitenrechner und Konstruktionshelfer","fr3":"Basis-Werkstoffbibliothek",
+    "pro.b":"Am beliebtesten","pro.d":"Für alle, die Angebote an Kunden senden.","p1":"Alles aus Free","p2":"DXF-Import mit automatischer Schnittlänge und Einstichen","p3":"Verschachtelung mit Blechausnutzung","p4":"3D-Druck-Kosten aus STEP und 3MF","p5":"Volle Bibliothek inklusive Verbundwerkstoffe","p6":"PDF-Angebote mit Ihrem Logo und Analysen",
+    "pro.btn":"4 Tage kostenlos testen","pro.fine":"Sichere Zahlung über Lemon Squeezy. Jederzeit kündbar.",
+    "fq.h":"Fragen vor dem Download.",
+    "q1":"Ist der kostenlose Plan wirklich kostenlos?","a1x":"Ja. Free hat kein Zeitlimit und braucht kein Konto. Die 4 Tage Pro starten beim ersten Start, ohne Kreditkarte.",
+    "q2":"Windows zeigt eine SmartScreen-Warnung. Ist das sicher?","a2x":"InCost ist neu und noch nicht code-signiert, daher fragt Windows eventuell nach. Klicken Sie auf „Weitere Informationen“ und dann „Trotzdem ausführen“.",
+    "q3":"Braucht es eine Internetverbindung?","a3x":"Nein. Alles läuft auf Ihrem PC. Internet wird nur einmal zum Aktivieren der Pro-Lizenz benötigt.",
+    "q4":"Kann ich eigene Maschinensätze und Materialpreise nutzen?","a4x":"Ja. Sätze, Rüstkosten, Margen und Preise pro Gewichtseinheit sind editierbar und werden gespeichert.",
+    "q5":"Funktioniert es metrisch?","a5x":"Ja. InCost arbeitet mit Zoll und Millimetern, Pfund und Kilogramm und rechnet beim Tippen um.",
+    "q6":"Wie bekomme ich eine Pro-Lizenz?","a6x":"Kaufen Sie über Lemon Squeezy und Sie erhalten den Schlüssel per E-Mail. In InCost einfügen, um Pro freizuschalten.",
+    "fn.h":"Ihr nächstes Angebot kann drei Minuten dauern.","fn.p":"Laden Sie InCost kostenlos. Pro ist in den ersten 4 Tagen freigeschaltet.","fn.btn":"Für Windows laden","fn.meta":"Windows 10 und 11, 64-Bit · Schon getestet?","fn.buy":"Pro-Lizenz kaufen",
+    "nav.contact":"Kontakt","ct.h":"Schreiben Sie direkt dem Entwickler von InCost.","ct.p":"Eine Frage, ein Fehler, eine Funktion, die Ihr Betrieb braucht, oder Hilfe mit der Lizenz. Es antwortet der Entwickler, kein Bot.",
+    "ct.email":"E-Mail","ct.emailD":"Für Lizenzen, Rechnungen und ausführliche Fragen.","ct.copy":"Kopieren","ct.copied":"Kopiert","ct.tgD":"Kurze Fragen und Screenshots.","ct.resp":"Antwort innerhalb von 1–2 Werktagen.",
+    "ct.fh":"Nachricht senden","ct.name":"Name","ct.mail":"E-Mail","ct.topic":"Thema","tp.q":"Frage","tp.bug":"Fehlermeldung","tp.feat":"Funktionswunsch","tp.lic":"Lizenz oder Zahlung","tp.biz":"Partnerschaft",
+    "ct.msg":"Nachricht","ph.name":"Max Müller","ph.msg":"Was kalkulieren Sie und was würde InCost für Sie besser machen?","ct.send":"Senden","ct.priv":"Ihre E-Mail nutzen wir nur für die Antwort.",
+    "ct.fill":"Bitte Namen, eine gültige E-Mail und eine Nachricht mit mindestens 10 Zeichen angeben.","ct.sent":"Nachricht gesendet. Sie erhalten innerhalb von 1–2 Werktagen eine Antwort.","ct.fail":"Die Nachricht wurde nicht gesendet. Kopieren Sie sie und senden Sie sie an {email}.",
+    "ct.mailto":"Ihr E-Mail-Programm sollte sich mit der fertigen Nachricht öffnen. Falls nicht, kopieren Sie sie und senden Sie sie an {email}.","ct.copyMsg":"Nachricht kopieren"
+  },
+  es:{
+    "nav.how":"Cómo funciona","nav.features":"Funciones","nav.roi":"Ahorro","nav.pricing":"Precios","nav.faq":"Preguntas",
+    "cta.free":"Descargar gratis","cta.win":"Descargar gratis para Windows",
+    "hero.pill":"<b>Nuevo</b> Ya está la versión 0.9 para Windows","hero.h1":"Deja de cotizar piezas <span>en hojas de cálculo.</span>",
+    "hero.lead":"InCost calcula el costo de piezas de chapa, impresas en 3D y mecanizadas en segundos. Abre un DXF o STEP, elige el material y obtén un precio listo para enviar.",
+    "hero.cta2":"Cómo funciona","chk1":"Plan gratuito para siempre","chk2":"4 días de Pro sin tarjeta","chk3":"Sin cuenta",
+    "app.tag":"Pruébalo","f.mat":"Material","m.crs":"Acero laminado en frío A1008","m.al":"Aluminio 5052-H32","m.ss":"Acero inoxidable 304",
+    "f.th":"Espesor","f.w":"Ancho","f.h":"Alto","f.holes":"Agujeros","f.qty":"Cantidad","tot":"Precio por pieza",
+    "app.foot":"Tarifas de ejemplo: láser $120/h, preparación $35, margen 15 %. En la app usas las tuyas.",
+    "s1":"Láser y chapa","s2":"Anidado","s3":"Impresión 3D","s4":"Mecanizado","s5":"Pulgadas y métrico",
+    "how.k":"Por qué InCost","how.h":"La misma cotización. En una fracción del tiempo.","how.p":"La mayoría de los talleres todavía cotizan con calculadora, una hoja de cálculo y mucha memoria. InCost mide y calcula por ti.",
+    "vs.b":"Cotización en hoja de cálculo","vs.bt":"~20 min","b1":"Medir la longitud de corte a mano en CAD","b2":"Buscar densidad y precio por libra","b3":"Convertir mm a pulgadas y al revés","b4":"Adivinar desperdicio y preparación","b5":"Copiar números a mano en la cotización",
+    "vs.a":"Con InCost","vs.at":"~3 min","a1":"Abres el DXF y la longitud de corte y las perforaciones se leen solas","a2":"Eliges el material de la biblioteca integrada","a3":"Las unidades se convierten mientras escribes","a4":"El anidado muestra el aprovechamiento real de la lámina","a5":"Cotización en PDF con un clic",
+    "ft.k":"Funciones","ft.h":"Cada proceso que cotiza tu taller.","ft.p":"Cambia de herramienta sin cambiar de app. Tus tarifas, materiales y márgenes sirven en todas.",
+    "tb0":"Chapa","ts0":"DXF → longitud de corte → precio","tb1":"Anidado","ts1":"Aprovechamiento y desperdicio","tb2":"Impresión 3D","ts2":"Costo desde STEP y 3MF","tb3":"Mecanizado","ts3":"Tiempo de ciclo × tarifa","tb4":"Herramientas","ts4":"Unidades, geometría, PDF",
+    "roi.k":"Calculadora de ahorro","roi.h":"Mira cuándo Pro se paga solo.","roi.p":"Mueve los controles según tu semana.","roi.q":"Cotizaciones por semana","roi.m":"Minutos por cotización hoy","roi.r":"Tu costo por hora",
+    "roi.saved":"Tiempo ahorrado al mes","roi.worth":"Valor al mes","roi.pay":"Pro se paga solo tras","roi.note":"Supone unos 3 minutos por cotización en InCost y Pro a $19 al mes. Tus resultados pueden variar.",
+    "tr1h":"Probado en trabajos reales","tr1p":"Creado por un ingeniero de diseño en activo. Cada versión la revisan tecnólogos que cotizan piezas a diario.",
+    "tr2h":"Tus datos son tuyos","tr2p":"InCost funciona en tu PC. Planos, precios y cotizaciones nunca salen de tu equipo.",
+    "tr3h":"Abre al instante","tr3p":"Una app de escritorio ligera. Sin pestañas, sin inicio de sesión, sin esperar a un servidor.",
+    "pr.k":"Precios","pr.h":"Precios simples. Empieza gratis.","pr.p":"Cada descarga incluye 4 días de Pro. Después, sigue con Free o añade una clave de licencia.",
+    "pr.m":"Mensual","pr.y":"Anual <em>−30 %</em>","fr.f":"para siempre","fr.d":"Para estimaciones rápidas y cálculos de ingeniería diarios.",
+    "fr1":"Estimaciones manuales de chapa y mecanizado","fr2":"Conversor de unidades y ayudas de diseño","fr3":"Biblioteca básica de materiales",
+    "pro.b":"El más popular","pro.d":"Para quien envía cotizaciones a clientes.","p1":"Todo lo de Free","p2":"Importación DXF con longitud de corte y perforaciones automáticas","p3":"Anidado con aprovechamiento de lámina","p4":"Costo de impresión 3D desde STEP y 3MF","p5":"Biblioteca completa, con compuestos","p6":"Cotizaciones PDF con tu marca y analíticas",
+    "pro.btn":"Prueba gratis 4 días","pro.fine":"Pago seguro con Lemon Squeezy. Cancela cuando quieras.",
+    "fq.h":"Preguntas antes de descargar.",
+    "q1":"¿El plan gratuito es realmente gratis?","a1x":"Sí. Free no tiene límite de tiempo ni requiere cuenta. Los 4 días de Pro empiezan al abrir la app y no piden tarjeta.",
+    "q2":"Windows muestra un aviso de SmartScreen. ¿Es seguro?","a2x":"InCost es una app nueva y aún no tiene firma digital, así que Windows puede pedir confirmación. Haz clic en «Más información» y luego en «Ejecutar de todas formas».",
+    "q3":"¿Necesita conexión a internet?","a3x":"No. Todo funciona en tu PC. Internet solo se usa una vez para activar la licencia Pro.",
+    "q4":"¿Puedo usar mis propias tarifas y precios de material?","a4x":"Sí. Tarifas, preparación, márgenes y precios por unidad de peso se editan y se guardan.",
+    "q5":"¿Funciona en sistema métrico?","a5x":"Sí. InCost trabaja con pulgadas y milímetros, libras y kilogramos, y convierte mientras escribes.",
+    "q6":"¿Cómo consigo una licencia Pro?","a6x":"Compra con Lemon Squeezy y recibirás la clave por correo. Pégala en InCost para activar Pro.",
+    "fn.h":"Tu próxima cotización puede tardar tres minutos.","fn.p":"Descarga InCost gratis. Pro está activo tus primeros 4 días.","fn.btn":"Descargar para Windows","fn.meta":"Windows 10 y 11, 64 bits · ¿Ya lo probaste?","fn.buy":"Comprar licencia Pro",
+    "nav.contact":"Contacto","ct.h":"Habla directamente con quien desarrolla InCost.","ct.p":"Una pregunta, un error, una función que necesita tu taller o ayuda con la licencia. Responde el desarrollador, no un bot.",
+    "ct.email":"Correo","ct.emailD":"Para licencias, facturas y preguntas detalladas.","ct.copy":"Copiar","ct.copied":"Copiado","ct.tgD":"Preguntas rápidas y capturas de pantalla.","ct.resp":"Respondemos en 1–2 días hábiles.",
+    "ct.fh":"Enviar un mensaje","ct.name":"Nombre","ct.mail":"Correo","ct.topic":"Tema","tp.q":"Pregunta","tp.bug":"Informar de un error","tp.feat":"Solicitud de función","tp.lic":"Licencia o pago","tp.biz":"Colaboración",
+    "ct.msg":"Mensaje","ph.name":"Ana García","ph.msg":"¿Qué cotizas y qué haría InCost mejor para ti?","ct.send":"Enviar mensaje","ct.priv":"Solo usamos tu correo para responderte.",
+    "ct.fill":"Añade tu nombre, un correo válido y un mensaje de al menos 10 caracteres.","ct.sent":"Mensaje enviado. Te responderemos en 1–2 días hábiles.","ct.fail":"No se pudo enviar. Copia el mensaje y envíalo a {email}.",
+    "ct.mailto":"Debería abrirse tu app de correo con el mensaje listo. Si no se abrió, copia el mensaje y envíalo a {email}.","ct.copyMsg":"Copiar mensaje"
+  },
+  pl:{
+    "nav.how":"Jak to działa","nav.features":"Funkcje","nav.roi":"Oszczędności","nav.pricing":"Cennik","nav.faq":"FAQ",
+    "cta.free":"Pobierz za darmo","cta.win":"Pobierz za darmo na Windows",
+    "hero.pill":"<b>Nowość</b> Wersja 0.9 na Windows już jest","hero.h1":"Koniec z wyceną części <span>w arkuszach.</span>",
+    "hero.lead":"InCost wycenia części z blachy, drukowane 3D i obrabiane w kilka sekund. Otwórz DXF lub STEP, wybierz materiał i dostań cenę gotową do wysłania.",
+    "hero.cta2":"Jak to działa","chk1":"Darmowy plan na zawsze","chk2":"4 dni Pro bez karty","chk3":"Bez zakładania konta",
+    "app.tag":"Wypróbuj","f.mat":"Materiał","m.crs":"Stal walcowana na zimno A1008","m.al":"Aluminium 5052-H32","m.ss":"Stal nierdzewna 304",
+    "f.th":"Grubość","f.w":"Szerokość","f.h":"Wysokość","f.holes":"Otwory","f.qty":"Ilość","tot":"Cena za sztukę",
+    "app.foot":"Przykładowe stawki: laser $120/h, przezbrojenie $35, marża 15%. W aplikacji ustawiasz własne.",
+    "s1":"Laser i blacha","s2":"Nesting","s3":"Druk 3D","s4":"Obróbka skrawaniem","s5":"Cale i system metryczny",
+    "how.k":"Dlaczego InCost","how.h":"Ta sama wycena. Ułamek czasu.","how.p":"Większość zakładów wciąż wycenia z kalkulatorem, arkuszem i pamięcią. InCost mierzy i liczy za ciebie.",
+    "vs.b":"Wycena w arkuszu","vs.bt":"~20 min","b1":"Ręczny pomiar długości cięcia w CAD","b2":"Szukanie gęstości i ceny za kilogram","b3":"Przeliczanie mm na cale i z powrotem","b4":"Zgadywanie odpadu i kosztów przezbrojenia","b5":"Ręczne przepisywanie liczb do oferty",
+    "vs.a":"Z InCost","vs.at":"~3 min","a1":"Otwierasz DXF, długość cięcia i przebicia są czytane automatycznie","a2":"Materiał wybierasz z wbudowanej biblioteki","a3":"Jednostki przeliczają się podczas pisania","a4":"Nesting pokazuje realne wykorzystanie arkusza","a5":"Oferta PDF jednym kliknięciem",
+    "ft.k":"Funkcje","ft.h":"Każdy proces, który wycenia twój zakład.","ft.p":"Zmieniaj narzędzia bez zmiany aplikacji. Twoje stawki, materiały i marże działają wszędzie.",
+    "tb0":"Blacha","ts0":"DXF → długość cięcia → cena","tb1":"Nesting","ts1":"Wykorzystanie i odpad","tb2":"Druk 3D","ts2":"Koszt ze STEP i 3MF","tb3":"Obróbka","ts3":"Czas cyklu × stawka","tb4":"Narzędzia inżyniera","ts4":"Jednostki, geometria, PDF",
+    "roi.k":"Kalkulator oszczędności","roi.h":"Zobacz, kiedy Pro się zwraca.","roi.p":"Ustaw suwaki pod swój tydzień.","roi.q":"Wycen tygodniowo","roi.m":"Minut na wycenę teraz","roi.r":"Twój koszt godziny",
+    "roi.saved":"Zaoszczędzony czas miesięcznie","roi.worth":"Wartość miesięcznie","roi.pay":"Pro zwraca się po","roi.note":"Zakładamy około 3 minut na wycenę w InCost i Pro za $19 miesięcznie. Twoje wyniki mogą się różnić.",
+    "tr1h":"Sprawdzone na prawdziwych zleceniach","tr1p":"Tworzone przez praktykującego konstruktora. Każde wydanie sprawdzają technolodzy, którzy codziennie wyceniają części.",
+    "tr2h":"Twoje dane zostają u ciebie","tr2p":"InCost działa na twoim PC. Rysunki, ceny i oferty nie opuszczają twojego komputera.",
+    "tr3h":"Startuje od razu","tr3p":"Lekka aplikacja na komputer. Bez kart przeglądarki, bez logowania, bez czekania na serwer.",
+    "pr.k":"Cennik","pr.h":"Prosty cennik. Zacznij za darmo.","pr.p":"Każde pobranie zawiera 4 dni Pro. Potem zostań przy Free albo dodaj klucz licencyjny.",
+    "pr.m":"Miesięcznie","pr.y":"Rocznie <em>−30%</em>","fr.f":"na zawsze","fr.d":"Do szybkich szacunków i codziennych obliczeń inżynierskich.",
+    "fr1":"Ręczne wyceny blachy i obróbki","fr2":"Konwerter jednostek i pomocnicy konstruktora","fr3":"Podstawowa biblioteka materiałów",
+    "pro.b":"Najpopularniejszy","pro.d":"Dla każdego, kto wysyła oferty klientom.","p1":"Wszystko z Free","p2":"Import DXF z automatyczną długością cięcia i przebiciami","p3":"Nesting z wykorzystaniem arkusza","p4":"Koszt druku 3D ze STEP i 3MF","p5":"Pełna biblioteka, w tym kompozyty","p6":"Oferty PDF z twoim logo i analityka",
+    "pro.btn":"Wypróbuj 4 dni za darmo","pro.fine":"Bezpieczna płatność przez Lemon Squeezy. Anulujesz w każdej chwili.",
+    "fq.h":"Pytania przed pobraniem.",
+    "q1":"Czy darmowy plan jest naprawdę darmowy?","a1x":"Tak. Free nie ma limitu czasu i nie wymaga konta. 4 dni Pro zaczynają się przy pierwszym uruchomieniu, bez karty.",
+    "q2":"Windows pokazuje ostrzeżenie SmartScreen. Czy to bezpieczne?","a2x":"InCost to nowa aplikacja i nie ma jeszcze podpisu cyfrowego, więc Windows może poprosić o potwierdzenie. Kliknij „Więcej informacji”, a potem „Uruchom mimo to”.",
+    "q3":"Czy potrzebny jest internet?","a3x":"Nie. Wszystko działa na twoim PC. Internet jest potrzebny raz, do aktywacji licencji Pro.",
+    "q4":"Czy mogę użyć własnych stawek i cen materiałów?","a4x":"Tak. Stawki, przezbrojenia, marże i ceny za jednostkę wagi można edytować i zapisać.",
+    "q5":"Czy działa w systemie metrycznym?","a5x":"Tak. InCost obsługuje cale i milimetry, funty i kilogramy oraz przelicza je podczas pisania.",
+    "q6":"Jak zdobyć licencję Pro?","a6x":"Kup przez Lemon Squeezy, a klucz przyjdzie mailem. Wklej go w InCost, aby odblokować Pro.",
+    "fn.h":"Twoja następna wycena może zająć trzy minuty.","fn.p":"Pobierz InCost za darmo. Pro jest odblokowany przez pierwsze 4 dni.","fn.btn":"Pobierz na Windows","fn.meta":"Windows 10 i 11, 64-bit · Już testowałeś?","fn.buy":"Kup licencję Pro",
+    "nav.contact":"Kontakt","ct.h":"Napisz bezpośrednio do twórcy InCost.","ct.p":"Pytanie, błąd, funkcja, której potrzebuje twój zakład, albo pomoc z licencją. Odpowiada twórca, a nie bot.",
+    "ct.email":"E-mail","ct.emailD":"Do licencji, faktur i szczegółowych pytań.","ct.copy":"Kopiuj","ct.copied":"Skopiowano","ct.tgD":"Szybkie pytania i zrzuty ekranu.","ct.resp":"Odpowiadamy w ciągu 1–2 dni roboczych.",
+    "ct.fh":"Wyślij wiadomość","ct.name":"Imię","ct.mail":"E-mail","ct.topic":"Temat","tp.q":"Pytanie","tp.bug":"Zgłoszenie błędu","tp.feat":"Propozycja funkcji","tp.lic":"Licencja lub płatność","tp.biz":"Współpraca",
+    "ct.msg":"Wiadomość","ph.name":"Jan Kowalski","ph.msg":"Co wyceniasz i co ulepszyłoby InCost dla ciebie?","ct.send":"Wyślij","ct.priv":"Twój e-mail wykorzystamy tylko do odpowiedzi.",
+    "ct.fill":"Podaj imię, poprawny e-mail i wiadomość o długości co najmniej 10 znaków.","ct.sent":"Wiadomość wysłana. Odpowiemy w ciągu 1–2 dni roboczych.","ct.fail":"Nie udało się wysłać. Skopiuj wiadomość i wyślij ją na {email}.",
+    "ct.mailto":"Powinien otworzyć się program pocztowy z gotową wiadomością. Jeśli nie, skopiuj ją i wyślij na {email}.","ct.copyMsg":"Kopiuj wiadomość"
+  }};
+
+  /* dynamic strings */
+  var S={
+    en:{w:"Blank weight",c:"Cut length",m:"Material",l:"Laser time",s:"Setup per part",o:"Order total",min:"min",h:"h",mo:"/ month",yr:"/ year",
+        quotes:{one:"quote",other:"quotes"},first:"your first quote",mult:"Pro returns <b>{n}×</b> its price every month",none:"No time saved at these settings"},
+    uk:{w:"Вага заготовки",c:"Довжина різу",m:"Матеріал",l:"Час лазера",s:"Налагодження на деталь",o:"Сума замовлення",min:"хв",h:"год",mo:"/ місяць",yr:"/ рік",
+        quotes:{one:"розрахунку",few:"розрахунків",many:"розрахунків",other:"розрахунку"},first:"першого розрахунку",mult:"Pro щомісяця повертає <b>{n}×</b> свою ціну",none:"За таких умов економії немає"},
+    de:{w:"Rohteilgewicht",c:"Schnittlänge",m:"Material",l:"Laserzeit",s:"Rüsten pro Teil",o:"Auftragssumme",min:"Min.",h:"Std.",mo:"/ Monat",yr:"/ Jahr",
+        quotes:{one:"Angebot",other:"Angeboten"},first:"dem ersten Angebot",mult:"Pro bringt jeden Monat das <b>{n}-Fache</b> seines Preises",none:"Bei diesen Werten keine Ersparnis"},
+    es:{w:"Peso del corte",c:"Longitud de corte",m:"Material",l:"Tiempo láser",s:"Preparación por pieza",o:"Total del pedido",min:"min",h:"h",mo:"/ mes",yr:"/ año",
+        quotes:{one:"cotización",other:"cotizaciones"},first:"tu primera cotización",mult:"Pro te devuelve <b>{n}×</b> su precio cada mes",none:"Sin ahorro con estos valores"},
+    pl:{w:"Masa wykroju",c:"Długość cięcia",m:"Materiał",l:"Czas lasera",s:"Przezbrojenie na sztukę",o:"Suma zamówienia",min:"min",h:"godz.",mo:"/ miesiąc",yr:"/ rok",
+        quotes:{one:"wycenie",few:"wycenach",many:"wycenach",other:"wyceny"},first:"pierwszej wycenie",mult:"Pro zwraca co miesiąc <b>{n}×</b> swoją cenę",none:"Przy tych ustawieniach brak oszczędności"}
+  };
+
+  /* feature tab content */
+  var CK='<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--accent)" stroke-width="2.2" aria-hidden="true"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg>';
+  var PRO='<span class="pro">PRO</span>';
+  var SVG=[
+    '<svg class="ill" viewBox="0 0 300 200" aria-hidden="true"><path d="M60 40h180v50h-70v70H60z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="85" cy="65" r="7" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/><circle cx="215" cy="65" r="7" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/><circle cx="85" cy="135" r="7" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/><circle cx="145" cy="135" r="7" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/><text x="150" y="185" text-anchor="middle" font-size="12" font-family="Consolas,monospace" fill="var(--ink-2)">{cut} · 5 ×</text></svg>',
+    '<svg class="ill" viewBox="0 0 300 200" aria-hidden="true"><rect x="20" y="20" width="260" height="150" rx="4" fill="var(--bg-2)" stroke="var(--ink-2)" stroke-width="1.5"/><g fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"><rect x="28" y="28" width="56" height="44" rx="3"/><rect x="90" y="28" width="56" height="44" rx="3"/><rect x="152" y="28" width="56" height="44" rx="3"/><rect x="214" y="28" width="58" height="44" rx="3"/><rect x="28" y="78" width="90" height="50" rx="3"/><rect x="124" y="78" width="90" height="50" rx="3"/><rect x="220" y="78" width="52" height="84" rx="3"/><rect x="28" y="134" width="56" height="28" rx="3"/><rect x="90" y="134" width="56" height="28" rx="3"/></g><text x="150" y="192" text-anchor="middle" font-size="12" font-family="Consolas,monospace" fill="var(--ink-2)">{sheet} · 86%</text></svg>',
+    '<svg class="ill" viewBox="0 0 300 200" aria-hidden="true"><rect x="70" y="168" width="160" height="6" rx="2" fill="var(--ink-2)"/><g fill="var(--accent)"><rect x="110" y="152" width="80" height="14" rx="2" opacity=".9"/><rect x="115" y="137" width="70" height="14" rx="2" opacity=".75"/><rect x="120" y="122" width="60" height="14" rx="2" opacity=".6"/><rect x="116" y="107" width="68" height="14" rx="2" opacity=".45"/></g><rect x="138" y="60" width="24" height="30" rx="4" fill="var(--ink)"/><path d="M143 90h14l-7 10z" fill="var(--ink)"/><text x="150" y="194" text-anchor="middle" font-size="12" font-family="Consolas,monospace" fill="var(--ink-2)">42 g · 3:10 h</text></svg>',
+    '<svg class="ill" viewBox="0 0 300 200" aria-hidden="true"><rect x="50" y="40" width="200" height="120" rx="10" fill="var(--bg-2)" stroke="var(--ink-2)" stroke-width="1.5"/><path d="M70 60h160v20H70v20h160v20H70v20h160" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="230" cy="140" r="12" fill="var(--ink)"/><text x="150" y="185" text-anchor="middle" font-size="12" font-family="Consolas,monospace" fill="var(--ink-2)">7.5 min × $85/h</text></svg>',
+    '<svg class="ill" viewBox="0 0 300 200" aria-hidden="true"><path d="M70 140a80 80 0 0 1 160 0" fill="none" stroke="var(--accent)" stroke-width="3"/><path d="M70 140a80 80 0 0 0 160 0" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M70 140h160" stroke="var(--ink-2)" stroke-width="1.5"/><text x="150" y="132" text-anchor="middle" font-size="13" font-family="Consolas,monospace" fill="var(--ink)">{dia}</text><text x="150" y="40" text-anchor="middle" font-size="12" font-family="Consolas,monospace" fill="var(--ink-2)">{conv}</text></svg>'
+  ];
+  var T={
+    en:[["Sheet metal","Open a DXF and InCost reads every contour, then prices the part with your laser rate.",["Cut length and pierce count"+PRO,"Blank weight from the material library","Laser time by thickness and material","Setup cost spread across the order"]],
+        ["Nesting","Lay parts on a standard sheet to see how many fit and what the scrap really costs.",["{sheet} and custom sheets"+PRO,"Sheet yield in percent","Scrap cost added to each part","Mix different parts on one sheet"]],
+        ["3D printing","Drop in a STEP or 3MF model and get the cost per piece, including machine time.",["Volume and grams of filament"+PRO,"Print time estimate","PLA, PETG, ABS, nylon and more","Machine rate and failure margin"]],
+        ["Machining","Estimate milling and turning from stock size and operations, priced with your shop rate.",["Stock size and material removal","Cycle time per operation","Shop rate and setup per order","Aluminum, steel, brass and plastics"]],
+        ["Engineer tools","The small calculations that interrupt your day, solved in one place.",["Unit converter for length, mass, pressure, torque","Full diameter from a partial arc","Materials with density and price","Clean PDF quotes"+PRO]]],
+    uk:[["Листовий метал","Відкрийте DXF, і InCost прочитає кожен контур та порахує деталь за вашою ставкою лазера.",["Довжина різу і кількість врізок"+PRO,"Вага заготовки з бібліотеки матеріалів","Час лазера за товщиною і матеріалом","Налагодження розподіляється на замовлення"]],
+        ["Розкрій","Розкладіть деталі на стандартному листі й побачте, скільки влізе і скільки насправді коштують відходи.",["Листи {sheet} і власні розміри"+PRO,"Використання листа у відсотках","Вартість відходів у кожній деталі","Різні деталі на одному листі"]],
+        ["3D-друк","Завантажте модель STEP або 3MF і отримайте вартість за штуку разом з машинним часом.",["Об'єм і грами філаменту"+PRO,"Оцінка часу друку","PLA, PETG, ABS, нейлон та інші","Ставка принтера і запас на брак"]],
+        ["Мехобробка","Оцінка фрезерування і токарки за розміром заготовки й операціями з вашою ставкою.",["Розмір заготовки і знімання матеріалу","Час циклу на операцію","Ставка цеху і налагодження","Алюміній, сталь, латунь і пластики"]],
+        ["Інструменти інженера","Дрібні розрахунки, які відволікають щодня, зібрані в одному місці.",["Конвертер довжини, маси, тиску, моменту","Повний діаметр за частиною дуги","Матеріали з густиною і ціною","Охайні PDF-кошториси"+PRO]]],
+    de:[["Blech","DXF öffnen: InCost liest jede Kontur und kalkuliert das Teil mit Ihrem Lasersatz.",["Schnittlänge und Einstiche"+PRO,"Rohteilgewicht aus der Werkstoffbibliothek","Laserzeit nach Dicke und Werkstoff","Rüstkosten auf den Auftrag verteilt"]],
+        ["Verschachtelung","Teile auf einer Standardtafel anordnen und sehen, wie viele passen und was der Verschnitt kostet.",["{sheet} und eigene Tafeln"+PRO,"Ausnutzung in Prozent","Verschnittkosten pro Teil","Verschiedene Teile auf einer Tafel"]],
+        ["3D-Druck","STEP- oder 3MF-Modell laden und Kosten pro Stück inklusive Maschinenzeit erhalten.",["Volumen und Gramm Filament"+PRO,"Geschätzte Druckzeit","PLA, PETG, ABS, Nylon und mehr","Maschinensatz und Ausschussreserve"]],
+        ["Zerspanung","Fräsen und Drehen aus Rohteilgröße und Arbeitsgängen schätzen, mit Ihrem Stundensatz.",["Rohteilgröße und Zerspanvolumen","Zykluszeit pro Arbeitsgang","Stundensatz und Rüsten pro Auftrag","Aluminium, Stahl, Messing und Kunststoffe"]],
+        ["Ingenieur-Tools","Die kleinen Rechnungen, die den Tag unterbrechen, an einem Ort.",["Umrechner für Länge, Masse, Druck, Drehmoment","Voller Durchmesser aus Teilbogen","Werkstoffe mit Dichte und Preis","Saubere PDF-Angebote"+PRO]]],
+    es:[["Chapa","Abre un DXF: InCost lee cada contorno y calcula la pieza con tu tarifa de láser.",["Longitud de corte y perforaciones"+PRO,"Peso desde la biblioteca de materiales","Tiempo láser por espesor y material","Preparación repartida en el pedido"]],
+        ["Anidado","Coloca piezas en una lámina estándar y ve cuántas caben y cuánto cuesta el desperdicio.",["Láminas {sheet} y a medida"+PRO,"Aprovechamiento en porcentaje","Costo del desperdicio en cada pieza","Piezas distintas en una lámina"]],
+        ["Impresión 3D","Carga un modelo STEP o 3MF y obtén el costo por pieza con tiempo de máquina.",["Volumen y gramos de filamento"+PRO,"Tiempo de impresión estimado","PLA, PETG, ABS, nylon y más","Tarifa de máquina y margen de fallos"]],
+        ["Mecanizado","Estima fresado y torneado a partir del tocho y las operaciones, con tu tarifa.",["Tamaño del tocho y material removido","Tiempo de ciclo por operación","Tarifa del taller y preparación","Aluminio, acero, latón y plásticos"]],
+        ["Herramientas","Los pequeños cálculos que interrumpen tu día, en un solo lugar.",["Conversor de longitud, masa, presión, par","Diámetro completo desde un arco parcial","Materiales con densidad y precio","Cotizaciones PDF limpias"+PRO]]],
+    pl:[["Blacha","Otwórz DXF: InCost odczyta każdy kontur i wyceni część według twojej stawki lasera.",["Długość cięcia i liczba przebić"+PRO,"Masa wykroju z biblioteki materiałów","Czas lasera wg grubości i materiału","Przezbrojenie rozłożone na zamówienie"]],
+        ["Nesting","Ułóż części na standardowym arkuszu i zobacz, ile się zmieści i ile kosztuje odpad.",["Arkusze {sheet} i własne"+PRO,"Wykorzystanie arkusza w procentach","Koszt odpadu w każdej części","Różne części na jednym arkuszu"]],
+        ["Druk 3D","Wczytaj model STEP lub 3MF i dostań koszt sztuki z czasem maszyny.",["Objętość i gramy filamentu"+PRO,"Szacowany czas druku","PLA, PETG, ABS, nylon i inne","Stawka maszyny i zapas na braki"]],
+        ["Obróbka","Szacuj frezowanie i toczenie z wymiaru półfabrykatu i operacji, według twojej stawki.",["Półfabrykat i usuwany materiał","Czas cyklu na operację","Stawka warsztatu i przezbrojenie","Aluminium, stal, mosiądz i tworzywa"]],
+        ["Narzędzia inżyniera","Drobne obliczenia, które przerywają dzień, w jednym miejscu.",["Konwerter długości, masy, ciśnienia, momentu","Pełna średnica z części łuku","Materiały z gęstością i ceną","Czytelne oferty PDF"+PRO]]]
+  };
+
+  function t(k){return S[LANG][k]}
+  function fmt(v,d){return v.toLocaleString(LANG==="uk"?"uk-UA":LANG==="de"?"de-DE":LANG==="es"?"es-ES":LANG==="pl"?"pl-PL":"en-US",{minimumFractionDigits:d,maximumFractionDigits:d})}
+  function money(v,d){return "$"+fmt(v,d)}
+
+  /* ===== live quote — sample data ===== */
+  var MAT={crs:{d:.284,p:.75,k:1},al:{d:.0975,p:3.2,k:1.15},ss:{d:.289,p:2.4,k:.75}};
+  var SP=[[.048,260],[.060,220],[.075,180],[.120,110]]; // laser speed in/min by thickness in
+  function speed(t){if(t<=SP[0][0])return SP[0][1];for(var i=1;i<SP.length;i++)if(t<=SP[i][0]){var a=SP[i-1],b=SP[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0])}var z=SP[SP.length-1];return z[1]*z[0]/t}
+  var shown=0,raf;
+  function n(id,lo,hi){var v=parseFloat($(id).value);if(!isFinite(v)||v<lo)v=lo;if(hi!=null&&v>hi)v=hi;return v}
+  function row(a,b){return "<div><span>"+a+"</span><b>"+b+"</b></div>"}
+  function tween(to){
+    if(reduce){$("unit").textContent=money(to,2);shown=to;return}
+    var from=shown,t0=performance.now();cancelAnimationFrame(raf);
+    (function s(tm){var k=Math.min(1,(tm-t0)/450),e=1-Math.pow(1-k,3);shown=from+(to-from)*e;$("unit").textContent=money(shown,2);if(k<1)raf=requestAnimationFrame(s)})(t0);
+  }
+  function calc(){
+    var mm=UNIT==="mm",k=mm?1/25.4:1,m=MAT[$("mat").value];
+    var w=n("w",mm?12:.5,mm?1500:60)*k,h=n("h",mm?12:.5,mm?1500:60)*k,th=(+$("th").value)*k;
+    var ho=Math.round(n("holes",0,8)),q=Math.round(n("qty",1)),hd=mm?6/25.4:.25,off=mm?12/25.4:.5;
+    var lb=(w*h-ho*Math.PI*hd*hd/4)*th*m.d,mc=lb*1.12*m.p,cl=2*(w+h)+ho*Math.PI*hd,cm=cl/(speed(th)*m.k)+(ho+1)*1.2/60,cc=cm*2,su=35/q,u=(mc+cc+su)*1.15;
+    var wt=mm?fmt(lb*.45359237,3)+" "+kgW():fmt(lb,3)+" lb",cut=mm?fmt(Math.round(cl*25.4),0)+" "+mmW():fmt(cl,1)+" in";
+    $("ln").innerHTML=row(t("w"),wt)+row(t("c"),cut)+row(t("m"),money(mc,2))+row(t("l"),fmt(cm,2)+" "+t("min"))+row(t("s"),money(su,2))+row(t("o"),money(u*q,2));
+    tween(u);
+    var s=Math.min(184/w,94/h),pw=w*s,ph=h*s,x=(220-pw)/2,y=(130-ph)/2+4,r=Math.max(2.2,hd/2*s),o='<rect x="'+x+'" y="'+y+'" width="'+pw+'" height="'+ph+'" rx="3" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>';
+    var P=[[off,off],[w-off,off],[w-off,h-off],[off,h-off],[w/2,off],[w/2,h-off],[off,h/2],[w-off,h/2]];
+    for(var i=0;i<ho;i++)o+='<circle cx="'+(x+P[i][0]*s)+'" cy="'+(y+P[i][1]*s)+'" r="'+r+'" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.3"/>';
+    o+='<text x="'+(x+pw/2)+'" y="'+(y-5)+'" text-anchor="middle" font-size="9" font-family="Consolas,monospace" fill="var(--ink-2)">'+(mm?Math.round(w*25.4):+w.toFixed(2))+' '+lenW()+'</text>';
+    $("sk").innerHTML=o;
+  }
+  ["mat","th","w","h","holes","qty"].forEach(function(i){$(i).addEventListener("input",calc)});
+
+  /* ===== feature tabs ===== */
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]')),pnl=$("pnl"),cur=0;
+  function show(i,focus){
+    cur=i;
+    tabs.forEach(function(tb,j){tb.setAttribute("aria-selected",j===i);tb.tabIndex=j===i?0:-1});
+    var d=T[LANG][i];pnl.setAttribute("aria-labelledby","t"+i);
+    pnl.innerHTML='<div><h3>'+d[0]+'</h3><p>'+d[1]+'</p><ul>'+d[2].map(function(x){return "<li>"+CK+"<span>"+uTok(x)+"</span></li>"}).join("")+'</ul></div>'+uTok(SVG[i]);
+    pnl.style.animation="none";void pnl.offsetWidth;pnl.style.animation="";
+    if(focus)tabs[i].focus();
+  }
+  tabs.forEach(function(tb,i){
+    tb.addEventListener("click",function(){show(i)});
+    tb.addEventListener("keydown",function(e){var k=e.key,j=i;if(k==="ArrowDown"||k==="ArrowRight")j=(i+1)%tabs.length;else if(k==="ArrowUp"||k==="ArrowLeft")j=(i-1+tabs.length)%tabs.length;else return;e.preventDefault();show(j,true)});
+  });
+
+  /* ===== ROI: payback measured in quotes, plus monthly return multiple ===== */
+  var PRICE=19,AFTER=3;
+  function flash(el){if(reduce)return;el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")}
+  function plural(n){var f=S[LANG].quotes,cat=new Intl.PluralRules(LANG).select(n);return f[cat]||f.other}
+  var lastPay="",lastMult="";
+  function roi(){
+    var q=+$("q").value,m=+$("m").value,r=+$("r").value,saved=Math.max(0,m-AFTER);
+    var perQuote=saved/60*r;                       // $ saved on one quote
+    var hrs=q*saved*52/12/60, usd=hrs*r;           // per month
+    $("qo").textContent=q;$("mo").textContent=m+" "+t("min");$("ro").textContent="$"+r;
+    $("hrs").textContent=fmt(hrs,hrs<10?1:0)+" "+t("h");
+    $("usd").textContent=money(Math.round(usd),0);
+    var pay,mult;
+    if(perQuote<=0){pay="—";mult=t("none")}
+    else{
+      var need=Math.ceil(PRICE/perQuote);
+      pay=need<=1?t("first"):need+" "+plural(need);
+      var x=usd/PRICE;
+      mult=t("mult").replace("{n}",fmt(x,x<10?1:0));
+    }
+    if(pay!==lastPay){$("pay").textContent=pay;flash($("pay"));lastPay=pay}
+    if(mult!==lastMult){$("mult").innerHTML=mult;lastMult=mult}
+  }
+  ["q","m","r"].forEach(function(i){$(i).addEventListener("input",roi)});
+
+  /* ===== pricing switch ===== */
+  var yearly=false;
+  function bill(y){yearly=y;$("bm").setAttribute("aria-pressed",!y);$("by").setAttribute("aria-pressed",y);$("pv").textContent=y?"$159":"$19";$("pp").textContent=y?t("yr"):t("mo")}
+  $("bm").addEventListener("click",function(){bill(false)});$("by").addEventListener("click",function(){bill(true)});
+
+  /* ===== units: English → inches/lb/gauge, other languages → mm/kg ===== */
+  var UNIT="in";
+  var TH={in:[["0.048","18 ga · 0.048 in"],["0.060","16 ga · 0.060 in"],["0.075","14 ga · 0.075 in"],["0.120","11 ga · 0.120 in"]],mm:[["1.0"],["1.5"],["2.0"],["3.0"]]};
+  function mmW(){return LANG==="uk"?"мм":"mm"}
+  function kgW(){return LANG==="uk"?"кг":"kg"}
+  function lenW(){return UNIT==="in"?"in":mmW()}
+  function uTok(s){var mm=UNIT==="mm";return s.replace(/\{cut\}/g,mm?"696 "+mmW():"27.4 in").replace(/\{sheet\}/g,mm?"1250 × 2500 "+mmW():"48 × 96 in").replace(/\{dia\}/g,mm?"Ø 101.6 "+mmW():"Ø 4.000 in").replace(/\{conv\}/g,mm?"1.5 "+mmW()+" = 0.059 in":"0.060 in = 1.524 mm")}
+  function setUnits(u,convert){
+    var prev=UNIT,mm=u==="mm",sel=$("th"),idx=sel.selectedIndex<0?1:sel.selectedIndex;UNIT=u;
+    sel.innerHTML=TH[u].map(function(o){return '<option value="'+o[0]+'">'+(mm?fmt(+o[0],1)+" "+mmW():o[1])+'</option>'}).join("");
+    sel.selectedIndex=idx;
+    if(convert&&prev!==u)["w","h"].forEach(function(id){var v=parseFloat($(id).value);if(isFinite(v))$(id).value=mm?Math.round(v*25.4):+(v/25.4).toFixed(1)});
+    ["w","h"].forEach(function(id){var el=$(id);el.min=mm?12:.5;el.max=mm?1500:60;el.step=mm?1:.1});
+    [].forEach.call(document.querySelectorAll(".uu"),function(el){el.textContent=lenW()});
+    $("uho").textContent=mm?"Ø6 "+mmW():"Ø0.25 in";
+    $("umm").textContent=mmW();
+    $("uin").setAttribute("aria-pressed",!mm);$("umm").setAttribute("aria-pressed",mm);
+    calc();
+  }
+  $("uin").addEventListener("click",function(){setUnits("in",true);show(cur)});
+  $("umm").addEventListener("click",function(){setUnits("mm",true);show(cur)});
+
+  /* ===== contact — edit these three values ===== */
+  var CONTACT={
+    email:"hello@incost.app",
+    telegram:"incost_app",      // without @; leave "" to hide the Telegram card
+    formEndpoint:""             // e.g. "https://formspree.io/f/xxxxxxx"; empty = form opens the visitor's email app
+  };
+  function tr(k){return (D[LANG]&&D[LANG][k])||D.en[k]||k}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function renderContact(){
+    $("cmail").textContent=CONTACT.email;$("fmail").textContent=CONTACT.email;
+    if(CONTACT.telegram){$("ctg").href="https://t.me/"+CONTACT.telegram;$("ctg").textContent="@"+CONTACT.telegram;$("chtg").hidden=false}else $("chtg").hidden=true;
+  }
+  function selectEl(el){if(el.select){el.focus();el.select();return}var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+  function copy(text,btn,el,key){
+    var ok=function(){btn.textContent=tr("ct.copied");btn.classList.add("ok");setTimeout(function(){btn.textContent=tr(key);btn.classList.remove("ok")},1600)};
+    var no=function(){selectEl(el)};
+    try{navigator.clipboard.writeText(text).then(ok,no)}catch(e){no()}
+  }
+  $("ccopy").addEventListener("click",function(){copy(CONTACT.email,this,$("cmail"),"ct.copy")});
+  var form=$("cform"),st=$("cstat"),lastFull="";
+  function status(kind,html){st.hidden=false;st.className="status "+kind;st.innerHTML=html}
+  function copyBtn(){return '<button type="button" class="copy" id="cmcopy">'+esc(tr("ct.copyMsg"))+'</button>'}
+  st.addEventListener("click",function(e){if(e.target.id==="cmcopy")copy(lastFull,e.target,$("cm"),"ct.copyMsg")});
+  form.addEventListener("input",function(e){var f=e.target.closest(".f");if(f){f.classList.remove("bad");e.target.removeAttribute("aria-invalid")}});
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var name=$("cn").value.trim(),mail=$("ce").value.trim(),sel=$("ctp"),topic=sel.options[sel.selectedIndex].text,msg=$("cm").value.trim();
+    var bad={cn:!name,ce:!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail),cm:msg.length<10};
+    Object.keys(bad).forEach(function(id){$(id).closest(".f").classList.toggle("bad",bad[id]);if(bad[id])$(id).setAttribute("aria-invalid","true")});
+    if(bad.cn||bad.ce||bad.cm){status("err",esc(tr("ct.fill")));return}
+    lastFull=msg+"\n\n— "+name+" <"+mail+">";
+    var em="<b>"+esc(CONTACT.email)+"</b>";
+    if(CONTACT.formEndpoint){
+      var b=$("csend");b.disabled=true;
+      fetch(CONTACT.formEndpoint,{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({name:name,email:mail,topic:topic,message:msg,lang:LANG})})
+        .then(function(r){if(!r.ok)throw new Error(r.status);status("ok",esc(tr("ct.sent")));form.reset()})
+        .catch(function(){status("err","<span>"+esc(tr("ct.fail")).replace("{email}",em)+"</span>"+copyBtn())})
+        .then(function(){b.disabled=false});
+    }else{
+      try{location.href="mailto:"+CONTACT.email+"?subject="+encodeURIComponent("InCost: "+topic)+"&body="+encodeURIComponent(lastFull)}catch(x){}
+      status("","<span>"+esc(tr("ct.mailto")).replace("{email}",em)+"</span>"+copyBtn());
+    }
+  });
+
+  /* ===== language ===== */
+  var nodes=[].slice.call(document.querySelectorAll("[data-i]")),phs=[].slice.call(document.querySelectorAll("[data-ip]"));
+  D.en={};nodes.forEach(function(el){var k=el.getAttribute("data-i");if(!(k in D.en))D.en[k]=el.innerHTML});
+  phs.forEach(function(el){D.en[el.getAttribute("data-ip")]=el.getAttribute("placeholder")});
+  var EN_X={"ct.copied":"Copied","ct.copyMsg":"Copy message",
+    "ct.fill":"Please add your name, a valid email and a message of at least 10 characters.",
+    "ct.sent":"Message sent. You'll get a reply within 1–2 business days.",
+    "ct.fail":"The message didn't go through. Copy it and email it to {email}.",
+    "ct.mailto":"Your email app should open with the message filled in. If it didn't, copy the message and send it to {email}."};
+  for(var kx in EN_X)if(!(kx in D.en))D.en[kx]=EN_X[kx];
+  function apply(lang,animate){
+    if(!D[lang])lang="en";LANG=lang;
+    document.documentElement.lang=lang;$("lang").value=lang;
+    var go=function(){
+      nodes.forEach(function(el){var v=D[lang][el.getAttribute("data-i")];if(v==null)v=D.en[el.getAttribute("data-i")];if(v!=null)el.innerHTML=v});
+      phs.forEach(function(el){el.placeholder=tr(el.getAttribute("data-ip"))});
+      st.hidden=true;renderContact();
+      lastPay=lastMult="";setUnits(lang==="en"?"in":"mm",true);roi();show(cur);bill(yearly);
+      document.querySelector("main").classList.remove("swap");
+    };
+    if(animate&&!reduce){document.querySelector("main").classList.add("swap");setTimeout(go,160)}else go();
+  }
+  $("lang").addEventListener("change",function(){var v=this.value;try{localStorage.setItem("incost-lang",v)}catch(e){}apply(v,true)});
+  var start="en";
+  try{var saved=localStorage.getItem("incost-lang");if(saved&&D[saved])start=saved}catch(e){}
+  if(start==="en"){var nl=(navigator.language||"en").slice(0,2).toLowerCase();if(nl==="ru")nl="uk";if(D[nl])start=nl}
+  apply(start,false);
+
+  /* ===== mobile sticky CTA ===== */
+  var mc=$("mcta"),get=$("get"),tk=false;
+  function sc(){var g=get.getBoundingClientRect().top;mc.classList.toggle("show",scrollY>520&&g>innerHeight*.6);tk=false}
+  addEventListener("scroll",function(){if(!tk){tk=true;requestAnimationFrame(sc)}},{passive:true});sc();
+})();
+</script>
+</body>
+</html>
