@@ -1224,10 +1224,22 @@ main.swap{opacity:.4}
     if(animate&&!reduce){document.querySelector("main").classList.add("swap");setTimeout(go,160)}else go();
   }
   $("lang").addEventListener("change",function(){var v=this.value;try{localStorage.setItem("incost-lang",v)}catch(e){}apply(v,true)});
-  var start="en";
-  try{var saved=localStorage.getItem("incost-lang");if(saved&&D[saved])start=saved}catch(e){}
-  if(start==="en"){var nl=(navigator.language||"en").slice(0,2).toLowerCase();if(nl==="ru")nl="uk";if(D[nl])start=nl}
-  apply(start,false);
+  /* Language: 1) the visitor's own choice, 2) country of the visitor, 3) English */
+  var GEO_LANG={UA:"uk",PL:"pl",DE:"de",AT:"de",LI:"de",ES:"es",MX:"es",AR:"es",CO:"es",CL:"es",PE:"es",VE:"es",EC:"es",GT:"es",CU:"es",BO:"es",DO:"es",HN:"es",PY:"es",SV:"es",NI:"es",CR:"es",PA:"es",UY:"es",PR:"es",GQ:"es"};
+  var saved=null;
+  try{saved=localStorage.getItem("incost-lang");if(!D[saved])saved=null}catch(e){}
+  apply(saved||"en",false);
+  if(!saved){
+    var cached=null;try{cached=sessionStorage.getItem("incost-geo")}catch(e){}
+    var useCountry=function(cc){var l=GEO_LANG[String(cc||"").toUpperCase()];if(l&&l!==LANG)apply(l,true)};
+    if(cached!==null)useCountry(cached);
+    else{
+      var ctl=window.AbortController?new AbortController():null,tm=setTimeout(function(){ctl&&ctl.abort()},2500);
+      fetch("https://api.incost.app/geo",{cache:"no-store",signal:ctl&&ctl.signal}).then(function(r){return r.json()}).then(function(j){
+        clearTimeout(tm);var cc=(j&&j.country)||"";try{sessionStorage.setItem("incost-geo",cc)}catch(e){}useCountry(cc);
+      }).catch(function(){clearTimeout(tm)});
+    }
+  }
 
   /* ===== mobile sticky CTA ===== */
   var mc=$("mcta"),get=$("get"),tk=false;
