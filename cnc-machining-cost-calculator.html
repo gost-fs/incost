@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CNC Machining Cost Calculator — Price per Part by Quantity | InCost</title>
+<meta name="description" content="Free CNC machining cost calculator. Stock material, cycle time, setup, programming, shop rate and margin, with price per part from 1 to 500 pieces. Aluminum, steel, stainless, brass, plastics.">
+<link rel="canonical" href="https://incost.app/cnc-machining-cost-calculator.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0B5CFF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="InCost">
+<meta property="og:url" content="https://incost.app/cnc-machining-cost-calculator.html">
+<meta property="og:title" content="CNC Machining Cost Calculator — free online">
+<meta property="og:description" content="Free CNC machining cost calculator. Stock material, cycle time, setup, programming, shop rate and margin, with price per part from 1 to 500 pieces. Aluminum, steel, stainless, brass, plastics.">
+<meta property="og:image" content="https://incost.app/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "CNC Machining Cost Calculator", "url": "https://incost.app/cnc-machining-cost-calculator.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "description": "Free CNC machining cost calculator. Stock material, cycle time, setup, programming, shop rate and margin, with price per part from 1 to 500 pieces. Aluminum, steel, stainless, brass, plastics.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "InCost", "url": "https://incost.app/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "InCost", "item": "https://incost.app/"}, {"@type": "ListItem", "position": 2, "name": "Free calculators", "item": "https://incost.app/#tools"}, {"@type": "ListItem", "position": 3, "name": "CNC Machining Cost Calculator", "item": "https://incost.app/cnc-machining-cost-calculator.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does CNC machining cost per hour?", "acceptedAnswer": {"@type": "Answer", "text": "In the US, 3-axis CNC milling typically costs $75–120 per hour and 5-axis $120–200 per hour. In Europe rates are usually €50–100 per hour."}}, {"@type": "Question", "name": "Why is a single CNC part so expensive?", "acceptedAnswer": {"@type": "Answer", "text": "Programming and setup can take 1–2 hours regardless of quantity. On one part the whole setup cost is in the price; on 100 parts it is spread thin."}}, {"@type": "Question", "name": "How much stock should I add around the part?", "acceptedAnswer": {"@type": "Answer", "text": "Usually 1/8 in (3 mm) per side for blocks and 1/16–1/8 in on diameter for round bar, plus the saw cut. The calculator adds 5% to the stock weight for the saw cut."}}, {"@type": "Question", "name": "Which is cheaper to machine, aluminum or steel?", "acceptedAnswer": {"@type": "Answer", "text": "Aluminum is usually cheaper overall. It costs more per pound than mild steel, but it machines three to five times faster, so machine time, the biggest cost, is much lower."}}, {"@type": "Question", "name": "Can InCost estimate machining from a STEP file?", "acceptedAnswer": {"@type": "Answer", "text": "InCost reads STEP models, recognizes turned, milled and sheet metal parts, and estimates cost. It can also create shop drawings from the model."}}]}]}</script>
+<style>
+:root{--bg:#FFFFFF;--bg-2:#F5F7FA;--ink:#111418;--ink-2:#5B6472;--line:#E3E7ED;--accent:#0B5CFF;--accent-ink:#FFFFFF;--accent-soft:#EBF1FF;--good:#0C8A5B;--bad:#C2410C;
+--font:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-display:"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,"SF Pro Display",Roboto,Arial,sans-serif;
+--font-mono:"Cascadia Mono",Consolas,ui-monospace,"SF Mono",Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1013;--bg-2:#161A20;--ink:#EEF1F5;--ink-2:#9AA3B0;--line:#262C35;--accent:#4C86FF;--accent-soft:#16233F;--good:#34C78A;--bad:#F08A4B;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:10}
+.nav{display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:flex;align-items:center;gap:9px;font:700 19px/1 var(--font-display);text-decoration:none;color:var(--ink);letter-spacing:-.02em}
+.nav .sp{flex:1}
+.nav a.lnk{color:var(--ink-2);text-decoration:none;font-size:15px}
+.nav a.lnk:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:12px;font:600 15px/1.2 var(--font);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-secondary{border-color:var(--line);background:var(--bg);color:var(--ink)}
+@media (max-width:640px){.nav a.lnk{display:none}.nav .btn{padding:0 14px}}
+.crumbs{font-size:14px;color:var(--ink-2);padding-top:22px}
+.crumbs a{color:var(--ink-2);text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,46px);margin:10px 0 12px}
+.lead{font-size:19px;color:var(--ink-2);max-width:44em;margin:0}
+.calc{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:28px 0 20px;background:var(--bg)}
+.calc>*{min-width:0}
+.inputs{padding:24px;display:grid;gap:14px;align-content:start;border-right:1px solid var(--line)}
+.out{padding:24px;background:var(--bg-2);display:grid;gap:14px;align-content:start}
+.f{display:grid;gap:5px;align-content:start}
+.f label{font-size:13px;font-weight:600;color:var(--ink-2)}
+.f input,.f select{width:100%;min-height:42px;font:16px var(--font);padding:0 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.f input:focus,.f select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.f small{font-size:12px;color:var(--ink-2)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);justify-self:start}
+.seg button{all:unset;cursor:pointer;padding:6px 14px;border-radius:8px;font:600 14px var(--font);color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 4px rgba(10,30,80,.15)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.big{font:700 clamp(34px,4.4vw,46px)/1 var(--font-display);letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.big small{font:500 16px var(--font);color:var(--ink-2);letter-spacing:0}
+.lbl{font-size:13px;font-weight:600;color:var(--ink-2)}
+.lines{display:grid;gap:7px;font-size:15px;font-variant-numeric:tabular-nums}
+.lines div{display:flex;justify-content:space-between;gap:10px;color:var(--ink-2);border-bottom:1px dashed var(--line);padding-bottom:6px}
+.lines b{color:var(--ink);font-weight:600;text-align:right}
+.err{color:var(--bad);font-size:14px;font-weight:600}
+.bar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+table.q{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+table.q th,table.q td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right}
+table.q th:first-child,table.q td:first-child{text-align:left}
+table.q th{color:var(--ink-2);font-weight:600}
+@media (max-width:820px){.calc{grid-template-columns:1fr}.inputs{border-right:0;border-bottom:1px solid var(--line)}}
+@media (max-width:420px){.r3{grid-template-columns:1fr 1fr}}
+.cta{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;border-radius:18px;padding:24px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);margin:8px 0 48px}
+.cta>*{min-width:0}
+.cta h2{font-size:22px;margin-bottom:6px}
+.cta p{margin:0;color:var(--ink-2)}
+@media (max-width:700px){.cta{grid-template-columns:1fr}}
+article{max-width:760px}
+article h2{font-size:28px;margin:44px 0 12px}
+article h3{font-size:20px;margin:26px 0 8px}
+article p,article li{color:var(--ink)}
+article ul,article ol{padding-left:22px}
+.formula{font-family:var(--font-mono);font-size:14px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;white-space:pre}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:12px 0}
+.tbl table{width:100%;border-collapse:collapse;font-size:15px;min-width:460px}
+.tbl th,.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th{background:var(--bg-2);font-size:13px;color:var(--ink-2)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:16px 0;font-weight:600}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:0 0 16px;color:var(--ink-2)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 56px}
+.tools a{display:grid;gap:4px;padding:16px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--ink);background:var(--bg)}
+.tools a:hover{border-color:var(--accent)}
+.tools b{font-size:16px}
+.tools span{font-size:14px;color:var(--ink-2)}
+footer{border-top:1px solid var(--line);padding-block:26px 40px;font-size:14px;color:var(--ink-2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{color:var(--ink-2);text-decoration:none}
+</style>
+<!--ANALYTICS-->
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+<a class="logo" href="./"><svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#0B5CFF"/><path d="M9.5 20V8m5 12v-7.5h3.4a3.4 3.4 0 0 1 0 6.8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>InCost</a><span class="sp"></span>
+<a class="lnk" href="./#tools">Free calculators</a><a class="lnk" href="./#pricing">Pricing</a>
+<a class="btn btn-primary" href="./#get">Download InCost</a>
+</div></header>
+<main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="./">InCost</a> › <a href="./#tools">Free calculators</a> › CNC Machining Cost Calculator</nav>
+<h1>CNC Machining Cost Calculator</h1>
+<p class="lead">Estimate the cost of a CNC milled or turned part from stock, cycle time, setup and shop rate, and see how the price changes with quantity.</p>
+
+<section class="calc" aria-label="CNC machining cost calculator">
+<div class="inputs">
+<div class="seg" id="units" role="group" aria-label="Units"><button type="button" data-v="in" aria-pressed="true">Inches · lb</button><button type="button" data-v="mm" aria-pressed="false">Millimeters · kg</button></div>
+<div class="r2"><div class="f"><label for="mat">Material</label><select id="mat"><option value="0">Aluminum 6061-T6 · $4.5/lb</option><option value="1">Aluminum 7075-T6 · $9.0/lb</option><option value="2">Steel 1018 · $1.2/lb</option><option value="3">Steel 4140 · $2.0/lb</option><option value="4">Stainless 304 · $3.5/lb</option><option value="5">Stainless 316 · $4.5/lb</option><option value="6">Brass C360 · $4.5/lb</option><option value="7">Titanium Gr 5 · $30.0/lb</option><option value="8">Delrin (POM) · $5.0/lb</option><option value="9">Nylon 6/6 · $4.0/lb</option><option value="10">PEEK · $60.0/lb</option></select></div>
+<div class="f"><label for="stock">Stock</label><select id="stock"><option value="block">Block / plate</option><option value="bar">Round bar</option></select></div></div>
+<div class="r3" id="dims"></div>
+<div class="r3"><div class="f"><label for="cyc">Cycle time, min</label><input id="cyc" type="number" inputmode="decimal" step="any" min="0" value="12"><small>Machine time per part</small></div>
+<div class="f"><label for="setup">Setup, min</label><input id="setup" type="number" inputmode="numeric" step="1" min="0" value="60"><small>Per order</small></div>
+<div class="f"><label for="prog">Programming, min</label><input id="prog" type="number" inputmode="numeric" step="1" min="0" value="45"><small>One time</small></div></div>
+<div class="r3"><div class="f"><label for="rate">Shop rate, $/h</label><input id="rate" type="number" inputmode="decimal" step="1" min="0" value="85"></div>
+<div class="f"><label for="fin">Finishing, $/part</label><input id="fin" type="number" inputmode="decimal" step="0.01" min="0" value="0"><small>Anodize, plating</small></div>
+<div class="f"><label for="mg">Margin, %</label><input id="mg" type="number" inputmode="numeric" step="1" min="0" value="20"></div></div>
+<div class="r2"><div class="f"><label for="qty">Quantity</label><input id="qty" type="number" inputmode="numeric" step="1" min="1" value="10"></div>
+<div class="f"><label for="mp" id="mpL">Material price, $/lb</label><input id="mp" type="number" inputmode="decimal" step="0.01" min="0" value="4.50"></div></div>
+</div>
+<div class="out" aria-live="polite">
+<div><div class="lbl">Price per part</div><div class="big" id="price">—</div></div>
+<div class="lines" id="lines"></div>
+<div><div class="lbl" style="margin-bottom:6px">Price per part by quantity</div><table class="q" id="qt"></table></div>
+<p class="err" id="err" hidden></p>
+</div>
+</section>
+<section class="cta">
+<div><h2>Quote real parts in seconds</h2><p>InCost does this automatically from your DXF, STEP and STL files: cut length, weight, nesting, machine time, PDF quotes and shop drawings. Free for Windows.</p></div>
+<a class="btn btn-primary" href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip">Download free for Windows</a>
+</section>
+<article>
+
+<h2>How CNC machining cost is calculated</h2>
+<p>A machined part costs the stock it is cut from, the machine time per part, and the setup and programming time shared across the order.</p>
+<div class="formula">Material   = stock volume × density × 1.05 × $/lb
+Machining  = cycle time × shop rate
+Setup      = (setup + programming time) × shop rate ÷ quantity
+Price      = (material + machining + setup + finishing) × (1 + margin)</div>
+<h3>Why one part costs so much more than ten</h3>
+<p>Programming and setting up a job can take one to two hours. On a single part that time is all yours; on a hundred parts it is a few cents each. The quantity table shows how fast the unit price falls.</p>
+<h3>Typical CNC shop rates</h3>
+<div class="tbl"><table><thead><tr><th>Machine</th><th>Typical US rate</th></tr></thead><tbody>
+<tr><td>Manual mill or lathe</td><td>$50–75 / h</td></tr><tr><td>3-axis CNC mill</td><td>$75–120 / h</td></tr>
+<tr><td>CNC lathe</td><td>$70–110 / h</td></tr><tr><td>5-axis CNC mill</td><td>$120–200 / h</td></tr><tr><td>Swiss-type lathe</td><td>$90–150 / h</td></tr></tbody></table></div>
+<h2>How to estimate cycle time</h2>
+<p>Add the time of each operation: roughing, finishing, drilling and tapping, plus tool changes and part loading. For a quick first estimate, divide the volume of material removed by a realistic removal rate, for example 1–3 in³/min in aluminum on a typical 3-axis mill and 0.2–0.5 in³/min in steel.</p>
+<p><a href="./">InCost</a> estimates milling and turning from stock size and operations, keeps your shop rates and materials, and prints quotes and travelers with setup and cycle times.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<div class="faq"><details><summary>How much does CNC machining cost per hour?</summary><p>In the US, 3-axis CNC milling typically costs $75–120 per hour and 5-axis $120–200 per hour. In Europe rates are usually €50–100 per hour.</p></details><details><summary>Why is a single CNC part so expensive?</summary><p>Programming and setup can take 1–2 hours regardless of quantity. On one part the whole setup cost is in the price; on 100 parts it is spread thin.</p></details><details><summary>How much stock should I add around the part?</summary><p>Usually 1/8 in (3 mm) per side for blocks and 1/16–1/8 in on diameter for round bar, plus the saw cut. The calculator adds 5% to the stock weight for the saw cut.</p></details><details><summary>Which is cheaper to machine, aluminum or steel?</summary><p>Aluminum is usually cheaper overall. It costs more per pound than mild steel, but it machines three to five times faster, so machine time, the biggest cost, is much lower.</p></details><details><summary>Can InCost estimate machining from a STEP file?</summary><p>InCost reads STEP models, recognizes turned, milled and sheet metal parts, and estimates cost. It can also create shop drawings from the model.</p></details></div>
+</article>
+<h2 style="font-size:26px;margin-top:48px">More free calculators</h2>
+<div class="tools"><a href="metal-weight-calculator.html"><b>Metal Weight Calculator</b><span>Steel, aluminum, stainless, brass and copper weight for plate, bar, tube and angle</span></a><a href="3d-print-cost-calculator.html"><b>3D Print Cost Calculator</b><span>Filament, electricity, machine wear, labor and selling price per print</span></a><a href="laser-cutting-cost-calculator.html"><b>Laser Cutting Cost Calculator</b><span>Sheet metal part price from cut length, pierces, material and machine rate</span></a><a href="./"><b>InCost for Windows</b><span>Quote parts from DXF and STEP files, nesting and shop drawings</span></a></div>
+</main>
+<footer><div class="wrap foot"><span>© 2026 InCost · hello@incost.app</span>
+<nav><a href="./">Home</a><a href="./#tools">Calculators</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav></div></footer>
+<script>(function(){
+var $=function(id){return document.getElementById(id)};
+function num(id){var v=parseFloat(String($(id).value).replace(",","."));return isFinite(v)?v:NaN}
+function f(v,d){return v.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d})}
+function money(v){return "$"+f(v,2)}
+function row(a,b){return "<div><span>"+a+"</span><b>"+b+"</b></div>"}
+function seg(id,cb){var s=$(id);[].forEach.call(s.querySelectorAll("button"),function(b){b.addEventListener("click",function(){[].forEach.call(s.querySelectorAll("button"),function(x){x.setAttribute("aria-pressed",x===b)});cb(b.dataset.v)})})}
+function setSeg(id,v){[].forEach.call($(id).querySelectorAll("button"),function(x){x.setAttribute("aria-pressed",x.dataset.v===v)})}
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function defaultUnits(){var l=(navigator.language||"en-US");return /^en-(US|LR)|^my/i.test(l)?"in":"mm"}
+
+var CM=[["Aluminum 6061-T6", 2.7, 4.5], ["Aluminum 7075-T6", 2.81, 9.0], ["Steel 1018", 7.87, 1.2], ["Steel 4140", 7.85, 2.0], ["Stainless 304", 7.93, 3.5], ["Stainless 316", 8.0, 4.5], ["Brass C360", 8.5, 4.5], ["Titanium Gr 5", 4.43, 30.0], ["Delrin (POM)", 1.41, 5.0], ["Nylon 6/6", 1.14, 4.0], ["PEEK", 1.31, 60.0]];
+var ST={block:[["l","Length",4,100],["w","Width",3,75],["h","Height",1,25]],bar:[["d","Diameter",1.5,40],["l","Length",3,75]]};
+var U=load("incost-units")||defaultUnits();
+function build(conv){
+  var s=$("stock").value,u=U==="in"?"in":"mm";
+  $("dims").innerHTML=ST[s].map(function(d){return '<div class="f"><label for="d_'+d[0]+'">Stock '+d[1].toLowerCase()+', '+u+'</label><input id="d_'+d[0]+'" type="number" inputmode="decimal" step="any" min="0" value="'+(U==="in"?d[2]:d[3])+'"></div>'}).join("");
+  [].forEach.call($("dims").querySelectorAll("input"),function(i){i.addEventListener("input",calc)});
+  $("mpL").textContent=U==="in"?"Material price, $/lb":"Material price, $/kg";
+  if(conv){var p=num("mp");if(isFinite(p))$("mp").value=U==="mm"?(p*2.2046).toFixed(2):(p/2.2046).toFixed(2)}
+  calc();
+}
+function unitPrice(q,c){return (c.mat+c.cyc/60*c.rate+(c.setup+c.prog)/60*c.rate/q+c.fin)*(1+c.mg)}
+function calc(){
+  var mm=U==="mm",k=mm?0.1:2.54,g=function(n){return num("d_"+n)*k},m=CM[+$("mat").value],vol;
+  vol=$("stock").value==="block"?g("l")*g("w")*g("h"):Math.PI/4*Math.pow(g("d"),2)*g("l");
+  var err=vol>0?"":"Enter the stock size.";
+  $("err").hidden=!err;$("err").textContent=err;if(err){$("price").textContent="—";$("lines").innerHTML="";$("qt").innerHTML="";return}
+  var kg=vol*m[1]/1000*1.05,lb=kg*2.2046,mp=num("mp")||0,matC=mm?kg*mp:lb*mp;
+  var c={mat:matC,cyc:num("cyc")||0,setup:num("setup")||0,prog:num("prog")||0,rate:num("rate")||0,fin:num("fin")||0,mg:(num("mg")||0)/100};
+  var q=Math.max(1,Math.round(num("qty")||1)),price=unitPrice(q,c);
+  $("price").textContent=money(price);
+  $("lines").innerHTML=row("Stock ("+(mm?f(kg,3)+" kg":f(lb,3)+" lb")+" incl. 5% saw cut)",money(matC))
+    +row("Machining ("+f(c.cyc,1)+" min)",money(c.cyc/60*c.rate))
+    +row("Setup + programming per part",money((c.setup+c.prog)/60*c.rate/q))
+    +(c.fin?row("Finishing",money(c.fin)):"")
+    +row("Order total ("+q+" pcs)",money(price*q))
+    +row("Lead cost share of setup",f((c.setup+c.prog)/60*c.rate/q/(price/(1+c.mg))*100,0)+"%");
+  var qs=[1,5,10,25,50,100,500];
+  $("qt").innerHTML="<tr><th>Qty</th><th>Per part</th><th>Order</th></tr>"+qs.map(function(x){var p=unitPrice(x,c);return "<tr"+(x===q?' style="font-weight:700"':"")+"><td>"+x+"</td><td>"+money(p)+"</td><td>"+money(p*x)+"</td></tr>"}).join("");
+}
+$("mat").addEventListener("change",function(){var p=CM[+this.value][2];$("mp").value=U==="mm"?(p*2.2046).toFixed(2):p.toFixed(2);calc()});
+$("stock").addEventListener("change",function(){build(false)});
+["cyc","setup","prog","rate","fin","mg","qty","mp"].forEach(function(i){$(i).addEventListener("input",calc)});
+seg("units",function(v){if(v!==U){U=v;store("incost-units",v);build(true)}});
+setSeg("units",U);if(U==="mm")$("mp").value=(4.5*2.2046).toFixed(2);build(false);
+})();</script>
+</body>
+</html>

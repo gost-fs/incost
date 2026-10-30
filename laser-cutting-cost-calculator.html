@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Laser Cutting Cost Calculator — Sheet Metal Price per Part | InCost</title>
+<meta name="description" content="Free laser cutting cost calculator for sheet metal. Price per part from cut length, pierces, material, gauge or thickness, laser rate, setup and margin. Steel, stainless and aluminum.">
+<link rel="canonical" href="https://incost.app/laser-cutting-cost-calculator.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0B5CFF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="InCost">
+<meta property="og:url" content="https://incost.app/laser-cutting-cost-calculator.html">
+<meta property="og:title" content="Laser Cutting Cost Calculator — free online">
+<meta property="og:description" content="Free laser cutting cost calculator for sheet metal. Price per part from cut length, pierces, material, gauge or thickness, laser rate, setup and margin. Steel, stainless and aluminum.">
+<meta property="og:image" content="https://incost.app/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Laser Cutting Cost Calculator", "url": "https://incost.app/laser-cutting-cost-calculator.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "description": "Free laser cutting cost calculator for sheet metal. Price per part from cut length, pierces, material, gauge or thickness, laser rate, setup and margin. Steel, stainless and aluminum.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "InCost", "url": "https://incost.app/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "InCost", "item": "https://incost.app/"}, {"@type": "ListItem", "position": 2, "name": "Free calculators", "item": "https://incost.app/#tools"}, {"@type": "ListItem", "position": 3, "name": "Laser Cutting Cost Calculator", "item": "https://incost.app/laser-cutting-cost-calculator.html"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does laser cutting cost per hour?", "acceptedAnswer": {"@type": "Answer", "text": "Shop rates for fiber laser cutting are usually $80–200 per hour of machine time in the US, and €60–150 in Europe. The price per part also includes material, setup and margin."}}, {"@type": "Question", "name": "How is laser cutting priced per inch?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the hourly rate by the cutting speed. At $120/h and 220 in/min on 16 gauge steel, cutting costs about $0.009 per inch, plus a fraction of a cent per pierce."}}, {"@type": "Question", "name": "Why do small parts have a minimum price?", "acceptedAnswer": {"@type": "Answer", "text": "Every job needs programming, loading the sheet and unloading parts. A setup charge spread over the order makes small quantities cost more per part."}}, {"@type": "Question", "name": "What is a pierce and why does it cost extra?", "acceptedAnswer": {"@type": "Answer", "text": "Before cutting each contour, the laser burns a starting hole through the material. On thick plate this takes several seconds, so parts with many holes take longer to cut."}}, {"@type": "Question", "name": "Can I get the cut length from a DXF file?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. InCost reads DXF files and measures cut length and pierces automatically, including tabs, lead-ins and nested parts."}}]}]}</script>
+<style>
+:root{--bg:#FFFFFF;--bg-2:#F5F7FA;--ink:#111418;--ink-2:#5B6472;--line:#E3E7ED;--accent:#0B5CFF;--accent-ink:#FFFFFF;--accent-soft:#EBF1FF;--good:#0C8A5B;--bad:#C2410C;
+--font:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-display:"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,"SF Pro Display",Roboto,Arial,sans-serif;
+--font-mono:"Cascadia Mono",Consolas,ui-monospace,"SF Mono",Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1013;--bg-2:#161A20;--ink:#EEF1F5;--ink-2:#9AA3B0;--line:#262C35;--accent:#4C86FF;--accent-soft:#16233F;--good:#34C78A;--bad:#F08A4B;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:10}
+.nav{display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:flex;align-items:center;gap:9px;font:700 19px/1 var(--font-display);text-decoration:none;color:var(--ink);letter-spacing:-.02em}
+.nav .sp{flex:1}
+.nav a.lnk{color:var(--ink-2);text-decoration:none;font-size:15px}
+.nav a.lnk:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:12px;font:600 15px/1.2 var(--font);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-secondary{border-color:var(--line);background:var(--bg);color:var(--ink)}
+@media (max-width:640px){.nav a.lnk{display:none}.nav .btn{padding:0 14px}}
+.crumbs{font-size:14px;color:var(--ink-2);padding-top:22px}
+.crumbs a{color:var(--ink-2);text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,46px);margin:10px 0 12px}
+.lead{font-size:19px;color:var(--ink-2);max-width:44em;margin:0}
+.calc{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:28px 0 20px;background:var(--bg)}
+.calc>*{min-width:0}
+.inputs{padding:24px;display:grid;gap:14px;align-content:start;border-right:1px solid var(--line)}
+.out{padding:24px;background:var(--bg-2);display:grid;gap:14px;align-content:start}
+.f{display:grid;gap:5px;align-content:start}
+.f label{font-size:13px;font-weight:600;color:var(--ink-2)}
+.f input,.f select{width:100%;min-height:42px;font:16px var(--font);padding:0 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.f input:focus,.f select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.f small{font-size:12px;color:var(--ink-2)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);justify-self:start}
+.seg button{all:unset;cursor:pointer;padding:6px 14px;border-radius:8px;font:600 14px var(--font);color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 4px rgba(10,30,80,.15)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.big{font:700 clamp(34px,4.4vw,46px)/1 var(--font-display);letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.big small{font:500 16px var(--font);color:var(--ink-2);letter-spacing:0}
+.lbl{font-size:13px;font-weight:600;color:var(--ink-2)}
+.lines{display:grid;gap:7px;font-size:15px;font-variant-numeric:tabular-nums}
+.lines div{display:flex;justify-content:space-between;gap:10px;color:var(--ink-2);border-bottom:1px dashed var(--line);padding-bottom:6px}
+.lines b{color:var(--ink);font-weight:600;text-align:right}
+.err{color:var(--bad);font-size:14px;font-weight:600}
+.bar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+table.q{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+table.q th,table.q td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right}
+table.q th:first-child,table.q td:first-child{text-align:left}
+table.q th{color:var(--ink-2);font-weight:600}
+@media (max-width:820px){.calc{grid-template-columns:1fr}.inputs{border-right:0;border-bottom:1px solid var(--line)}}
+@media (max-width:420px){.r3{grid-template-columns:1fr 1fr}}
+.cta{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;border-radius:18px;padding:24px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);margin:8px 0 48px}
+.cta>*{min-width:0}
+.cta h2{font-size:22px;margin-bottom:6px}
+.cta p{margin:0;color:var(--ink-2)}
+@media (max-width:700px){.cta{grid-template-columns:1fr}}
+article{max-width:760px}
+article h2{font-size:28px;margin:44px 0 12px}
+article h3{font-size:20px;margin:26px 0 8px}
+article p,article li{color:var(--ink)}
+article ul,article ol{padding-left:22px}
+.formula{font-family:var(--font-mono);font-size:14px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;white-space:pre}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:12px 0}
+.tbl table{width:100%;border-collapse:collapse;font-size:15px;min-width:460px}
+.tbl th,.tbl td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th{background:var(--bg-2);font-size:13px;color:var(--ink-2)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:16px 0;font-weight:600}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:0 0 16px;color:var(--ink-2)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 56px}
+.tools a{display:grid;gap:4px;padding:16px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--ink);background:var(--bg)}
+.tools a:hover{border-color:var(--accent)}
+.tools b{font-size:16px}
+.tools span{font-size:14px;color:var(--ink-2)}
+footer{border-top:1px solid var(--line);padding-block:26px 40px;font-size:14px;color:var(--ink-2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{color:var(--ink-2);text-decoration:none}
+</style>
+<!--ANALYTICS-->
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+<a class="logo" href="./"><svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#0B5CFF"/><path d="M9.5 20V8m5 12v-7.5h3.4a3.4 3.4 0 0 1 0 6.8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>InCost</a><span class="sp"></span>
+<a class="lnk" href="./#tools">Free calculators</a><a class="lnk" href="./#pricing">Pricing</a>
+<a class="btn btn-primary" href="./#get">Download InCost</a>
+</div></header>
+<main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="./">InCost</a> › <a href="./#tools">Free calculators</a> › Laser Cutting Cost Calculator</nav>
+<h1>Laser Cutting Cost Calculator</h1>
+<p class="lead">Estimate the price of a laser-cut sheet metal part from its size, holes, material, thickness and your machine rate.</p>
+
+<section class="calc" aria-label="Laser cutting cost calculator">
+<div class="inputs">
+<div class="seg" id="units" role="group" aria-label="Units"><button type="button" data-v="in" aria-pressed="true">Inches · lb</button><button type="button" data-v="mm" aria-pressed="false">Millimeters · kg</button></div>
+<div class="r2"><div class="f"><label for="mat">Material</label><select id="mat"><option value="0">Mild steel (CRS / A36)</option><option value="1">Stainless steel 304</option><option value="2">Aluminum 5052</option><option value="3">Galvanized steel</option></select></div>
+<div class="f"><label for="th">Thickness</label><select id="th"></select></div></div>
+<div class="r2"><div class="f"><label for="w" id="wL">Part width</label><input id="w" type="number" inputmode="decimal" step="any" min="0"></div>
+<div class="f"><label for="h" id="hL">Part height</label><input id="h" type="number" inputmode="decimal" step="any" min="0"></div></div>
+<div class="r3"><div class="f"><label for="holes">Holes</label><input id="holes" type="number" inputmode="numeric" step="1" min="0" value="4"></div>
+<div class="f"><label for="hd" id="hdL">Hole diameter</label><input id="hd" type="number" inputmode="decimal" step="any" min="0"></div>
+<div class="f"><label for="extra" id="exL">Extra cut length</label><input id="extra" type="number" inputmode="decimal" step="any" min="0" value="0"><small>Slots, cutouts</small></div></div>
+<div class="r3"><div class="f"><label for="qty">Quantity</label><input id="qty" type="number" inputmode="numeric" step="1" min="1" value="50"></div>
+<div class="f"><label for="rate">Laser rate, $/h</label><input id="rate" type="number" inputmode="decimal" step="1" min="0" value="120"></div>
+<div class="f"><label for="setup">Setup, $</label><input id="setup" type="number" inputmode="decimal" step="1" min="0" value="35"></div></div>
+<div class="r3"><div class="f"><label for="mp" id="mpL">Material $/lb</label><input id="mp" type="number" inputmode="decimal" step="0.01" min="0"></div>
+<div class="f"><label for="scrap">Scrap, %</label><input id="scrap" type="number" inputmode="numeric" step="1" min="0" value="15"></div>
+<div class="f"><label for="mg">Margin, %</label><input id="mg" type="number" inputmode="numeric" step="1" min="0" value="20"></div></div>
+<div class="f"><label for="spd" id="spdL">Cutting speed</label><input id="spd" type="number" inputmode="decimal" step="any" min="0"><small id="spdH">Filled from thickness and material; change it to match your machine</small></div>
+</div>
+<div class="out" aria-live="polite">
+<div><div class="lbl">Price per part</div><div class="big" id="price">—</div></div>
+<div class="lines" id="lines"></div>
+<p class="err" id="err" hidden></p>
+</div>
+</section>
+<section class="cta">
+<div><h2>Quote real parts in seconds</h2><p>InCost does this automatically from your DXF, STEP and STL files: cut length, weight, nesting, machine time, PDF quotes and shop drawings. Free for Windows.</p></div>
+<a class="btn btn-primary" href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip">Download free for Windows</a>
+</section>
+<article>
+
+<h2>How laser cutting is priced</h2>
+<p>Laser shops price a flat part from three things: the material in the blank, the time the laser spends cutting and piercing, and the setup spread over the order.</p>
+<div class="formula">Material   = blank W × H × thickness × density × (1 + scrap) × $/lb
+Cut length = perimeter + holes × π × d + other cutouts
+Laser time = cut length ÷ cutting speed + pierces × pierce time
+Cutting    = laser time × machine rate
+Setup      = setup cost ÷ quantity
+Price      = (material + cutting + setup) × (1 + margin)</div>
+<h3>Why cut length matters more than size</h3>
+<p>A small bracket with many holes can cost more than a larger plain plate. Every hole adds cut length and a pierce, and piercing thick plate takes several seconds. Fewer, larger cutouts cut faster than many small ones.</p>
+<h3>Typical fiber laser cutting speeds for mild steel</h3>
+<div class="tbl"><table><thead><tr><th>Thickness</th><th>Speed, in/min</th><th>Speed, mm/min</th></tr></thead><tbody>
+<tr><td>18 ga (1.2 mm)</td><td>260</td><td>6,600</td></tr><tr><td>16 ga (1.5 mm)</td><td>220</td><td>5,600</td></tr>
+<tr><td>11 ga (3 mm)</td><td>110</td><td>2,800</td></tr><tr><td>1/4 in (6 mm)</td><td>50</td><td>1,270</td></tr><tr><td>1/2 in (12 mm)</td><td>20</td><td>510</td></tr></tbody></table></div>
+<p>These are conservative values for a 3–6 kW fiber laser. Stainless is cut about 25% slower here and aluminum about 15% slower. Use your own machine's speeds for real quotes.</p>
+<h2>Typical laser cutting rates</h2>
+<p>Most US job shops charge $80–200 per hour of laser time, plus a setup or minimum order charge of $25–75. High-power fiber lasers cut thin sheet several times faster than CO₂ lasers, so the price per part drops even when the hourly rate is higher.</p>
+<p>Measuring cut length by hand is the slow part. <a href="./">InCost</a> reads the DXF, finds every contour, counts pierces, nests the parts on a standard sheet and prices them with your own rates.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<div class="faq"><details><summary>How much does laser cutting cost per hour?</summary><p>Shop rates for fiber laser cutting are usually $80–200 per hour of machine time in the US, and €60–150 in Europe. The price per part also includes material, setup and margin.</p></details><details><summary>How is laser cutting priced per inch?</summary><p>Divide the hourly rate by the cutting speed. At $120/h and 220 in/min on 16 gauge steel, cutting costs about $0.009 per inch, plus a fraction of a cent per pierce.</p></details><details><summary>Why do small parts have a minimum price?</summary><p>Every job needs programming, loading the sheet and unloading parts. A setup charge spread over the order makes small quantities cost more per part.</p></details><details><summary>What is a pierce and why does it cost extra?</summary><p>Before cutting each contour, the laser burns a starting hole through the material. On thick plate this takes several seconds, so parts with many holes take longer to cut.</p></details><details><summary>Can I get the cut length from a DXF file?</summary><p>Yes. InCost reads DXF files and measures cut length and pierces automatically, including tabs, lead-ins and nested parts.</p></details></div>
+</article>
+<h2 style="font-size:26px;margin-top:48px">More free calculators</h2>
+<div class="tools"><a href="metal-weight-calculator.html"><b>Metal Weight Calculator</b><span>Steel, aluminum, stainless, brass and copper weight for plate, bar, tube and angle</span></a><a href="3d-print-cost-calculator.html"><b>3D Print Cost Calculator</b><span>Filament, electricity, machine wear, labor and selling price per print</span></a><a href="cnc-machining-cost-calculator.html"><b>CNC Machining Cost Calculator</b><span>Stock, cycle time, setup and price per part at any quantity</span></a><a href="./"><b>InCost for Windows</b><span>Quote parts from DXF and STEP files, nesting and shop drawings</span></a></div>
+</main>
+<footer><div class="wrap foot"><span>© 2026 InCost · hello@incost.app</span>
+<nav><a href="./">Home</a><a href="./#tools">Calculators</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav></div></footer>
+<script>(function(){
+var $=function(id){return document.getElementById(id)};
+function num(id){var v=parseFloat(String($(id).value).replace(",","."));return isFinite(v)?v:NaN}
+function f(v,d){return v.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d})}
+function money(v){return "$"+f(v,2)}
+function row(a,b){return "<div><span>"+a+"</span><b>"+b+"</b></div>"}
+function seg(id,cb){var s=$(id);[].forEach.call(s.querySelectorAll("button"),function(b){b.addEventListener("click",function(){[].forEach.call(s.querySelectorAll("button"),function(x){x.setAttribute("aria-pressed",x===b)});cb(b.dataset.v)})})}
+function setSeg(id,v){[].forEach.call($(id).querySelectorAll("button"),function(x){x.setAttribute("aria-pressed",x.dataset.v===v)})}
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function defaultUnits(){var l=(navigator.language||"en-US");return /^en-(US|LR)|^my/i.test(l)?"in":"mm"}
+
+var LM=[["Mild steel (CRS / A36)", 0.2836, 0.75, 1.0], ["Stainless steel 304", 0.2865, 2.4, 0.75], ["Aluminum 5052", 0.0968, 3.2, 0.85], ["Galvanized steel", 0.2836, 0.95, 0.95]],TI=[["24 ga \u00b7 0.024 in", 0.0239], ["20 ga \u00b7 0.036 in", 0.0359], ["18 ga \u00b7 0.048 in", 0.0478], ["16 ga \u00b7 0.060 in", 0.0598], ["14 ga \u00b7 0.075 in", 0.0747], ["12 ga \u00b7 0.105 in", 0.1046], ["11 ga \u00b7 0.120 in", 0.1196], ["3/16 in", 0.1875], ["1/4 in", 0.25], ["3/8 in", 0.375], ["1/2 in", 0.5]],TM=[0.5, 0.8, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12];
+var SP=[[.024,330],[.036,300],[.048,260],[.06,220],[.075,180],[.105,130],[.12,110],[.1875,70],[.25,50],[.375,30],[.5,20]];
+function speedIn(t){if(t<=SP[0][0])return SP[0][1];for(var i=1;i<SP.length;i++)if(t<=SP[i][0]){var a=SP[i-1],b=SP[i];return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0])}return 20*0.5/t}
+var U=load("incost-units")||defaultUnits(),spdTouched=false;
+function thkIn(){var v=+$("th").value;return U==="in"?v:v/25.4}
+function setUnits(conv){
+  var mm=U==="mm",u=mm?"mm":"in",idx=$("th").selectedIndex;
+  $("th").innerHTML=mm?TM.map(function(t){return '<option value="'+t+'">'+t+' mm</option>'}).join(""):TI.map(function(t){return '<option value="'+t[1]+'">'+t[0]+'</option>'}).join("");
+  $("th").selectedIndex=idx>=0?Math.min(idx,$("th").options.length-1):(mm?3:3);
+  [["wL","Part width"],["hL","Part height"],["hdL","Hole diameter"],["exL","Extra cut length"]].forEach(function(x){$(x[0]).textContent=x[1]+", "+u});
+  if(conv){["w","h","hd","extra"].forEach(function(id){var v=num(id);if(isFinite(v))$(id).value=mm?+(v*25.4).toFixed(1):+(v/25.4).toFixed(3)});var p=num("mp");if(isFinite(p))$("mp").value=mm?+(p*2.2046).toFixed(2):+(p/2.2046).toFixed(2)}
+  $("mpL").textContent=mm?"Material $/kg":"Material $/lb";
+  $("spdL").textContent=mm?"Cutting speed, mm/min":"Cutting speed, in/min";
+  spdTouched=false;autoSpeed();calc();
+}
+function autoSpeed(){if(spdTouched)return;var s=speedIn(thkIn())*LM[+$("mat").value][3];$("spd").value=U==="mm"?Math.round(s*25.4):Math.round(s)}
+function calc(){
+  var mm=U==="mm",k=mm?1/25.4:1,m=LM[+$("mat").value];
+  var w=num("w")*k,h=num("h")*k,n=Math.max(0,Math.round(num("holes")||0)),hd=(num("hd")||0)*k,ex=(num("extra")||0)*k,t=thkIn();
+  var q=Math.max(1,Math.round(num("qty")||1)),rate=num("rate")||0,setup=num("setup")||0,mp=num("mp"),scrap=(num("scrap")||0)/100,mg=(num("mg")||0)/100,spd=num("spd")*k;
+  var err="";if(!(w>0&&h>0))err="Enter the part width and height.";else if(n&&!(hd>0))err="Enter the hole diameter.";else if(!(spd>0))err="Enter a cutting speed.";
+  $("mp").placeholder=(mm?(m[2]*2.2046).toFixed(2):m[2].toFixed(2))+" (typical)";
+  if(!(mp>=0))mp=mm?m[2]*2.2046:m[2];
+  $("err").hidden=!err;$("err").textContent=err;if(err){$("price").textContent="—";$("lines").innerHTML="";return}
+  var mpLb=mm?mp/2.2046:mp;
+  var lb=w*h*t*m[1], area=w*h-n*Math.PI*hd*hd/4, netLb=Math.max(0,area)*t*m[1];
+  var cut=2*(w+h)+n*Math.PI*hd+ex, pierces=1+n+(ex>0?1:0), pierceS=0.5+8*t;
+  var minutes=cut/spd+pierces*pierceS/60;
+  var matC=lb*(1+scrap)*mpLb, cutC=minutes/60*rate, setC=setup/q, cost=matC+cutC+setC, price=cost*(1+mg);
+  $("price").textContent=money(price);
+  var o=row("Material ("+(mm?f(lb*0.4536*(1+scrap),3)+" kg":f(lb*(1+scrap),3)+" lb")+" with scrap)",money(matC))
+   +row("Cut length",mm?f(cut*25.4,0)+" mm":f(cut,1)+" in")+row("Pierces",pierces)
+   +row("Laser time",f(minutes,2)+" min · "+money(cutC))+row("Setup per part",money(setC))+row("Cost per part",money(cost))
+   +row("Finished part weight",mm?f(netLb*0.4536,3)+" kg":f(netLb,3)+" lb")+row("Order total ("+q+" pcs)",money(price*q));
+  $("lines").innerHTML=o;
+}
+$("mat").addEventListener("change",function(){$("mp").value="";autoSpeed();calc()});
+$("th").addEventListener("change",function(){autoSpeed();calc()});
+$("spd").addEventListener("input",function(){spdTouched=true;calc()});
+["w","h","holes","hd","extra","qty","rate","setup","mp","scrap","mg"].forEach(function(i){$(i).addEventListener("input",calc)});
+seg("units",function(v){if(v!==U){U=v;store("incost-units",v);setUnits(true)}});
+setSeg("units",U);
+if(U==="mm"){$("w").value=150;$("h").value=100;$("hd").value=6}else{$("w").value=6;$("h").value=4;$("hd").value=0.25}
+setUnits(false);
+})();</script>
+</body>
+</html>
