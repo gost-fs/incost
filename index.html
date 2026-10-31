@@ -16,7 +16,7 @@
 <meta property="og:description" content="Sheet metal, nesting, 3D printing and machining quotes in seconds. Free for Windows.">
 <meta property="og:image" content="https://incost.app/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "InCost", "url": "https://incost.app/", "image": "https://incost.app/og.png", "description": "Cost estimating and engineering software for sheet metal, laser cutting, nesting, 3D printing and machining. Turns STEP models into shop drawings, edits DXF files, prints branded quotes and quality certificates.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Manufacturing cost estimating", "operatingSystem": "Windows 10, Windows 11", "softwareVersion": "0.9.15", "fileSize": "6 MB", "downloadUrl": "https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip", "offers": [{"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD", "category": "subscription"}], "featureList": ["Sheet metal and laser cutting cost from DXF", "Automatic nesting with sheet yield", "Machine library for laser, plasma, waterjet and press brake with calibration from actual times", "Price justification PDF for customers", "Target price and cost-down suggestions", "Price from PDF drawings (scale, thickness and material read from the title block)", "3D printing cost from STEP, 3MF and STL", "Machining cost estimates", "Shop drawings from STEP, IGES and STL to PDF and DXF", "DXF editor and cleanup", "Batch DXF quoting", "Branded PDF quotes and quote log", "Assemblies and bill of materials", "Travelers and routing cards", "Quality control: AQL ISO 2859-1, EN 10204 3.1 certificate documents from customer test data", "Structural calculations to ASCE 7, ACI 318, AISC 360 and Eurocode", "40 engineering calculators", "Inventory", "Team mode"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the free plan really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Free has no time limit and no account. The 4-day Pro trial starts on first launch and needs no card."}}, {"@type": "Question", "name": "How do I install InCost?", "acceptedAnswer": {"@type": "Answer", "text": "Download the ZIP, extract it to any folder and run InCost. No installer and no admin rights needed. New versions arrive inside the app automatically."}}, {"@type": "Question", "name": "Does it need an internet connection?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything runs on your PC. Internet is used once to activate a Pro license."}}, {"@type": "Question", "name": "Does it work in metric?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. InCost works in inches and millimeters, pounds and kilograms, and converts between them as you type."}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "InCost", "url": "https://incost.app/", "image": "https://incost.app/og.png", "description": "Cost estimating and engineering software for sheet metal, laser cutting, nesting, 3D printing and machining. Turns STEP models into shop drawings, edits DXF files, prints branded quotes and quality certificates.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Manufacturing cost estimating", "operatingSystem": "Windows 10, Windows 11", "softwareVersion": "0.9.15", "fileSize": "6 MB", "downloadUrl": "https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip", "offers": [{"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "name": "Pro", "price": "19", "priceCurrency": "USD", "category": "subscription"}], "featureList": ["Sheet metal and laser cutting cost from DXF", "Automatic nesting with sheet yield", "Machine library for laser, plasma, waterjet and press brake with calibration from actual times", "Price justification PDF for customers", "Target price and cost-down suggestions", "Price from PDF drawings (scale, thickness and material read from the title block)", "3D printing cost from STEP, 3MF and STL", "Machining cost estimates", "Shop drawings from STEP, IGES and STL to PDF and DXF", "DXF editor and cleanup", "Batch DXF quoting", "Branded PDF quotes and quote log", "Assemblies and bill of materials", "Travelers and routing cards", "Quality control: AQL ISO 2859-1, EN 10204 3.1 certificate documents from customer test data", "Structural calculations to ASCE 7, ACI 318, AISC 360 and Eurocode", "40 engineering calculators", "Inventory", "Team mode", "Quote links: customers accept or decline online", "Quote follow-up reminders, quote versions and customer templates", "Customer view without cost and margin", "Estimated CO2 footprint per calculation and quote", "20 built-in animated lessons"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the free plan really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Free has no time limit and no account. The 4-day Pro trial starts on first launch and needs no card."}}, {"@type": "Question", "name": "How do I install InCost?", "acceptedAnswer": {"@type": "Answer", "text": "Download the ZIP, extract it to any folder and run InCost. No installer and no admin rights needed. New versions arrive inside the app automatically."}}, {"@type": "Question", "name": "Does it need an internet connection?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything runs on your PC. Internet is used once to activate a Pro license."}}, {"@type": "Question", "name": "Does it work in metric?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. InCost works in inches and millimeters, pounds and kilograms, and converts between them as you type."}}]}]}</script>
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
 /* Layout: fast conversion page — system fonts only, one blue accent, proof (live quote) above the fold, ROI math before pricing, one CTA repeated */
@@ -241,6 +241,8 @@ input[type=range]{width:100%;accent-color:var(--accent);height:24px}
 .trust>div{display:grid;gap:10px;align-content:start;min-width:0;padding-top:20px;border-top:2px solid var(--ink)}
 .trust h3{font-size:20px}
 .trust p{color:var(--ink-2);font-size:16px}
+.trust6{row-gap:36px}
+@media (max-width:960px){.trust6{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:760px){.trust{grid-template-columns:1fr}}
 
 /* pricing */
@@ -554,12 +556,22 @@ main.swap{opacity:.4}
     </div>
   </section>
 
-  <!-- TRUST -->
-  <section style="padding-top:0">
-    <div class="wrap trust">
-      <div class="rv"><h3 data-i="tr1h">Tested on real jobs</h3><p data-i="tr1p">Built by a working design engineer. Every release is checked by process technologists who quote parts every day.</p></div>
-      <div class="rv"><h3 data-i="tr2h">Your data stays yours</h3><p data-i="tr2p">InCost runs on your PC. Drawings, prices and customer quotes never leave your machine.</p></div>
-      <div class="rv"><h3 data-i="tr3h">Opens instantly</h3><p data-i="tr3p">A light desktop app. No browser tabs, no login screen, no waiting for a server.</p></div>
+  <!-- ACCURACY -->
+  <section id="accuracy" style="padding-top:0">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="ac.k">Accuracy and trust</p>
+        <h2 data-i="ac.h">A wrong price costs real money. So every number is open.</h2>
+        <p data-i="ac.p">InCost never gives you a black-box total. You see where each dollar comes from, and you can check it.</p>
+      </div>
+      <div class="trust trust6">
+        <div class="rv"><h3 data-i="ac1h">Every line is visible</h3><p data-i="ac1p">Material, cutting, pierces, setup, bending, overhead and margin are shown line by line with the inputs behind them. The price justification PDF always adds up exactly to the quoted price.</p></div>
+        <div class="rv"><h3 data-i="ac2h">Your machines, your rates</h3><p data-i="ac2p">No hidden averages. Cutting speeds by power and gas, machine rates, setup times and material prices are yours to set and are saved for every next quote.</p></div>
+        <div class="rv"><h3 data-i="ac3h">Calibrated by actual times</h3><p data-i="ac3p">After a job, enter how long it really took. InCost compares plan with actual and corrects future quotes for that machine.</p></div>
+        <div class="rv"><h3 data-i="ac4h">Checked before every release</h3><p data-i="ac4p">Automated regression tests run every section in US, EU and metric modes, in every interface language, with edge values and old saved data. Shop technologists check releases on real orders.</p></div>
+        <div class="rv"><h3 data-i="ac5h">Your data stays yours</h3><p data-i="ac5p">Drawings, costs and margins stay on your PC. Only what you choose to share leaves it, such as a quote link, which carries only what your customer sees.</p></div>
+        <div class="rv"><h3 data-i="ac6h">Safe to run</h3><p data-i="ac6p">No installer and no admin rights. It works offline, and in-app updates install only if they carry the developer's digital signature.</p></div>
+      </div>
     </div>
   </section>
 
@@ -620,7 +632,7 @@ main.swap{opacity:.4}
       <div class="faq">
         <details><summary data-i="q1">Is the free plan really free?</summary><p data-i="a1x">Yes. Free has no time limit and no account. The 4-day Pro trial starts on first launch and needs no card.</p></details>
         <details><summary data-i="q7">How do I install InCost?</summary><p data-i="a7x">Download the ZIP, extract it to any folder and run InCost. No installer and no admin rights needed. New versions arrive inside the app automatically.</p></details>
-        <details><summary data-i="q2">Windows shows a SmartScreen warning. Is it safe?</summary><p data-i="a2x">InCost is a new app and is not code-signed yet, so Windows may ask you to confirm. Click "More info", then "Run anyway".</p></details>
+        <details><summary data-i="q2">Windows shows a SmartScreen warning. Is it safe?</summary><p data-i="a2x">InCost is not code-signed yet (signing is planned for version 1.0), so Windows may ask you to confirm: "More info" → "Run anyway". Download InCost only from incost.app. It needs no admin rights, and in-app updates install only if they carry the developer's digital signature.</p></details>
         <details><summary data-i="q3">Does it need an internet connection?</summary><p data-i="a3x">No. Everything runs on your PC. Internet is used once to activate a Pro license.</p></details>
         <details><summary data-i="q4">Can I use my own machine rates and material prices?</summary><p data-i="a4x">Yes. Rates, setup costs, margins and prices per pound are all editable and saved for next time.</p></details>
         <details><summary data-i="q5">Does it work in metric?</summary><p data-i="a5x">Yes. InCost works in inches and millimeters, pounds and kilograms, and converts between them as you type.</p></details>
@@ -714,6 +726,21 @@ main.swap{opacity:.4}
   /* ===== translations (English is read from the page itself) ===== */
   var D={
   uk:{
+    "ac.k":"Точність і довіра",
+    "ac.h":"Помилка в ціні коштує грошей. Тому кожна цифра відкрита.",
+    "ac.p":"InCost не дає «чорну скриньку» з підсумком. Ви бачите, звідки береться кожна гривня, і можете це перевірити.",
+    "ac1h":"Видно кожен рядок",
+    "ac1p":"Матеріал, різання, проколи, налагодження, гнуття, накладні й націнка показані окремими рядками разом з вихідними даними. Сума статей в «Обґрунтуванні ціни» завжди точно дорівнює ціні.",
+    "ac2h":"Ваше обладнання, ваші ставки",
+    "ac2p":"Жодних прихованих середніх значень. Швидкості різання за потужністю й газом, ставки верстатів, час налагодження й ціни матеріалів задаєте ви, і вони зберігаються для наступних розрахунків.",
+    "ac3h":"Калібрування за фактом",
+    "ac3p":"Після замовлення введіть, скільки воно зайняло насправді. InCost порівняє план з фактом і уточнить наступні розрахунки для цього верстата.",
+    "ac4h":"Перевірка перед кожним релізом",
+    "ac4p":"Автотести проганяють кожен розділ у режимах США, Європи й України, усіма мовами інтерфейсу, з крайніми значеннями і старими даними. Технологи цехів перевіряють релізи на реальних замовленнях.",
+    "ac5h":"Ваші дані лишаються у вас",
+    "ac5p":"Креслення, собівартість і націнка лишаються на вашому ПК. Назовні йде лише те, чим ви самі ділитесь, наприклад пропозиція посиланням, і тільки те, що бачить клієнт.",
+    "ac6h":"Безпечно запускати",
+    "ac6p":"Без інсталятора і прав адміністратора. Працює без інтернету, а оновлення в програмі встановлюються лише з цифровим підписом розробника.",
     "nav.how":"Як це працює","nav.features":"Можливості","nav.roi":"Економія","nav.pricing":"Ціни","nav.faq":"Питання",
     "cta.free":"Завантажити","cta.win":"Завантажити для Windows безкоштовно",
     "hero.pill":"<b>Нове</b> Вийшла версія 0.9 для Windows","hero.h1":"Досить рахувати деталі <span>в таблицях.</span>",
@@ -740,7 +767,7 @@ main.swap{opacity:.4}
     "pro.buy":"Купити Pro","pro.btn":"Почати 4 дні безкоштовно","pro.fine":"Безпечна оплата через Freemius. Скасування будь-коли.",
     "fq.h":"Питання перед завантаженням.",
     "q1":"Безкоштовний план справді безкоштовний?","a1x":"Так. Free не має обмеження за часом і не потребує акаунта. 4 дні Pro починаються з першого запуску, картка не потрібна.",
-    "q2":"Windows показує попередження SmartScreen. Це безпечно?","a2x":"InCost нова програма і поки не має цифрового підпису, тому Windows може попросити підтвердження. Натисніть «Докладніше», потім «Усе одно запустити».",
+    "q2":"Windows показує попередження SmartScreen. Це безпечно?","a2x":"InCost поки не має цифрового підпису коду (він запланований у версії 1.0), тому Windows може попросити підтвердження: «Докладніше» → «Усе одно запустити». Завантажуйте програму лише з incost.app. Їй не потрібні права адміністратора, а оновлення в програмі встановлюються лише з цифровим підписом розробника.",
     "q3":"Чи потрібен інтернет?","a3x":"Ні. Усе працює на вашому ПК. Інтернет потрібен один раз, щоб активувати ліцензію Pro.",
     "q4":"Чи можна задати власні ставки і ціни на матеріали?","a4x":"Так. Ставки, налагодження, націнки й ціни за одиницю ваги редагуються і зберігаються.",
     "q5":"Чи працює в метричній системі?","a5x":"Так. InCost працює з дюймами й міліметрами, фунтами й кілограмами і переводить між ними під час введення.",
@@ -754,6 +781,21 @@ main.swap{opacity:.4}
     "ct.mailto":"Має відкритися ваша поштова програма з готовим листом. Якщо не відкрилася, скопіюйте повідомлення і надішліть на {email}.","ct.copyMsg":"Копіювати повідомлення","s6":"Креслення зі STEP","md.k":"Що всередині","md.h":"Набагато більше, ніж калькулятор собівартості.","md.p":"Усе, що щодня роблять технолог і конструктор, в одній програмі.","cmp.h":"Що дає Pro","fx1":"Усі розрахунки собівартості на екрані","fx2":"Креслення з 3D-моделі на екрані","fx3":"40 калькуляторів конструктора і конвертер одиниць","fx4":"До 5 збережених розрахунків","px1":"Усе з Free без обмежень","px2":"PDF-пропозиції, звіти й маршрутні карти з вашим логотипом","px3":"PDF-креслення → ціна, експорт креслень у PDF і DXF","px4":"Автоматична розкладка і повний DXF-редактор","px5":"Пакетний розрахунок цілих папок","px6":"Протоколи випробувань і бланки сертифікатів EN 10204 з ваших даних","px7":"Усі інструменти будівельника, підготовка 3D-друку, командна робота","tl.k":"Безкоштовні онлайн-калькулятори","tl.h":"Швидкі розрахунки просто в браузері.","tl.p":"Нічого не треба завантажувати. А коли захочете рахувати реальні креслення, InCost зробить те саме з ваших DXF і STEP.","tl1":"Сталь, алюміній, нержавійка, латунь: лист, пруток, труба, кутник.","tl2":"Філамент, електрика, знос принтера, робота і ціна для клієнта.","tl3":"Ціна листової деталі за довжиною різу, врізками і ставкою лазера.","tl4":"Заготовка, час циклу і налагодження, ціна за штуку залежно від партії.","nav.tools":"Калькулятори","hero.tools":"Безкоштовні онлайн-калькулятори: вага металу, 3D-друк, лазер і ЧПК","q7":"Як встановити InCost?","a7x":"Завантажте ZIP, розпакуйте в будь-яку папку і запустіть InCost. Інсталятор і права адміністратора не потрібні. Нові версії приходять у самій програмі автоматично."
   },
   de:{
+    "ac.k":"Genauigkeit und Vertrauen",
+    "ac.h":"Ein falscher Preis kostet echtes Geld. Deshalb ist jede Zahl offen.",
+    "ac.p":"InCost liefert keine Blackbox-Summe. Sie sehen, woher jeder Euro kommt, und können es prüfen.",
+    "ac1h":"Jede Zeile sichtbar",
+    "ac1p":"Material, Schneiden, Einstiche, Rüsten, Biegen, Gemeinkosten und Marge werden zeilenweise mit ihren Eingangswerten gezeigt. Die Preisbegründung als PDF ergibt immer exakt den Angebotspreis.",
+    "ac2h":"Ihre Maschinen, Ihre Sätze",
+    "ac2p":"Keine versteckten Durchschnittswerte. Schnittgeschwindigkeiten nach Leistung und Gas, Maschinensätze, Rüstzeiten und Materialpreise legen Sie fest, gespeichert für jedes weitere Angebot.",
+    "ac3h":"Kalibriert mit Istzeiten",
+    "ac3p":"Geben Sie nach dem Auftrag ein, wie lange er wirklich gedauert hat. InCost vergleicht Plan und Ist und korrigiert künftige Angebote für diese Maschine.",
+    "ac4h":"Vor jeder Version geprüft",
+    "ac4p":"Automatische Regressionstests prüfen jeden Bereich im US-, EU- und metrischen Modus, in jeder Sprache, mit Grenzwerten und alten Daten. Technologen aus Betrieben prüfen Versionen an echten Aufträgen.",
+    "ac5h":"Ihre Daten bleiben bei Ihnen",
+    "ac5p":"Zeichnungen, Kosten und Margen bleiben auf Ihrem PC. Nur was Sie bewusst teilen, etwa ein Angebotslink, verlässt ihn, und zwar nur das, was Ihr Kunde sieht.",
+    "ac6h":"Sicher auszuführen",
+    "ac6p":"Kein Installer, keine Administratorrechte. Läuft offline, und Updates in der App werden nur mit der digitalen Signatur des Entwicklers installiert.",
     "nav.how":"So funktioniert's","nav.features":"Funktionen","nav.roi":"Ersparnis","nav.pricing":"Preise","nav.faq":"FAQ",
     "cta.free":"Kostenlos laden","cta.win":"Kostenlos für Windows laden",
     "hero.pill":"<b>Neu</b> Version 0.9 für Windows ist da","hero.h1":"Schluss mit Kalkulationen <span>in Tabellen.</span>",
@@ -780,7 +822,7 @@ main.swap{opacity:.4}
     "pro.buy":"Pro kaufen","pro.btn":"4 Tage kostenlos testen","pro.fine":"Sichere Zahlung über Freemius. Jederzeit kündbar.",
     "fq.h":"Fragen vor dem Download.",
     "q1":"Ist der kostenlose Plan wirklich kostenlos?","a1x":"Ja. Free hat kein Zeitlimit und braucht kein Konto. Die 4 Tage Pro starten beim ersten Start, ohne Kreditkarte.",
-    "q2":"Windows zeigt eine SmartScreen-Warnung. Ist das sicher?","a2x":"InCost ist neu und noch nicht code-signiert, daher fragt Windows eventuell nach. Klicken Sie auf „Weitere Informationen“ und dann „Trotzdem ausführen“.",
+    "q2":"Windows zeigt eine SmartScreen-Warnung. Ist das sicher?","a2x":"InCost ist noch nicht code-signiert (geplant für Version 1.0), daher fragt Windows eventuell nach: „Weitere Informationen“ → „Trotzdem ausführen“. Laden Sie InCost nur von incost.app herunter. Die App braucht keine Administratorrechte, und Updates werden nur mit der digitalen Signatur des Entwicklers installiert.",
     "q3":"Braucht es eine Internetverbindung?","a3x":"Nein. Alles läuft auf Ihrem PC. Internet wird nur einmal zum Aktivieren der Pro-Lizenz benötigt.",
     "q4":"Kann ich eigene Maschinensätze und Materialpreise nutzen?","a4x":"Ja. Sätze, Rüstkosten, Margen und Preise pro Gewichtseinheit sind editierbar und werden gespeichert.",
     "q5":"Funktioniert es metrisch?","a5x":"Ja. InCost arbeitet mit Zoll und Millimetern, Pfund und Kilogramm und rechnet beim Tippen um.",
@@ -794,6 +836,21 @@ main.swap{opacity:.4}
     "ct.mailto":"Ihr E-Mail-Programm sollte sich mit der fertigen Nachricht öffnen. Falls nicht, kopieren Sie sie und senden Sie sie an {email}.","ct.copyMsg":"Nachricht kopieren","s6":"Zeichnungen aus STEP","md.k":"In InCost","md.h":"Viel mehr als ein Kostenrechner.","md.p":"Alles, was Technologen und Konstrukteure täglich tun, in einer Desktop-App.","cmp.h":"Was Pro bietet","fx1":"Alle Kostenkalkulationen am Bildschirm","fx2":"Zeichnungen aus 3D-Modellen am Bildschirm","fx3":"40 Konstrukteurs-Rechner und Einheitenumrechner","fx4":"Bis zu 5 gespeicherte Kalkulationen","px1":"Alles aus Free ohne Grenzen","px2":"PDF-Angebote, Berichte und Laufkarten mit Ihrem Logo","px3":"PDF-Zeichnung → Preis, Zeichnungen als PDF und DXF exportieren","px4":"Automatische Verschachtelung und voller DXF-Editor","px5":"Stapelkalkulation ganzer Ordner","px6":"Prüfberichte und Zeugnis-Dokumente nach EN 10204 aus Ihren Daten","px7":"Alle Statik-Werkzeuge, 3D-Druck-Vorbereitung und Teammodus","tl.k":"Kostenlose Online-Rechner","tl.h":"Schnelle Zahlen direkt im Browser.","tl.p":"Kein Download nötig. Für echte Zeichnungen kalkuliert InCost dasselbe aus Ihren DXF- und STEP-Dateien.","tl1":"Stahl, Aluminium, Edelstahl, Messing: Blech, Stab, Rohr, Winkel.","tl2":"Filament, Strom, Maschinenverschleiß, Arbeit und Verkaufspreis.","tl3":"Preis eines Blechteils aus Schnittlänge, Einstichen und Lasersatz.","tl4":"Rohteil, Zykluszeit und Rüsten, Stückpreis nach Menge.","nav.tools":"Rechner","hero.tools":"Kostenlose Online-Rechner: Metallgewicht, 3D-Druck, Laser und CNC","q7":"Wie installiere ich InCost?","a7x":"ZIP herunterladen, in einen beliebigen Ordner entpacken und InCost starten. Kein Installer und keine Administratorrechte nötig. Neue Versionen kommen automatisch in der App an."
   },
   es:{
+    "ac.k":"Precisión y confianza",
+    "ac.h":"Un precio equivocado cuesta dinero real. Por eso cada número está a la vista.",
+    "ac.p":"InCost nunca te da un total de caja negra. Ves de dónde sale cada euro o dólar y puedes comprobarlo.",
+    "ac1h":"Cada línea a la vista",
+    "ac1p":"Material, corte, perforaciones, preparación, plegado, gastos generales y margen se muestran línea a línea con sus datos de entrada. La justificación de precio en PDF siempre suma exactamente el precio cotizado.",
+    "ac2h":"Tus máquinas, tus tarifas",
+    "ac2p":"Sin promedios ocultos. Velocidades de corte por potencia y gas, tarifas de máquina, tiempos de preparación y precios de material los defines tú y se guardan para cada cotización.",
+    "ac3h":"Calibrado con tiempos reales",
+    "ac3p":"Después de un trabajo, introduce cuánto tardó de verdad. InCost compara lo previsto con lo real y corrige las próximas cotizaciones de esa máquina.",
+    "ac4h":"Revisado antes de cada versión",
+    "ac4p":"Pruebas automáticas de regresión recorren cada sección en modo EE. UU., UE y métrico, en cada idioma, con valores extremos y datos antiguos. Tecnólogos de taller revisan las versiones con pedidos reales.",
+    "ac5h":"Tus datos son tuyos",
+    "ac5p":"Planos, costos y márgenes se quedan en tu PC. Solo sale lo que tú decides compartir, como un enlace de cotización, y solo lo que ve tu cliente.",
+    "ac6h":"Seguro de ejecutar",
+    "ac6p":"Sin instalador ni permisos de administrador. Funciona sin conexión, y las actualizaciones solo se instalan si llevan la firma digital del desarrollador.",
     "nav.how":"Cómo funciona","nav.features":"Funciones","nav.roi":"Ahorro","nav.pricing":"Precios","nav.faq":"Preguntas",
     "cta.free":"Descargar gratis","cta.win":"Descargar gratis para Windows",
     "hero.pill":"<b>Nuevo</b> Ya está la versión 0.9 para Windows","hero.h1":"Deja de cotizar piezas <span>en hojas de cálculo.</span>",
@@ -820,7 +877,7 @@ main.swap{opacity:.4}
     "pro.buy":"Comprar Pro","pro.btn":"Prueba gratis 4 días","pro.fine":"Pago seguro con Freemius. Cancela cuando quieras.",
     "fq.h":"Preguntas antes de descargar.",
     "q1":"¿El plan gratuito es realmente gratis?","a1x":"Sí. Free no tiene límite de tiempo ni requiere cuenta. Los 4 días de Pro empiezan al abrir la app y no piden tarjeta.",
-    "q2":"Windows muestra un aviso de SmartScreen. ¿Es seguro?","a2x":"InCost es una app nueva y aún no tiene firma digital, así que Windows puede pedir confirmación. Haz clic en «Más información» y luego en «Ejecutar de todas formas».",
+    "q2":"Windows muestra un aviso de SmartScreen. ¿Es seguro?","a2x":"InCost aún no tiene firma de código (prevista para la versión 1.0), así que Windows puede pedir confirmación: «Más información» → «Ejecutar de todas formas». Descarga InCost solo desde incost.app. No necesita permisos de administrador y las actualizaciones solo se instalan con la firma digital del desarrollador.",
     "q3":"¿Necesita conexión a internet?","a3x":"No. Todo funciona en tu PC. Internet solo se usa una vez para activar la licencia Pro.",
     "q4":"¿Puedo usar mis propias tarifas y precios de material?","a4x":"Sí. Tarifas, preparación, márgenes y precios por unidad de peso se editan y se guardan.",
     "q5":"¿Funciona en sistema métrico?","a5x":"Sí. InCost trabaja con pulgadas y milímetros, libras y kilogramos, y convierte mientras escribes.",
@@ -834,6 +891,21 @@ main.swap{opacity:.4}
     "ct.mailto":"Debería abrirse tu app de correo con el mensaje listo. Si no se abrió, copia el mensaje y envíalo a {email}.","ct.copyMsg":"Copiar mensaje","s6":"Planos desde STEP","md.k":"Dentro de InCost","md.h":"Mucho más que una calculadora de costos.","md.p":"Todo lo que hacen a diario un tecnólogo y un ingeniero de diseño, en una sola app.","cmp.h":"Qué incluye Pro","fx1":"Todos los cálculos de costo en pantalla","fx2":"Planos desde modelos 3D en pantalla","fx3":"40 calculadoras de ingeniería y conversor de unidades","fx4":"Hasta 5 cálculos guardados","px1":"Todo lo de Free, sin límites","px2":"Cotizaciones, informes y hojas de ruta PDF con tu logo","px3":"Plano PDF → precio, y planos exportados a PDF y DXF","px4":"Anidado automático y editor DXF completo","px5":"Cotización por lotes de carpetas enteras","px6":"Informes de ensayo y documentos de certificado EN 10204 con sus datos","px7":"Todas las herramientas estructurales, preparación 3D y modo equipo","tl.k":"Calculadoras en línea gratis","tl.h":"Números rápidos, directo en el navegador.","tl.p":"Sin descargas. Cuando quieras cotizar planos reales, InCost hace lo mismo con tus archivos DXF y STEP.","tl1":"Acero, aluminio, inoxidable, latón: placa, barra, tubo y ángulo.","tl2":"Filamento, electricidad, desgaste, mano de obra y precio de venta.","tl3":"Precio de una pieza de chapa por longitud de corte, perforaciones y tarifa.","tl4":"Material, tiempo de ciclo y preparación, precio por pieza según cantidad.","nav.tools":"Calculadoras","hero.tools":"Calculadoras gratis: peso de metal, impresión 3D, láser y CNC","q7":"¿Cómo instalo InCost?","a7x":"Descarga el ZIP, descomprímelo en cualquier carpeta y ejecuta InCost. No necesitas instalador ni permisos de administrador. Las nuevas versiones llegan automáticamente dentro de la app."
   },
   pl:{
+    "ac.k":"Dokładność i zaufanie",
+    "ac.h":"Błędna cena kosztuje prawdziwe pieniądze. Dlatego każda liczba jest jawna.",
+    "ac.p":"InCost nie daje sumy z „czarnej skrzynki”. Widzisz, skąd bierze się każdy złoty, i możesz to sprawdzić.",
+    "ac1h":"Widać każdą pozycję",
+    "ac1p":"Materiał, cięcie, przebicia, przezbrojenie, gięcie, narzuty i marża są pokazane pozycja po pozycji z danymi wejściowymi. Uzasadnienie ceny w PDF zawsze sumuje się dokładnie do ceny oferty.",
+    "ac2h":"Twoje maszyny, twoje stawki",
+    "ac2p":"Żadnych ukrytych średnich. Prędkości cięcia według mocy i gazu, stawki maszyn, czasy przezbrojenia i ceny materiałów ustawiasz ty i są zapisywane na kolejne wyceny.",
+    "ac3h":"Kalibracja według faktycznych czasów",
+    "ac3p":"Po zleceniu wpisz, ile naprawdę trwało. InCost porówna plan z faktem i poprawi kolejne wyceny dla tej maszyny.",
+    "ac4h":"Sprawdzane przed każdym wydaniem",
+    "ac4p":"Automatyczne testy regresji sprawdzają każdy dział w trybie USA, UE i metrycznym, w każdym języku, z wartościami skrajnymi i starymi danymi. Technolodzy z zakładów sprawdzają wydania na prawdziwych zleceniach.",
+    "ac5h":"Twoje dane zostają u ciebie",
+    "ac5p":"Rysunki, koszty i marże zostają na twoim PC. Wychodzi tylko to, czym sam się dzielisz, np. oferta przez link, i tylko to, co widzi klient.",
+    "ac6h":"Bezpieczne uruchamianie",
+    "ac6p":"Bez instalatora i uprawnień administratora. Działa offline, a aktualizacje instalują się tylko z podpisem cyfrowym dewelopera.",
     "nav.how":"Jak to działa","nav.features":"Funkcje","nav.roi":"Oszczędności","nav.pricing":"Cennik","nav.faq":"FAQ",
     "cta.free":"Pobierz za darmo","cta.win":"Pobierz za darmo na Windows",
     "hero.pill":"<b>Nowość</b> Wersja 0.9 na Windows już jest","hero.h1":"Koniec z wyceną części <span>w arkuszach.</span>",
@@ -860,7 +932,7 @@ main.swap{opacity:.4}
     "pro.buy":"Kup Pro","pro.btn":"Wypróbuj 4 dni za darmo","pro.fine":"Bezpieczna płatność przez Freemius. Anulujesz w każdej chwili.",
     "fq.h":"Pytania przed pobraniem.",
     "q1":"Czy darmowy plan jest naprawdę darmowy?","a1x":"Tak. Free nie ma limitu czasu i nie wymaga konta. 4 dni Pro zaczynają się przy pierwszym uruchomieniu, bez karty.",
-    "q2":"Windows pokazuje ostrzeżenie SmartScreen. Czy to bezpieczne?","a2x":"InCost to nowa aplikacja i nie ma jeszcze podpisu cyfrowego, więc Windows może poprosić o potwierdzenie. Kliknij „Więcej informacji”, a potem „Uruchom mimo to”.",
+    "q2":"Windows pokazuje ostrzeżenie SmartScreen. Czy to bezpieczne?","a2x":"InCost nie ma jeszcze podpisu kodu (planowany w wersji 1.0), więc Windows może poprosić o potwierdzenie: „Więcej informacji” → „Uruchom mimo to”. Pobieraj InCost tylko z incost.app. Nie wymaga uprawnień administratora, a aktualizacje instalują się tylko z podpisem cyfrowym dewelopera.",
     "q3":"Czy potrzebny jest internet?","a3x":"Nie. Wszystko działa na twoim PC. Internet jest potrzebny raz, do aktywacji licencji Pro.",
     "q4":"Czy mogę użyć własnych stawek i cen materiałów?","a4x":"Tak. Stawki, przezbrojenia, marże i ceny za jednostkę wagi można edytować i zapisać.",
     "q5":"Czy działa w systemie metrycznym?","a5x":"Tak. InCost obsługuje cale i milimetry, funty i kilogramy oraz przelicza je podczas pisania.",
@@ -1088,6 +1160,10 @@ main.swap{opacity:.4}
     target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12l7-7M16 5h3v3"/>',
     justify:'<path d="M5 20V10M10 20V4M15 20v-7M20 20v-4"/><path d="M3 20h18"/>',
     shop:'<path d="M3 21V9l5 3V9l5 3V9l5 3v9z"/><path d="M7 17h2M11 17h2M15 17h2"/>',
+    qlink:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    follow:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>',
+    show:'<path d="M3 5h18v11H3z"/><path d="M8 21h8M12 16v5"/><path d="M7 12l3-3 2 2 4-4"/>',
+    learn:'<path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5M22 8v6"/>',
     team:'<circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2.5 20c.5-3.5 2.8-5.5 5.5-5.5s5 2 5.5 5.5M14 15.5c2.8-.6 5.6.8 6.5 4.5"/>'
   };
   var MODS={
@@ -1096,6 +1172,10 @@ main.swap{opacity:.4}
         ["target", "Target price and cost-down", "Enter the price your customer wants. InCost shows how to reach it: another process, cheaper material, thinner sheet, larger batch or lower margin, and who each change affects."],
         ["justify", "Price justification PDF", "A customer-ready breakdown where every line adds up to the quoted price, with what-if options for batch size, process and lead time."],
         ["shop", "Your machines, real times", "Set up your lasers, plasma and waterjet by power and gas, and your press brake. Enter actual times after a job and InCost calibrates future quotes."],
+        ["qlink", "Quote link: customer accepts online", "Send a link instead of a PDF. Your customer opens the quote in a browser, in their language and currency, and clicks Accept or Decline. Accepted quotes are marked Won. Costs and margins never leave your PC."],
+        ["follow", "Follow-ups and quote versions", "The quote log reminds you when a customer has been silent for a few days. Revise a quote as v2 or v3 and see what changed. Customer templates keep each client's discount, currency, PDF language and terms."],
+        ["show", "Show to customer, CO₂ footprint", "One click hides cost and margin and shows big, clean numbers, so you can turn the screen to the customer. Every calculation and quote also shows an estimated carbon footprint."],
+        ["learn", "20 lessons inside the app", "Short animated lessons on real screens, in your language. “Show me in the app” highlights the actual buttons in the working window, so a new technologist is quoting on day one."],
         ["dxf","DXF editor and cleanup","Finds duplicate lines, gaps and splines and fixes them in one click. Add micro-joints, lead-ins, bend lines and marking, then re-price."],
         ["batch","Batch quoting","Drop a folder of DXF files. Thickness, quantity and material are read from the file names, and every part is priced."],
         ["quote","Quotes and win rate","Branded PDF quotes with your logo, sales tax or VAT and Incoterms. Every quote is logged as sent, won or lost."],
@@ -1113,6 +1193,10 @@ main.swap{opacity:.4}
         ["target", "Ціна-мішень і «Як здешевити»", "Введіть ціну, яку хоче клієнт. InCost покаже, як до неї дійти: інша технологія, дешевший матеріал, тонший лист, більша партія чи менша націнка, і кого це зачіпає."],
         ["justify", "Обґрунтування ціни в PDF", "Документ для клієнта, де сума статей завжди дорівнює ціні, з розділом «що буде, якщо»: партія, технологія, терміни."],
         ["shop", "Ваше обладнання, реальний час", "Лазери, плазма й гідроабразив за потужністю та газом, ваш листозгин. Вводите фактичний час після замовлення, і InCost уточнює наступні розрахунки."],
+        ["qlink", "Пропозиція посиланням", "Замість PDF надішліть посилання. Клієнт відкриває пропозицію в браузері своєю мовою й валютою і тисне «Прийняти» або «Відхилити». Прийнята стає «Виграно». Собівартість і націнка не залишають ваш ПК."],
+        ["follow", "Нагадування і версії пропозицій", "Журнал нагадає, що клієнт мовчить кілька днів. Нова редакція пропозиції стає v2, v3, і видно, що змінилось. Шаблони клієнтів пам'ятають знижку, валюту, мову PDF і умови."],
+        ["show", "«Показати клієнту» і слід CO₂", "Один клік ховає собівартість і націнку й показує великі чисті цифри, щоб можна було повернути екран до клієнта. Під кожним розрахунком і в пропозиції є оцінка вуглецевого сліду."],
+        ["learn", "20 уроків у програмі", "Короткі анімовані уроки на справжніх екранах вашою мовою. «Показати в програмі» підсвічує справжні кнопки в робочому вікні, тож новий технолог рахує з першого дня."],
         ["dxf","DXF-редактор і очищення","Знаходить дублікати ліній, розриви й сплайни та виправляє їх одним кліком. Мікроперемички, підводи, лінії гибу й маркування, потім перерахунок ціни."],
         ["batch","Пакетний розрахунок","Перетягніть папку з DXF. Товщина, кількість і матеріал читаються з назв файлів, і кожна деталь отримує ціну."],
         ["quote","Пропозиції та конверсія","PDF-пропозиції з вашим логотипом, ПДВ і Incoterms. Кожна пропозиція в журналі: надіслано, виграно чи програно."],
@@ -1130,6 +1214,10 @@ main.swap{opacity:.4}
         ["target", "Zielpreis und Kostensenkung", "Geben Sie den Wunschpreis des Kunden ein. InCost zeigt den Weg dorthin: anderes Verfahren, günstigerer Werkstoff, dünneres Blech, größeres Los oder geringere Marge."],
         ["justify", "Preisbegründung als PDF", "Eine Aufschlüsselung für den Kunden, deren Positionen immer den Angebotspreis ergeben, mit Was-wäre-wenn für Losgröße, Verfahren und Lieferzeit."],
         ["shop", "Ihre Maschinen, echte Zeiten", "Laser, Plasma und Wasserstrahl nach Leistung und Gas, dazu Ihre Abkantpresse. Nach dem Auftrag Istzeiten eingeben, und InCost kalibriert künftige Angebote."],
+        ["qlink", "Angebot per Link annehmen", "Senden Sie einen Link statt eines PDFs. Ihr Kunde öffnet das Angebot im Browser, in seiner Sprache und Währung, und klickt auf Annehmen oder Ablehnen. Angenommene Angebote gelten als gewonnen. Kosten und Marge bleiben auf Ihrem PC."],
+        ["follow", "Nachfassen und Angebotsversionen", "Das Angebotsjournal erinnert Sie, wenn ein Kunde seit einigen Tagen schweigt. Überarbeiten Sie ein Angebot als v2 oder v3 und sehen Sie die Änderungen. Kundenvorlagen speichern Rabatt, Währung, PDF-Sprache und Bedingungen."],
+        ["show", "Kundenansicht und CO₂-Fußabdruck", "Ein Klick blendet Kosten und Marge aus und zeigt große, klare Zahlen, sodass Sie den Bildschirm zum Kunden drehen können. Jede Kalkulation und jedes Angebot zeigt zudem einen geschätzten CO₂-Fußabdruck."],
+        ["learn", "20 Lektionen in der App", "Kurze animierte Lektionen an echten Bildschirmen, in Ihrer Sprache. „In der App zeigen“ hebt die echten Schaltflächen im Arbeitsfenster hervor, sodass neue Kollegen am ersten Tag kalkulieren."],
         ["dxf","DXF-Editor und Bereinigung","Findet doppelte Linien, Lücken und Splines und behebt sie mit einem Klick. Microjoints, Anfahrfahnen, Biegelinien und Beschriftung, danach neu kalkulieren."],
         ["batch","Stapelkalkulation","Einen Ordner mit DXF-Dateien ablegen. Dicke, Stückzahl und Werkstoff werden aus den Dateinamen gelesen, jedes Teil bekommt einen Preis."],
         ["quote","Angebote und Erfolgsquote","PDF-Angebote mit Ihrem Logo, MwSt. und Incoterms. Jedes Angebot wird protokolliert: gesendet, gewonnen oder verloren."],
@@ -1147,6 +1235,10 @@ main.swap{opacity:.4}
         ["target", "Precio objetivo y reducción de costos", "Introduce el precio que quiere el cliente. InCost muestra cómo llegar: otro proceso, material más barato, chapa más fina, lote mayor o menor margen."],
         ["justify", "Justificación de precio en PDF", "Un desglose para el cliente donde las partidas siempre suman el precio, con escenarios de lote, proceso y plazo."],
         ["shop", "Tus máquinas, tiempos reales", "Configura láser, plasma y chorro de agua por potencia y gas, y tu plegadora. Registra los tiempos reales y InCost calibra las próximas cotizaciones."],
+        ["qlink", "Cotización por enlace", "Envía un enlace en lugar de un PDF. Tu cliente abre la cotización en el navegador, en su idioma y moneda, y pulsa Aceptar o Rechazar. Las aceptadas quedan como Ganadas. Costos y márgenes nunca salen de tu PC."],
+        ["follow", "Seguimiento y versiones", "El registro de cotizaciones te avisa cuando un cliente lleva días sin responder. Revisa una cotización como v2 o v3 y ve qué cambió. Las plantillas de cliente guardan descuento, moneda, idioma del PDF y condiciones."],
+        ["show", "Vista para el cliente y huella de CO₂", "Un clic oculta costo y margen y muestra cifras grandes y limpias, para girar la pantalla hacia el cliente. Cada cálculo y cotización muestra además una huella de carbono estimada."],
+        ["learn", "20 lecciones dentro de la app", "Lecciones animadas cortas sobre pantallas reales, en tu idioma. «Mostrar en la app» resalta los botones reales en la ventana de trabajo, así un tecnólogo nuevo cotiza desde el primer día."],
         ["dxf","Editor y limpieza de DXF","Encuentra líneas duplicadas, huecos y splines y los corrige con un clic. Microuniones, entradas, líneas de plegado y marcado, y luego recalcula el precio."],
         ["batch","Cotización por lotes","Suelta una carpeta de DXF. El espesor, la cantidad y el material se leen del nombre de archivo y cada pieza recibe su precio."],
         ["quote","Cotizaciones y tasa de éxito","Cotizaciones PDF con tu logo, impuestos e Incoterms. Cada cotización queda registrada: enviada, ganada o perdida."],
@@ -1164,6 +1256,10 @@ main.swap{opacity:.4}
         ["target", "Cena docelowa i obniżanie kosztów", "Wpisz cenę, jakiej chce klient. InCost pokaże, jak ją osiągnąć: inna technologia, tańszy materiał, cieńsza blacha, większa partia lub niższa marża."],
         ["justify", "Uzasadnienie ceny w PDF", "Rozbicie dla klienta, w którym pozycje zawsze sumują się do ceny, ze scenariuszami partii, technologii i terminu."],
         ["shop", "Twoje maszyny, realne czasy", "Lasery, plazma i waterjet według mocy i gazu oraz twoja prasa krawędziowa. Wpisz rzeczywiste czasy po zleceniu, a InCost skalibruje kolejne wyceny."],
+        ["qlink", "Oferta przez link", "Zamiast PDF wyślij link. Klient otwiera ofertę w przeglądarce, w swoim języku i walucie, i klika Akceptuj lub Odrzuć. Zaakceptowana staje się Wygraną. Koszty i marża nie opuszczają twojego PC."],
+        ["follow", "Przypomnienia i wersje ofert", "Dziennik ofert przypomni, że klient milczy od kilku dni. Poprawiona oferta staje się v2, v3 i widać, co się zmieniło. Szablony klientów pamiętają rabat, walutę, język PDF i warunki."],
+        ["show", "„Pokaż klientowi” i ślad CO₂", "Jedno kliknięcie ukrywa koszt i marżę i pokazuje duże, czytelne liczby, więc możesz obrócić ekran do klienta. Każda wycena i oferta pokazuje też szacowany ślad węglowy."],
+        ["learn", "20 lekcji w aplikacji", "Krótkie animowane lekcje na prawdziwych ekranach, w twoim języku. „Pokaż w aplikacji” podświetla prawdziwe przyciski w oknie roboczym, więc nowy technolog wycenia od pierwszego dnia."],
         ["dxf","Edytor i czyszczenie DXF","Wykrywa zdublowane linie, przerwy i splajny i naprawia je jednym kliknięciem. Mikromostki, najazdy, linie gięcia i znakowanie, potem ponowna wycena."],
         ["batch","Wycena wsadowa","Upuść folder z plikami DXF. Grubość, ilość i materiał są odczytywane z nazw plików, a każda część dostaje cenę."],
         ["quote","Oferty i skuteczność","Oferty PDF z twoim logo, VAT i Incoterms. Każda oferta trafia do rejestru: wysłana, wygrana lub przegrana."],
@@ -1177,7 +1273,7 @@ main.swap{opacity:.4}
         ["maker","Ceny rękodzieła","Wycena rękodzieła: materiały, czas, narzędzia, prowizje platform i cena, która pokrywa twoją stawkę."],
         ["team","Praca zespołowa","Wspólne materiały, maszyny, projekty i magazyn przez wspólny folder."]]
   };
-  var NEWW={en:"New",uk:"Нове",de:"Neu",es:"Nuevo",pl:"Nowość"},NEWM={pdf:1,target:1,justify:1,shop:1};
+  var NEWW={en:"New",uk:"Нове",de:"Neu",es:"Nuevo",pl:"Nowość"},NEWM={qlink:1,follow:1,show:1,learn:1};
   var DRW_SVG='<svg class="sheet" viewBox="0 0 520 320" aria-hidden="true" font-family="Consolas,monospace">'+
     '<rect x="6" y="6" width="508" height="308" rx="4" fill="var(--bg)" stroke="var(--ink-2)" stroke-width="1.5"/>'+
     '<rect x="20" y="20" width="480" height="280" fill="none" stroke="var(--ink-2)" stroke-width=".8"/>'+
@@ -1200,11 +1296,11 @@ main.swap{opacity:.4}
     '<g fill="var(--ink-2)" font-size="10"><text x="60" y="176">A–A</text><text x="270" y="176">L</text></g>'+
   '</svg>';
   var CMP={
-    en:{h:"Feature",rows:[["Cost of sheet metal, machining, 3D printing, welding and composites",1,1],["Drawings from 3D models","On screen","+ PDF and DXF export"],["PDF drawing → price", 0, 1],["Target price and cost-down tips", 1, 1],["Price justification PDF for customers", 0, 1],["Saved shop templates", "1", "Unlimited"],["DXF editor","View and check","Edit, fix and save"],["Automatic nesting",0,1],["Batch DXF quoting","Up to 3 files","Unlimited"],["Saved estimates","5","Unlimited"],["Assemblies and inventory","Up to 3 items","Unlimited"],["PDF quotes, reports and travelers with your logo",0,1],["Quality tests","Up to 3, on screen","Unlimited + PDF test reports and certificate documents"],["Structural helper","5 tools","All 15 tools"],["40 engineer calculators",1,1],["3D print preparation",0,1],["Bulk price update when costs change",0,1],["Team mode and DXF/CSV export",0,1],["Automatic updates",1,1]]},
-    uk:{h:"Можливість",rows:[["Собівартість листового металу, мехобробки, 3D-друку, зварювання й композитів",1,1],["Креслення з 3D-моделі","На екрані","+ експорт у PDF і DXF"],["PDF-креслення → ціна", 0, 1],["Ціна-мішень і поради «Як здешевити»", 1, 1],["Обґрунтування ціни в PDF для клієнта", 0, 1],["Збережені шаблони цеху", "1", "Без обмежень"],["DXF-редактор","Перегляд і перевірка","Правки, виправлення, збереження"],["Автоматична розкладка",0,1],["Пакетний розрахунок DXF","До 3 файлів","Без обмежень"],["Збережені розрахунки","5","Без обмежень"],["Вироби та склад","До 3 позицій","Без обмежень"],["PDF-пропозиції, звіти й маршрутні карти з вашим логотипом",0,1],["Випробування","До 3, на екрані","Без обмежень + PDF-протоколи й бланки сертифікатів"],["Помічник будівельника","5 інструментів","Усі 15"],["40 калькуляторів конструктора",1,1],["Підготовка до 3D-друку",0,1],["Перерахунок цін при зміні вартості",0,1],["Командна робота й експорт DXF/CSV",0,1],["Автоматичні оновлення",1,1]]},
-    de:{h:"Funktion",rows:[["Kosten für Blech, Zerspanung, 3D-Druck, Schweißen und Verbundwerkstoffe",1,1],["Zeichnungen aus 3D-Modellen","Am Bildschirm","+ Export als PDF und DXF"],["PDF-Zeichnung → Preis", 0, 1],["Zielpreis und Tipps zur Kostensenkung", 1, 1],["Preisbegründung als PDF für Kunden", 0, 1],["Gespeicherte Werkstatt-Vorlagen", "1", "Unbegrenzt"],["DXF-Editor","Ansehen und prüfen","Bearbeiten, reparieren, speichern"],["Automatische Verschachtelung",0,1],["DXF-Stapelkalkulation","Bis 3 Dateien","Unbegrenzt"],["Gespeicherte Kalkulationen","5","Unbegrenzt"],["Baugruppen und Lager","Bis 3 Positionen","Unbegrenzt"],["PDF-Angebote, Berichte und Laufkarten mit Ihrem Logo",0,1],["Prüfungen","Bis 3, am Bildschirm","Unbegrenzt + PDF-Prüfberichte und Zeugnis-Dokumente"],["Statik-Helfer","5 Werkzeuge","Alle 15"],["40 Konstrukteurs-Rechner",1,1],["3D-Druck-Vorbereitung",0,1],["Preise aktualisieren bei Kostenänderung",0,1],["Teammodus und DXF/CSV-Export",0,1],["Automatische Updates",1,1]]},
-    es:{h:"Función",rows:[["Costo de chapa, mecanizado, impresión 3D, soldadura y compuestos",1,1],["Planos desde modelos 3D","En pantalla","+ exportación a PDF y DXF"],["Plano PDF → precio", 0, 1],["Precio objetivo y consejos para abaratar", 1, 1],["Justificación de precio en PDF para clientes", 0, 1],["Plantillas de taller guardadas", "1", "Ilimitadas"],["Editor DXF","Ver y revisar","Editar, corregir y guardar"],["Anidado automático",0,1],["Cotización DXF por lotes","Hasta 3 archivos","Ilimitado"],["Cálculos guardados","5","Ilimitados"],["Conjuntos e inventario","Hasta 3 elementos","Ilimitado"],["Cotizaciones, informes y hojas de ruta PDF con tu logo",0,1],["Ensayos de calidad","Hasta 3, en pantalla","Ilimitados + informes y documentos de certificado PDF"],["Asistente estructural","5 herramientas","Las 15"],["40 calculadoras de ingeniería",1,1],["Preparación de impresión 3D",0,1],["Actualización masiva de precios",0,1],["Modo equipo y exportación DXF/CSV",0,1],["Actualizaciones automáticas",1,1]]},
-    pl:{h:"Funkcja",rows:[["Koszt blachy, obróbki, druku 3D, spawania i kompozytów",1,1],["Rysunki z modeli 3D","Na ekranie","+ eksport do PDF i DXF"],["Rysunek PDF → cena", 0, 1],["Cena docelowa i porady obniżania kosztów", 1, 1],["Uzasadnienie ceny w PDF dla klienta", 0, 1],["Zapisane szablony warsztatu", "1", "Bez limitu"],["Edytor DXF","Podgląd i sprawdzenie","Edycja, naprawa, zapis"],["Automatyczny nesting",0,1],["Wsadowa wycena DXF","Do 3 plików","Bez limitu"],["Zapisane wyceny","5","Bez limitu"],["Wyroby i magazyn","Do 3 pozycji","Bez limitu"],["Oferty, raporty i karty PDF z twoim logo",0,1],["Próby jakości","Do 3, na ekranie","Bez limitu + protokoły i dokumenty świadectw PDF"],["Pomocnik budowlany","5 narzędzi","Wszystkie 15"],["40 kalkulatorów inżyniera",1,1],["Przygotowanie do druku 3D",0,1],["Masowa aktualizacja cen",0,1],["Praca zespołowa i eksport DXF/CSV",0,1],["Automatyczne aktualizacje",1,1]]}
+    en:{h:"Feature",rows:[["Cost of sheet metal, machining, 3D printing, welding and composites",1,1],["Drawings from 3D models","On screen","+ PDF and DXF export"],["PDF drawing → price", 0, 1],["Target price and cost-down tips", 1, 1],["Price justification PDF for customers", 0, 1],["Saved shop templates", "1", "Unlimited"],["Quote links customers accept online", 0, 1],["Built-in animated lessons", 1, 1],["DXF editor","View and check","Edit, fix and save"],["Automatic nesting",0,1],["Batch DXF quoting","Up to 3 files","Unlimited"],["Saved estimates","5","Unlimited"],["Assemblies and inventory","Up to 3 items","Unlimited"],["PDF quotes, reports and travelers with your logo",0,1],["Quality tests","Up to 3, on screen","Unlimited + PDF test reports and certificate documents"],["Structural helper","5 tools","All 15 tools"],["40 engineer calculators",1,1],["3D print preparation",0,1],["Bulk price update when costs change",0,1],["Team mode and DXF/CSV export",0,1],["Automatic updates",1,1]]},
+    uk:{h:"Можливість",rows:[["Собівартість листового металу, мехобробки, 3D-друку, зварювання й композитів",1,1],["Креслення з 3D-моделі","На екрані","+ експорт у PDF і DXF"],["PDF-креслення → ціна", 0, 1],["Ціна-мішень і поради «Як здешевити»", 1, 1],["Обґрунтування ціни в PDF для клієнта", 0, 1],["Збережені шаблони цеху", "1", "Без обмежень"],["Пропозиції посиланням з прийняттям онлайн", 0, 1],["Вбудовані анімовані уроки", 1, 1],["DXF-редактор","Перегляд і перевірка","Правки, виправлення, збереження"],["Автоматична розкладка",0,1],["Пакетний розрахунок DXF","До 3 файлів","Без обмежень"],["Збережені розрахунки","5","Без обмежень"],["Вироби та склад","До 3 позицій","Без обмежень"],["PDF-пропозиції, звіти й маршрутні карти з вашим логотипом",0,1],["Випробування","До 3, на екрані","Без обмежень + PDF-протоколи й бланки сертифікатів"],["Помічник будівельника","5 інструментів","Усі 15"],["40 калькуляторів конструктора",1,1],["Підготовка до 3D-друку",0,1],["Перерахунок цін при зміні вартості",0,1],["Командна робота й експорт DXF/CSV",0,1],["Автоматичні оновлення",1,1]]},
+    de:{h:"Funktion",rows:[["Kosten für Blech, Zerspanung, 3D-Druck, Schweißen und Verbundwerkstoffe",1,1],["Zeichnungen aus 3D-Modellen","Am Bildschirm","+ Export als PDF und DXF"],["PDF-Zeichnung → Preis", 0, 1],["Zielpreis und Tipps zur Kostensenkung", 1, 1],["Preisbegründung als PDF für Kunden", 0, 1],["Gespeicherte Werkstatt-Vorlagen", "1", "Unbegrenzt"],["Angebotslinks mit Online-Annahme", 0, 1],["Integrierte animierte Lektionen", 1, 1],["DXF-Editor","Ansehen und prüfen","Bearbeiten, reparieren, speichern"],["Automatische Verschachtelung",0,1],["DXF-Stapelkalkulation","Bis 3 Dateien","Unbegrenzt"],["Gespeicherte Kalkulationen","5","Unbegrenzt"],["Baugruppen und Lager","Bis 3 Positionen","Unbegrenzt"],["PDF-Angebote, Berichte und Laufkarten mit Ihrem Logo",0,1],["Prüfungen","Bis 3, am Bildschirm","Unbegrenzt + PDF-Prüfberichte und Zeugnis-Dokumente"],["Statik-Helfer","5 Werkzeuge","Alle 15"],["40 Konstrukteurs-Rechner",1,1],["3D-Druck-Vorbereitung",0,1],["Preise aktualisieren bei Kostenänderung",0,1],["Teammodus und DXF/CSV-Export",0,1],["Automatische Updates",1,1]]},
+    es:{h:"Función",rows:[["Costo de chapa, mecanizado, impresión 3D, soldadura y compuestos",1,1],["Planos desde modelos 3D","En pantalla","+ exportación a PDF y DXF"],["Plano PDF → precio", 0, 1],["Precio objetivo y consejos para abaratar", 1, 1],["Justificación de precio en PDF para clientes", 0, 1],["Plantillas de taller guardadas", "1", "Ilimitadas"],["Enlaces de cotización con aceptación online", 0, 1],["Lecciones animadas integradas", 1, 1],["Editor DXF","Ver y revisar","Editar, corregir y guardar"],["Anidado automático",0,1],["Cotización DXF por lotes","Hasta 3 archivos","Ilimitado"],["Cálculos guardados","5","Ilimitados"],["Conjuntos e inventario","Hasta 3 elementos","Ilimitado"],["Cotizaciones, informes y hojas de ruta PDF con tu logo",0,1],["Ensayos de calidad","Hasta 3, en pantalla","Ilimitados + informes y documentos de certificado PDF"],["Asistente estructural","5 herramientas","Las 15"],["40 calculadoras de ingeniería",1,1],["Preparación de impresión 3D",0,1],["Actualización masiva de precios",0,1],["Modo equipo y exportación DXF/CSV",0,1],["Actualizaciones automáticas",1,1]]},
+    pl:{h:"Funkcja",rows:[["Koszt blachy, obróbki, druku 3D, spawania i kompozytów",1,1],["Rysunki z modeli 3D","Na ekranie","+ eksport do PDF i DXF"],["Rysunek PDF → cena", 0, 1],["Cena docelowa i porady obniżania kosztów", 1, 1],["Uzasadnienie ceny w PDF dla klienta", 0, 1],["Zapisane szablony warsztatu", "1", "Bez limitu"],["Oferty przez link z akceptacją online", 0, 1],["Wbudowane animowane lekcje", 1, 1],["Edytor DXF","Podgląd i sprawdzenie","Edycja, naprawa, zapis"],["Automatyczny nesting",0,1],["Wsadowa wycena DXF","Do 3 plików","Bez limitu"],["Zapisane wyceny","5","Bez limitu"],["Wyroby i magazyn","Do 3 pozycji","Bez limitu"],["Oferty, raporty i karty PDF z twoim logo",0,1],["Próby jakości","Do 3, na ekranie","Bez limitu + protokoły i dokumenty świadectw PDF"],["Pomocnik budowlany","5 narzędzi","Wszystkie 15"],["40 kalkulatorów inżyniera",1,1],["Przygotowanie do druku 3D",0,1],["Masowa aktualizacja cen",0,1],["Praca zespołowa i eksport DXF/CSV",0,1],["Automatyczne aktualizacje",1,1]]}
   };
   function icon(id){return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+MI[id]+'</svg>'}
   function renderMods(){
