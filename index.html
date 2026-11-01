@@ -661,7 +661,7 @@ main.swap{opacity:.4}
             <span class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 3.5L2.5 9.3l5 1.9 1.9 5.3 2.8-3.4 3.6 2.6z"/><path d="M7.5 11.2l10-7.7"/></svg></span>
             <h3>Telegram</h3>
             <p data-i="ct.tgD">Quick questions and screenshots.</p>
-            <a class="btn btn-secondary" id="ctg" href="https://t.me/incost_app" target="_blank" rel="noopener">@incost_app</a>
+            <a class="btn btn-secondary" id="ctg" href="https://t.me/incost_feedback_bot" target="_blank" rel="noopener">@incost_feedback_bot</a>
           </div>
           <p class="resp"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.5V8l2.4 1.6"/></svg><span data-i="ct.resp">Replies within 1–2 business days.</span></p>
         </div>
@@ -1101,7 +1101,7 @@ main.swap{opacity:.4}
   /* ===== contact — edit these three values ===== */
   var CONTACT={
     email:"hello@incost.app",
-    telegram:"incost_app",      // without @; leave "" to hide the Telegram card
+    telegram:"incost_feedback_bot", // support bot: messages are relayed to the developer; "" hides the card
     formEndpoint:"https://api.incost.app/contact"   // messages go to the developer's Telegram; "" = form opens the visitor's email app
   };
   function tr(k){return (D[LANG]&&D[LANG][k])||D.en[k]||k}
