@@ -58,14 +58,17 @@ footer a{color:var(--ink-2);text-decoration:none}
 <footer><div class="wrap"><nav><a href="/">Home</a><a href="terms.html">Terms of Service</a><a href="privacy.html">Privacy Policy</a><a href="refund.html">Refund Policy</a><a href="mailto:hello@incost.app">hello@incost.app</a></nav><p>© 2026 InCost</p></div></footer>
 <script>
 (function(){
-  var API="https://api.incost.app";
-  var txn=new URLSearchParams(location.search).get("txn");
-  if(!txn||!/^txn_[a-z0-9]{20,40}$/i.test(txn))return;
-  var box=document.getElementById("keybox"),ready=document.getElementById("keyready"),tries=0;
+  var API="https://api.incost.app",q=new URLSearchParams(location.search);
+  var txn=q.get("txn"),lic=q.get("lic"),em="";
+  try{em=sessionStorage.getItem("incost-buyer")||""}catch(e){}
+  var box=document.getElementById("keybox"),ready=document.getElementById("keyready"),tries=0,url;
+  if(lic&&/^\d{1,15}$/.test(lic)&&em)url=API+"/key?lic="+encodeURIComponent(lic)+"&e="+encodeURIComponent(em);
+  else if(txn&&/^txn_[a-z0-9]{20,40}$/i.test(txn))url=API+"/key?txn="+encodeURIComponent(txn);
+  else return;
   box.innerHTML="<strong>Preparing your license key…</strong> This usually takes a few seconds. It is also sent to your email.";
   function poll(){
     tries++;
-    fetch(API+"/key?txn="+encodeURIComponent(txn),{cache:"no-store"}).then(function(r){return r.json().then(function(j){return {s:r.status,j:j}})}).then(function(o){
+    fetch(url,{cache:"no-store"}).then(function(r){return r.json().then(function(j){return {s:r.status,j:j}})}).then(function(o){
       if(o.s===200&&o.j.key){
         document.getElementById("key").value=o.j.key;
         document.getElementById("keymeta").textContent=(o.j.exp?"· valid until "+new Date(o.j.exp+"T12:00:00Z").toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):"")+(o.j.email?" · also sent to "+o.j.email:"");

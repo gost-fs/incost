@@ -1323,30 +1323,38 @@ main.swap{opacity:.4}
   }
 
 
-  /* ===== Paddle checkout ===== */
-  var PADDLE={
-    sandbox:false,                              // true only while testing with Paddle sandbox token/prices
-    enabled:false,                              // switch to true once Paddle approves the account and license delivery works
-    token:"live_110a0cbe498012ebe2991558b8f",   // public client-side token (safe to publish)
-    monthly:"pri_01m5ssz9w8k3egkad5dv1cjrf8",   // $19.99 / month
-    yearly:"pri_01m5st1w37dwbm72ppsb8hhhcs"     // $159.99 / year
+  /* ===== Freemius checkout ===== */
+  var FREEMIUS={
+    enabled:false,               // switch to true once Freemius approves the account
+    sandbox:null,                // for test purchases: {token:"…",ctx:"…"} from Freemius → Plans → Get Checkout → Sandbox; null for real sales
+    product_id:42809,
+    plan_id:76938,               // Pro: $19.99 / month, $159.99 / year
+    public_key:""                // pk_… from Freemius → Settings → Keys (safe to publish)
   };
-  var paddleReady=false;
-  function loadPaddle(){
-    if(!PADDLE.enabled||!PADDLE.token||paddleReady)return;
-    var sc=document.createElement("script");sc.src="https://cdn.paddle.com/paddle/v2/paddle.js";
-    sc.onload=function(){try{if(PADDLE.sandbox)Paddle.Environment.set("sandbox");Paddle.Initialize({token:PADDLE.token,eventCallback:function(ev){if(ev&&ev.name==="checkout.completed"&&ev.data&&ev.data.transaction_id){setTimeout(function(){location.href="/thanks.html?txn="+ev.data.transaction_id},1500)}}});paddleReady=true}catch(e){}};
-    document.head.appendChild(sc);
+  var fsCheckout=null,fsLoading=false;
+  function loadFS(cb){
+    if(window.FS&&FS.Checkout){cb&&cb();return}
+    if(fsLoading){setTimeout(function(){loadFS(cb)},300);return}
+    fsLoading=true;var sc=document.createElement("script");sc.src="https://checkout.freemius.com/js/v1/";
+    sc.onload=function(){fsLoading=false;cb&&cb()};sc.onerror=function(){fsLoading=false};document.head.appendChild(sc);
+  }
+  function fsDone(r){
+    r=r||{};var p=r.purchase||{},u=r.user||{},lic=p.license_id||(r.license&&r.license.id)||r.license_id||"",em=u.email||p.email||"";
+    try{if(em)sessionStorage.setItem("incost-buyer",em)}catch(e){}
+    location.href="/thanks.html"+(lic?"?lic="+encodeURIComponent(lic):"");
   }
   function buy(e){
-    if(!PADDLE.enabled||!PADDLE.token)return;    // checkout off: button keeps its normal link
+    if(!FREEMIUS.enabled)return;  // checkout off: button keeps its normal link
     e.preventDefault();
-    if(!paddleReady||!window.Paddle){loadPaddle();setTimeout(function(){buy(e)},600);return}
-    var loc={en:"en",uk:"uk",de:"de",es:"es",pl:"pl"}[LANG]||"en";
-    Paddle.Checkout.open({items:[{priceId:yearly?PADDLE.yearly:PADDLE.monthly,quantity:1}],settings:{displayMode:"overlay",theme:"light",locale:loc}});
+    loadFS(function(){
+      try{
+        if(!fsCheckout){var o={product_id:FREEMIUS.product_id};if(FREEMIUS.public_key)o.public_key=FREEMIUS.public_key;if(FREEMIUS.sandbox)o.sandbox=FREEMIUS.sandbox;fsCheckout=new FS.Checkout(o)}
+        fsCheckout.open({plan_id:FREEMIUS.plan_id,licenses:1,billing_cycle:yearly?"annual":"monthly",name:"InCost Pro",success:fsDone});
+      }catch(x){location.hash="#pricing"}
+    });
   }
   [].forEach.call(document.querySelectorAll("[data-buy]"),function(a){a.addEventListener("click",buy)});
-  loadPaddle();
+  if(FREEMIUS.enabled&&"requestIdleCallback" in window)requestIdleCallback(function(){loadFS()});
 
   /* ===== language ===== */
   var nodes=[].slice.call(document.querySelectorAll("[data-i]")),phs=[].slice.call(document.querySelectorAll("[data-ip]"));
