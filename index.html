@@ -681,7 +681,8 @@ main.swap{opacity:.4}
               <option value="partner" data-i="tp.biz">Partnership</option>
             </select>
           </div>
-          <div class="f"><label for="cm" data-i="ct.msg">Message</label><textarea id="cm" data-ip="ph.msg" placeholder="What do you quote, and what would make InCost better for you?"></textarea></div>
+          <div class="f"><label for="cm" data-i="ct.msg">Message</label><input type="text" id="cweb" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <textarea id="cm" data-ip="ph.msg" placeholder="What do you quote, and what would make InCost better for you?"></textarea></div>
           <button type="submit" class="btn btn-primary" id="csend" data-i="ct.send">Send message</button>
           <div class="status" id="cstat" role="status" aria-live="polite" hidden></div>
           <p class="priv" data-i="ct.priv">We only use your email to reply.</p>
@@ -1101,7 +1102,7 @@ main.swap{opacity:.4}
   var CONTACT={
     email:"hello@incost.app",
     telegram:"incost_app",      // without @; leave "" to hide the Telegram card
-    formEndpoint:""             // e.g. "https://formspree.io/f/xxxxxxx"; empty = form opens the visitor's email app
+    formEndpoint:"https://api.incost.app/contact"   // messages go to the developer's Telegram; "" = form opens the visitor's email app
   };
   function tr(k){return (D[LANG]&&D[LANG][k])||D.en[k]||k}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -1131,7 +1132,7 @@ main.swap{opacity:.4}
     var em="<b>"+esc(CONTACT.email)+"</b>";
     if(CONTACT.formEndpoint){
       var b=$("csend");b.disabled=true;
-      fetch(CONTACT.formEndpoint,{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({name:name,email:mail,topic:topic,message:msg,lang:LANG})})
+      fetch(CONTACT.formEndpoint,{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({name:name,email:mail,topic:sel.value,message:msg,lang:LANG,website:($("cweb")||{}).value||""})})
         .then(function(r){if(!r.ok)throw new Error(r.status);status("ok",esc(tr("ct.sent")));form.reset()})
         .catch(function(){status("err","<span>"+esc(tr("ct.fail")).replace("{email}",em)+"</span>"+copyBtn())})
         .then(function(){b.disabled=false});
