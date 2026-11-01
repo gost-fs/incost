@@ -699,7 +699,7 @@ main.swap{opacity:.4}
         <div class="cta" style="justify-content:center">
           <a class="btn btn-primary" href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true"><path d="M1 3.2l6.5-.9v6.2H1zM8.4 2.2L17 1v7.5H8.4zM1 9.5h6.5v6.2L1 14.8zM8.4 9.5H17V17l-8.6-1.2z"/></svg>
-            <span data-i="fn.btn">Download for Windows</span> <small>v0.9.15 · ZIP · 6 MB</small>
+            <span data-i="fn.btn">Download for Windows</span> <small id="dlv">v0.9.15 · ZIP · 6 MB</small>
           </a>
         </div>
         <p class="meta"><span data-i="fn.meta">Windows 10 and 11, 64-bit · Already tried it?</span> <a href="#pricing" data-buy="1" data-i="fn.buy">Buy a Pro license</a></p>
@@ -1393,6 +1393,14 @@ main.swap{opacity:.4}
   function sc(){var g=get.getBoundingClientRect().top;mc.classList.toggle("show",scrollY>520&&g>innerHeight*.6);tk=false}
   addEventListener("scroll",function(){if(!tk){tk=true;requestAnimationFrame(sc)}},{passive:true});sc();
 })();
+</script>
+<script>
+/* Download label: version and size of the latest GitHub release (falls back to the static text) */
+(function(){var el=document.getElementById("dlv");if(!el||!window.fetch)return;
+fetch("https://api.github.com/repos/gost-fs/incost/releases/latest",{headers:{Accept:"application/vnd.github+json"}}).then(function(r){return r.ok?r.json():null}).then(function(j){
+if(!j||!j.tag_name)return;var a=(j.assets||[]).filter(function(x){return x.name==="InCost-win.zip"})[0];if(!a)return;
+var v=String(j.tag_name).replace(/^v?/,"v"),mb=Math.max(1,Math.round(a.size/1048576));el.textContent=v+" · ZIP · "+mb+" MB";
+}).catch(function(){})})();
 </script>
 </body>
 </html>
