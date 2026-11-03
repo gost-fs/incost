@@ -1326,7 +1326,7 @@ main.swap{opacity:.4}
 
   /* ===== Freemius checkout ===== */
   var FREEMIUS={
-    enabled:false,               // switch to true once Freemius approves the account
+    enabled:true,                // Freemius approved the account on 03.11.2026
     sandbox:null,                // for test purchases: {token:"…",ctx:"…"} from Freemius → Plans → Get Checkout → Sandbox; null for real sales
     product_id:42809,
     plan_id:76938,               // Pro: $19.99 / month, $159.99 / year
@@ -1347,11 +1347,14 @@ main.swap{opacity:.4}
   function buy(e){
     if(!FREEMIUS.enabled)return;  // checkout off: button keeps its normal link
     e.preventDefault();
+    var opened=false,cyc=yearly?"annual":"monthly";
+    var fallback=setTimeout(function(){if(!opened)location.href="https://checkout.freemius.com/app/"+FREEMIUS.product_id+"/plan/"+FREEMIUS.plan_id+"/?billing_cycle="+cyc+"&licenses=1"},5000);
     loadFS(function(){
       try{
         if(!fsCheckout){var o={product_id:FREEMIUS.product_id};if(FREEMIUS.public_key)o.public_key=FREEMIUS.public_key;if(FREEMIUS.sandbox)o.sandbox=FREEMIUS.sandbox;fsCheckout=new FS.Checkout(o)}
-        fsCheckout.open({plan_id:FREEMIUS.plan_id,licenses:1,billing_cycle:yearly?"annual":"monthly",name:"InCost Pro",success:fsDone});
-      }catch(x){location.hash="#pricing"}
+        fsCheckout.open({plan_id:FREEMIUS.plan_id,licenses:1,billing_cycle:cyc,name:"InCost Pro",success:fsDone});
+        opened=true;clearTimeout(fallback);
+      }catch(x){}
     });
   }
   [].forEach.call(document.querySelectorAll("[data-buy]"),function(a){a.addEventListener("click",buy)});
