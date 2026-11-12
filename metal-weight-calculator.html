@@ -239,5 +239,6 @@ seg("units",function(v){U=v;store("incost-units",v);build()});
 setSeg("units",U);build();
 })();</script>
 <script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-dl]");if(!a)return;try{navigator.sendBeacon("https://api.incost.app/dl?src="+encodeURIComponent(a.getAttribute("data-dl")),"")}catch(x){}});</script>
+<script>(function(){var u=navigator.userAgent||"";if(!(/Android|iPhone|iPod|Mobile|Windows Phone|iPad/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)))return;[].forEach.call(document.querySelectorAll("a[data-dl]"),function(a){a.href="https://incost.app/#sendlink";a.removeAttribute("data-dl")})})();</script>
 </body>
 </html>

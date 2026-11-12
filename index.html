@@ -315,6 +315,13 @@ footer{padding-block:32px 110px;font-size:14px;color:var(--ink-2);border-top:1px
 .foot a{text-decoration:none}
 @media (min-width:821px){footer{padding-bottom:40px}}
 
+/* phone visitors: send the download link to email */
+.ml{display:none;width:100%;max-width:520px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:18px}
+html.mob .ml{display:grid;gap:10px}html.mob .final .cta{display:none}.final .alt{display:none;font-size:14px;opacity:.7}html.mob .final .alt{display:block}.final .alt a{color:inherit}
+.ml b{font-size:18px}.ml p{font-size:15px;margin:0;opacity:.8}
+.ml form{display:flex;gap:8px;flex-wrap:wrap}.ml input[type=email]{flex:1 1 200px;min-width:0;font:inherit;font-size:16px;padding:13px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.95);color:#111418}
+.ml .btn{flex:1 1 auto;justify-content:center}.ml label.tp{display:flex;gap:8px;align-items:flex-start;font-size:13px;opacity:.75;cursor:pointer}.ml label.tp input{margin-top:3px;flex:none}
+.ml .mst{font-size:15px;font-weight:600;margin:0}.ml .mst.ok{color:#7BE3B6}.ml .mst.er{color:#FFB4A8}.ml .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 /* mobile sticky cta */
 .mcta{position:fixed;left:0;right:0;bottom:0;z-index:35;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:none;transform:translateY(110%);transition:transform .4s var(--ease)}
 .mcta.show{transform:none}
@@ -707,6 +714,18 @@ main.swap{opacity:.4}
             <span data-i="fn.btn">Download for Windows</span> <small id="dlv">v0.9.29 · ZIP · 10 MB</small>
           </a>
         </div>
+        <div class="ml" id="sendlink">
+          <b data-i="ml.h">On your phone? InCost runs on a Windows PC.</b>
+          <p data-i="ml.p">Get the download link by email and open it on your computer. One email, no spam.</p>
+          <form id="mlf" novalidate>
+            <input type="email" id="mle" autocomplete="email" inputmode="email" required data-ip="ph.mail" placeholder="you@company.com" aria-label="Email">
+            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="btn btn-primary" id="mlb" data-i="ml.btn">Email me the link</button>
+          </form>
+          <label class="tp"><input type="checkbox" id="mlt"><span data-i="ml.tips">Also send me occasional costing tips (2 a month at most, unsubscribe anytime)</span></label>
+          <p class="mst" id="mls" role="status" aria-live="polite" hidden></p>
+        </div>
+        <p class="alt"><a href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip" data-dl="site-mobile" data-i="ml.alt">Or download the ZIP anyway</a></p>
         <div class="ss" role="note">
           <svg class="ss-pic" viewBox="0 0 280 150" aria-hidden="true">
             <rect width="280" height="150" rx="10" fill="#1F5FBF"/>
@@ -733,6 +752,7 @@ main.swap{opacity:.4}
 </footer>
 
 <div class="mcta" id="mcta"><a class="btn btn-primary" href="#get" data-i="cta.win">Download free for Windows</a></div>
+<script>(function(){var u=navigator.userAgent||"",m=/Android|iPhone|iPod|Mobile|Windows Phone/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)||/iPad/.test(u);if(m)document.documentElement.classList.add("mob")})();</script>
 
 <script>
 (function(){
@@ -747,6 +767,16 @@ main.swap{opacity:.4}
     "ss.more":"Докладніше",
     "ss.run":"Усе одно запустити",
     
+    "ml.h":"Ви з телефона? InCost працює на комп’ютері з Windows.",
+    "ml.p":"Отримайте посилання на email і відкрийте його на комп’ютері. Один лист, без спаму.",
+    "ml.btn":"Надіслати посилання",
+    "ml.tips":"Також надсилати поради з калькуляції (не частіше 2 разів на місяць, відписка будь-коли)",
+    "ml.alt":"Або все одно завантажити ZIP",
+    "ml.ok":"Готово! Лист уже в дорозі — відкрийте його на комп’ютері.",
+    "ml.bad":"Перевірте адресу email.",
+    "ml.err":"Не вдалося надіслати. Спробуйте ще раз або напишіть на hello@incost.app.",
+    "ml.rate":"Забагато спроб. Спробуйте завтра.",
+    "ml.cta":"Надіслати посилання на ПК",
     "ss.h":"Windows може показати синє попередження. Це нормально.",
     "ss.p":"InCost нова програма й поки без цифрового підпису. Натисніть <b>Докладніше</b>, потім <b>Усе одно запустити</b>. Без інсталятора й прав адміністратора.",
     "ac.k":"Точність і довіра",
@@ -808,6 +838,16 @@ main.swap{opacity:.4}
     "ss.more":"Weitere Informationen",
     "ss.run":"Trotzdem ausführen",
     
+    "ml.h":"Am Handy? InCost läuft auf einem Windows-PC.",
+    "ml.p":"Holen Sie sich den Download-Link per E-Mail und öffnen Sie ihn am Computer. Eine E-Mail, kein Spam.",
+    "ml.btn":"Link per E-Mail senden",
+    "ml.tips":"Auch gelegentlich Kalkulationstipps senden (höchstens 2 im Monat, jederzeit abbestellbar)",
+    "ml.alt":"Oder das ZIP trotzdem laden",
+    "ml.ok":"Fertig! Die E-Mail ist unterwegs — öffnen Sie sie am Computer.",
+    "ml.bad":"Bitte prüfen Sie die E-Mail-Adresse.",
+    "ml.err":"Senden fehlgeschlagen. Bitte erneut versuchen oder an hello@incost.app schreiben.",
+    "ml.rate":"Zu viele Versuche. Bitte morgen erneut.",
+    "ml.cta":"Link an meinen PC senden",
     "ss.h":"Windows zeigt eventuell eine blaue Warnung. Das ist normal.",
     "ss.p":"InCost ist neu und noch nicht code-signiert. Klicken Sie auf <b>Weitere Informationen</b> und dann auf <b>Trotzdem ausführen</b>. Kein Installer, keine Administratorrechte.",
     "ac.k":"Genauigkeit und Vertrauen",
@@ -869,6 +909,16 @@ main.swap{opacity:.4}
     "ss.more":"Más información",
     "ss.run":"Ejecutar de todas formas",
     
+    "ml.h":"¿Estás en el teléfono? InCost funciona en un PC con Windows.",
+    "ml.p":"Recibe el enlace de descarga por email y ábrelo en tu computadora. Un solo email, sin spam.",
+    "ml.btn":"Enviarme el enlace",
+    "ml.tips":"Enviarme también consejos de costeo de vez en cuando (máximo 2 al mes, baja cuando quieras)",
+    "ml.alt":"O descargar el ZIP de todas formas",
+    "ml.ok":"¡Listo! El email va en camino — ábrelo en tu computadora.",
+    "ml.bad":"Revisa la dirección de email.",
+    "ml.err":"No se pudo enviar. Inténtalo de nuevo o escribe a hello@incost.app.",
+    "ml.rate":"Demasiados intentos. Inténtalo mañana.",
+    "ml.cta":"Enviar el enlace a mi PC",
     "ss.h":"Windows puede mostrar un aviso azul. Es normal.",
     "ss.p":"InCost es nuevo y aún no tiene firma de código. Haz clic en <b>Más información</b> y luego en <b>Ejecutar de todas formas</b>. Sin instalador ni permisos de administrador.",
     "ac.k":"Precisión y confianza",
@@ -930,6 +980,16 @@ main.swap{opacity:.4}
     "ss.more":"Więcej informacji",
     "ss.run":"Uruchom mimo to",
     
+    "ml.h":"Jesteś na telefonie? InCost działa na komputerze z Windows.",
+    "ml.p":"Odbierz link do pobrania e-mailem i otwórz go na komputerze. Jedna wiadomość, bez spamu.",
+    "ml.btn":"Wyślij mi link",
+    "ml.tips":"Wysyłaj mi też czasem porady o kalkulacji (najwyżej 2 w miesiącu, rezygnacja w każdej chwili)",
+    "ml.alt":"Albo mimo to pobierz ZIP",
+    "ml.ok":"Gotowe! Wiadomość już leci — otwórz ją na komputerze.",
+    "ml.bad":"Sprawdź adres e-mail.",
+    "ml.err":"Nie udało się wysłać. Spróbuj ponownie lub napisz na hello@incost.app.",
+    "ml.rate":"Za dużo prób. Spróbuj jutro.",
+    "ml.cta":"Wyślij link na komputer",
     "ss.h":"Windows może pokazać niebieskie ostrzeżenie. To normalne.",
     "ss.p":"InCost to nowy program i nie ma jeszcze podpisu kodu. Kliknij <b>Więcej informacji</b>, a potem <b>Uruchom mimo to</b>. Bez instalatora i uprawnień administratora.",
     "ac.k":"Dokładność i zaufanie",
@@ -1463,6 +1523,21 @@ main.swap{opacity:.4}
       }).catch(function(){clearTimeout(tm)});
     }
   }
+
+  /* ===== phone visitors: email the download link ===== */
+  var EN_ML={"ml.ok":"Done! The email is on its way. Open it on your computer.","ml.bad":"Please check the email address.","ml.err":"Could not send. Please try again or write to hello@incost.app.","ml.rate":"Too many tries. Please try again tomorrow.","ml.cta":"Send the link to my PC"};
+  var mt=function(k){return (D[LANG]&&D[LANG][k])||EN_ML[k]};
+  var mob=document.documentElement.classList.contains("mob");
+  if(mob){var mca=document.querySelector("#mcta a");mca.href="#sendlink";mca.removeAttribute("data-i");var mcl=function(){mca.textContent=mt("ml.cta")};mcl();new MutationObserver(function(){setTimeout(mcl,250)}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}
+  $("mlf").addEventListener("submit",function(e){
+    e.preventDefault();var em=$("mle").value.trim(),st=$("mls"),bt=$("mlb");
+    var say=function(k,ok){st.hidden=false;st.className="mst "+(ok?"ok":"er");st.textContent=mt(k)};
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em)){say("ml.bad");$("mle").focus();return}
+    bt.disabled=true;
+    fetch("https://api.incost.app/send-link",{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({email:em,lang:LANG,tips:$("mlt").checked,website:this.website.value})})
+      .then(function(r){if(r.status===404||r.status===405){location.href="mailto:"+encodeURIComponent(em)+"?subject=InCost%20for%20Windows&body="+encodeURIComponent("https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip");bt.disabled=false;return}if(r.ok){say("ml.ok",1);$("mlf").style.display="none";$("mlt").parentNode.style.display="none"}else{say(r.status===429?"ml.rate":r.status===400?"ml.bad":"ml.err");bt.disabled=false}})
+      .catch(function(){say("ml.err");bt.disabled=false});
+  });
 
   /* ===== mobile sticky CTA ===== */
   var mc=$("mcta"),get=$("get"),tk=false;
