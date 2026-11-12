@@ -152,7 +152,7 @@ footer{border-top:1px solid var(--line);padding-block:26px 40px;font-size:14px;c
 </section>
 <section class="cta">
 <div><h2>Quote real parts in seconds</h2><p>InCost does this automatically from your DXF, STEP and STL files: cut length, weight, nesting, machine time, PDF quotes and shop drawings. Free for Windows.</p></div>
-<a class="btn btn-primary" href="https://api.incost.app/dl?src=3d">Download free for Windows</a>
+<a class="btn btn-primary" href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip" data-dl="3d">Download free for Windows</a>
 </section>
 <article>
 
@@ -215,5 +215,6 @@ function calc(){
 [].forEach.call(document.querySelectorAll(".inputs input"),function(i){i.addEventListener("input",calc)});
 calc();
 })();</script>
+<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-dl]");if(!a)return;try{navigator.sendBeacon("https://api.incost.app/dl?src="+encodeURIComponent(a.getAttribute("data-dl")),"")}catch(x){}});</script>
 </body>
 </html>

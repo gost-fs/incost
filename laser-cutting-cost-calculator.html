@@ -150,7 +150,7 @@ footer{border-top:1px solid var(--line);padding-block:26px 40px;font-size:14px;c
 </section>
 <section class="cta">
 <div><h2>Quote real parts in seconds</h2><p>InCost does this automatically from your DXF, STEP and STL files: cut length, weight, nesting, machine time, PDF quotes and shop drawings. Free for Windows.</p></div>
-<a class="btn btn-primary" href="https://api.incost.app/dl?src=laser">Download free for Windows</a>
+<a class="btn btn-primary" href="https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip" data-dl="laser">Download free for Windows</a>
 </section>
 <article>
 
@@ -238,5 +238,6 @@ setSeg("units",U);
 if(U==="mm"){$("w").value=150;$("h").value=100;$("hd").value=6}else{$("w").value=6;$("h").value=4;$("hd").value=0.25}
 setUnits(false);
 })();</script>
+<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-dl]");if(!a)return;try{navigator.sendBeacon("https://api.incost.app/dl?src="+encodeURIComponent(a.getAttribute("data-dl")),"")}catch(x){}});</script>
 </body>
 </html>

@@ -4,7 +4,7 @@ import json, os, sys, html
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else '.'
 BASE = 'https://incost.app/'
-DL = 'https://api.incost.app/dl?src=calc'
+DL = 'https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip'  # clicks are counted by a beacon to api.incost.app/dl (see index.html)
 
 PAGES = [
     ('metal-weight-calculator.html', 'Metal Weight Calculator', 'Steel, aluminum, stainless, brass and copper weight for plate, bar, tube and angle'),
