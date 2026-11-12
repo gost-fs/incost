@@ -53,6 +53,7 @@ p{margin:0}
 .kicker{font-size:14px;font-weight:600;color:var(--accent)}
 .muted{color:var(--ink-2)}
 section{padding-block:96px;content-visibility:auto;contain-intrinsic-size:auto 800px}
+html.cvv section{content-visibility:visible}
 .head{display:grid;gap:14px;max-width:700px;margin-bottom:44px}
 .head h2{font-size:clamp(30px,4.4vw,46px);font-weight:700}
 .head p{font-size:19px;color:var(--ink-2)}
@@ -1537,6 +1538,16 @@ main.swap{opacity:.4}
     fetch("https://api.incost.app/send-link",{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({email:em,lang:LANG,tips:$("mlt").checked,website:this.website.value})})
       .then(function(r){if(r.status===404||r.status===405){location.href="mailto:"+encodeURIComponent(em)+"?subject=InCost%20for%20Windows&body="+encodeURIComponent("https://github.com/gost-fs/incost/releases/latest/download/InCost-win.zip");bt.disabled=false;return}if(r.ok){say("ml.ok",1);$("mlf").style.display="none";$("mlt").parentNode.style.display="none"}else{say(r.status===429?"ml.rate":r.status===400?"ml.bad":"ml.err");bt.disabled=false}})
       .catch(function(){say("ml.err");bt.disabled=false});
+  });
+
+  /* ===== in-page links: render every section first so the target doesn't move during the scroll ===== */
+  document.addEventListener("click",function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented)return;
+    var id=a.getAttribute("href").slice(1),t=id&&document.getElementById(id);if(!t)return;
+    e.preventDefault();document.documentElement.classList.add("cvv");
+    var hd=document.querySelector("header.top"),off=(hd?hd.offsetHeight:64)+12;var go=function(sm){var y=t.getBoundingClientRect().top+scrollY-off;scrollTo({top:y,behavior:sm&&!reduce?"smooth":"auto"})};
+    requestAnimationFrame(function(){go(true);[900,1700].forEach(function(ms){setTimeout(function(){if(Math.abs(t.getBoundingClientRect().top-off)>8)go(false)},ms)})});
+    try{history.replaceState(null,"","#"+id)}catch(x){}
   });
 
   /* ===== mobile sticky CTA ===== */
