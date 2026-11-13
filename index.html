@@ -1565,5 +1565,13 @@ var v=String(j.tag_name).replace(/^v?/,"v"),mb=Math.max(1,Math.round(a.size/1048
 }).catch(function(){})})();
 </script>
 <script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-dl]");if(!a)return;try{navigator.sendBeacon("https://api.incost.app/dl?src="+encodeURIComponent(a.getAttribute("data-dl")),"")}catch(x){}});</script>
+<script>/* anonymous visit counter: no cookies, nothing stored in the browser */
+(function(){if(!/(^|\.)incost\.app$/.test(location.hostname)||!navigator.sendBeacon)return;var U="https://api.incost.app/hit",q=new URLSearchParams(location.search),p=location.pathname,vis=0,st=document.visibilityState==="visible"?Date.now():0,my=0,done=0;
+function b(o){try{navigator.sendBeacon(U,JSON.stringify(o))}catch(e){}}
+b({p:p,r:document.referrer,s:q.get("utm_source")||q.get("ref")||"",m:q.get("utm_medium")||"",c:q.get("utm_campaign")||"",g:q.has("gclid")||q.has("gbraid")||q.has("wbraid")?1:0});
+function sy(){var h=document.documentElement.scrollHeight;if(h)my=Math.max(my,Math.min(100,Math.round((scrollY+innerHeight)/h*100)))}
+addEventListener("scroll",sy,{passive:true});sy();
+function end(){if(st){vis+=Date.now()-st;st=0}if(done)return;done=1;b({e:1,p:p,t:Math.round(vis/1000),y:my})}
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){st=Date.now()}else end()});addEventListener("pagehide",end)})();</script>
 </body>
 </html>
