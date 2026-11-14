@@ -322,6 +322,13 @@ html.mob .ml{display:grid;gap:10px}html.mob .final .cta{display:none}.final .alt
 .ml b{font-size:18px}.ml p{font-size:15px;margin:0;opacity:.8}
 .ml form{display:flex;gap:8px;flex-wrap:wrap}.ml input[type=email]{flex:1 1 200px;min-width:0;font:inherit;font-size:16px;padding:13px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.95);color:#111418}
 .ml .btn{flex:1 1 auto;justify-content:center}.ml label.tp{display:flex;gap:8px;align-items:flex-start;font-size:13px;opacity:.75;cursor:pointer}.ml label.tp input{margin-top:3px;flex:none}
+/* phones: the email form sits in the first screen of the hero */
+html.mob .hero .cta .btn-primary{display:none}
+.ml.inhero{margin:4px 0 18px;max-width:none;background:var(--accent-soft);border-color:var(--line);color:var(--ink)}
+.ml.inhero p,.ml.inhero label.tp{opacity:1;color:var(--ink-2)}
+.ml.inhero input[type=email]{border-color:var(--line)}
+.ml.inhero .mst.ok{color:var(--good)}.ml.inhero .mst.er{color:var(--bad)}
+.mlback{display:none}html.mob .final .mlback{display:inline-flex}
 .ml .mst{font-size:15px;font-weight:600;margin:0}.ml .mst.ok{color:#7BE3B6}.ml .mst.er{color:#FFB4A8}.ml .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 /* mobile sticky cta */
 .mcta{position:fixed;left:0;right:0;bottom:0;z-index:35;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:none;transform:translateY(110%);transition:transform .4s var(--ease)}
@@ -1553,6 +1560,15 @@ main.swap{opacity:.4}
   var EN_ML={"ml.ok":"Done! The email is on its way. Open it on your computer.","ml.bad":"Please check the email address.","ml.err":"Could not send. Please try again or write to hello@incost.app.","ml.rate":"Too many tries. Please try again tomorrow.","ml.cta":"Send the link to my PC"};
   var mt=function(k){return (D[LANG]&&D[LANG][k])||EN_ML[k]};
   var mob=document.documentElement.classList.contains("mob");
+  if(mob){
+    var slb=$("sendlink"),lead=document.querySelector(".hero .lead");
+    if(slb&&lead){
+      lead.parentNode.insertBefore(slb,lead);slb.classList.add("inhero");
+      var back=document.createElement("a");back.className="btn btn-primary mlback";back.href="#sendlink";
+      var alt=document.querySelector(".final .alt");if(alt)alt.parentNode.insertBefore(back,alt);
+      var bl=function(){back.textContent=mt("ml.cta")};bl();new MutationObserver(function(){setTimeout(bl,250)}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    }
+  }
   if(mob){var mca=document.querySelector("#mcta a");mca.href="#sendlink";mca.removeAttribute("data-i");var mcl=function(){mca.textContent=mt("ml.cta")};mcl();new MutationObserver(function(){setTimeout(mcl,250)}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}
   $("mlf").addEventListener("submit",function(e){
     e.preventDefault();var em=$("mle").value.trim(),st=$("mls"),bt=$("mlb");
