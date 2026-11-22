@@ -123,6 +123,29 @@ function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function defaultUnits(){var l=(navigator.language||"en-US");return /^en-(US|LR)|^my/i.test(l)?"in":"mm"}
 '''
 
+# download-source tag for the api.incost.app/dl beacon (data-dl on the download button)
+DL_SRC = {'metal-weight-calculator.html': 'metal', '3d-print-cost-calculator.html': '3d',
+          'laser-cutting-cost-calculator.html': 'laser', 'cnc-machining-cost-calculator.html': 'cnc'}
+
+# links to the reference chart pages (tools/gen_charts.py)
+CHARTS_BLOCK = r'''<h2 style="font-size:26px;margin-top:8px">Reference charts</h2>
+<div class="tools"><a href="metric-thread-chart.html"><b>Metric thread chart</b><span>Free reference table</span></a><a href="tap-drill-chart.html"><b>Tap drill sizes</b><span>Free reference table</span></a><a href="clearance-hole-chart.html"><b>Clearance holes</b><span>Free reference table</span></a><a href="sheet-metal-gauge-chart.html"><b>Sheet metal gauges</b><span>Free reference table</span></a><a href="iso-2768-tolerance-chart.html"><b>ISO 2768 tolerances</b><span>Free reference table</span></a><a href="ball-bearing-size-chart.html"><b>Ball bearing sizes</b><span>Free reference table</span></a><a href="steel-grade-equivalents.html"><b>Steel grade equivalents</b><span>Free reference table</span></a><a href="angle-steel-weight-chart.html"><b>Angle steel weights</b><span>Free reference table</span></a></div>
+'''
+
+# end of <body> on every page: download beacon, phone handling (download link → send-to-desktop), anonymous visit counter.
+# tools/gen_charts.py uses the same TAIL, so all pages behave the same.
+TAIL = r'''<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-dl]");if(!a)return;try{navigator.sendBeacon("https://api.incost.app/dl?src="+encodeURIComponent(a.getAttribute("data-dl")),"")}catch(x){}});</script>
+<script>(function(){var u=navigator.userAgent||"";if(!(/Android|iPhone|iPod|Mobile|Windows Phone|iPad/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)))return;[].forEach.call(document.querySelectorAll("a[data-dl]"),function(a){a.href="https://incost.app/#sendlink";a.removeAttribute("data-dl")})})();</script>
+<script>/* anonymous visit counter: no cookies, nothing stored in the browser */
+(function(){if(!/(^|\.)incost\.app$/.test(location.hostname)||!navigator.sendBeacon)return;var U="https://api.incost.app/hit",q=new URLSearchParams(location.search),p=location.pathname,vis=0,st=document.visibilityState==="visible"?Date.now():0,my=0,done=0;
+function b(o){try{navigator.sendBeacon(U,JSON.stringify(o))}catch(e){}}
+b({p:p,r:document.referrer,s:q.get("utm_source")||q.get("ref")||"",m:q.get("utm_medium")||"",c:q.get("utm_campaign")||"",g:q.has("gclid")||q.has("gbraid")||q.has("wbraid")?1:0});
+function sy(){var h=document.documentElement.scrollHeight;if(h)my=Math.max(my,Math.min(100,Math.round((scrollY+innerHeight)/h*100)))}
+addEventListener("scroll",sy,{passive:true});sy();
+function end(){if(st){vis+=Date.now()-st;st=0}if(done)return;done=1;b({e:1,p:p,t:Math.round(vis/1000),y:my})}
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){st=Date.now()}else end()});addEventListener("pagehide",end)})();</script>
+'''
+
 def page(fname, title, short, h1, lead, calc_html, calc_js, article_html, faqs, meta_desc, keywords_title):
     others = [p for p in PAGES if p[0] != fname]
     tools = ''.join(f'<a href="{p[0]}"><b>{p[1]}</b><span>{p[2]}</span></a>' for p in others)
@@ -176,7 +199,7 @@ def page(fname, title, short, h1, lead, calc_html, calc_js, article_html, faqs, 
 {calc_html}
 <section class="cta">
 <div><h2>Quote real parts in seconds</h2><p>InCost does this automatically from your DXF, STEP and STL files: cut length, weight, nesting, machine time, PDF quotes and shop drawings. Free for Windows.</p></div>
-<a class="btn btn-primary" href="{DL}">Download free for Windows</a>
+<a class="btn btn-primary" href="{DL}" data-dl="{DL_SRC[fname]}">Download free for Windows</a>
 </section>
 <article>
 {article_html}
@@ -185,11 +208,11 @@ def page(fname, title, short, h1, lead, calc_html, calc_js, article_html, faqs, 
 </article>
 <h2 style="font-size:26px;margin-top:48px">More free calculators</h2>
 <div class="tools">{tools}</div>
-</main>
+{CHARTS_BLOCK}</main>
 <footer><div class="wrap foot"><span>© 2026 InCost · hello@incost.app</span>
 <nav><a href="./">Home</a><a href="./#tools">Calculators</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav></div></footer>
 <script>(function(){{{COMMON_JS}{calc_js}}})();</script>
-</body>
+{TAIL}</body>
 </html>
 '''
 
