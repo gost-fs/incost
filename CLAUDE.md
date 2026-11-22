@@ -23,16 +23,11 @@ InCost — програма для розрахунку собівартості
 | Файл | Звідки | Команда |
 |---|---|---|
 | `features.html` | `index.html` + `tools/features_main.html` + `tools/features_parts/*` | `python3 tools/gen_features.py` |
+| 4 калькулятори (`*-calculator.html`) | `tools/gen_calculators.py` (там і `TAIL` — лічильник візитів, beacon завантаження, обробка телефонів — спільний для всіх сторінок) | `python3 tools/gen_calculators.py .` |
 | 8 сторінок-довідників (`*-chart.html`, `steel-grade-equivalents.html`) | `tools/charts-data.json` (таблиці з бібліотеки програми) + `tools/gen_charts.py` | `python3 tools/gen_charts.py`, потім `python3 tools/check_charts.py` |
 
-Після будь-якої зміни в `index.html` треба перезапустити `gen_features.py`. Хук робить це сам.
-
-## ⚠️ Калькулятори: `tools/gen_calculators.py` застарів
-4 сторінки калькуляторів (`metal-weight-`, `3d-print-cost-`, `laser-cutting-cost-`, `cnc-machining-cost-calculator.html`)
-колись були згенеровані, а потім їх правили вручну: додали лічильник візитів, `data-dl` на кнопці завантаження,
-блок «Reference charts» і обробку телефонів. Якщо запустити `gen_calculators.py`, усе це **зітреться**,
-а `gen_charts.py` після цього впаде, бо бере свій «хвіст» скриптів зі сторінки `metal-weight-calculator.html`.
-Тож **не запускай `gen_calculators.py`**, доки його не синхронізують зі сторінками. Калькулятори поки що редагуй прямо в HTML.
+Після будь-якої зміни в `index.html` треба перезапустити `gen_features.py`, а після зміни `gen_calculators.py` — і калькулятори, і довідники
+(`gen_charts.py` бере з нього CSS, логотип і `TAIL`). Хук робить це сам.
 
 ## Аналітика й бекенд (не ламати)
 - На кожній сторінці стоїть анонімний лічильник візитів: `https://api.incost.app/hit` (без cookies).
@@ -55,8 +50,8 @@ python3 tools/check_charts.py   # цифри в довідниках проти 
 
 ## Автоматика Claude Code (`.claude/`)
 - Hooks (`.claude/hooks/incost_hook.py`):
-  - блокують ручне редагування згенерованих сторінок і запуск `gen_calculators.py`;
-  - після правок самі перегенеровують `features.html` і довідники;
+  - блокують ручне редагування згенерованих сторінок;
+  - після правок самі перегенеровують калькулятори, довідники й `features.html`;
   - перед завершенням роботи запускають `check_site.py`.
 - Skills, які можна викликати як команди: `/site-check` (перевірка перед публікацією), `/add-feature` (нова картка можливості
   всіма 5 мовами), `/add-chart-page` (новий довідник).

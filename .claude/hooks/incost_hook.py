@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Claude Code hooks for the incost.app site.  Usage: incost_hook.py pre|post|stop  (event JSON on stdin)
 
-pre  — before Edit/Write: blocks hand edits of generated pages and the stale calculator generator run
-post — after Edit/Write: regenerates features.html / chart pages when their sources change
+pre  — before Edit/Write: blocks hand edits of generated pages
+post — after Edit/Write: regenerates calculators / chart pages / features.html when their sources change
 stop — when Claude finishes: runs tools/check_site.py if any site file changed, and asks Claude to fix problems
 Exit code 2 = message on stderr goes back to Claude (pre: the edit is blocked).
 """
@@ -13,6 +13,8 @@ PY = sys.executable or 'python3'
 CHART_PAGES = {'metric-thread-chart.html', 'tap-drill-chart.html', 'clearance-hole-chart.html', 'sheet-metal-gauge-chart.html',
                'iso-2768-tolerance-chart.html', 'ball-bearing-size-chart.html', 'steel-grade-equivalents.html',
                'angle-steel-weight-chart.html'}
+CALC_PAGES = {'metal-weight-calculator.html', '3d-print-cost-calculator.html', 'laser-cutting-cost-calculator.html',
+              'cnc-machining-cost-calculator.html'}
 
 
 def rel(p):
@@ -41,14 +43,12 @@ inp = data.get('tool_input') or {}
 path = rel(inp.get('file_path', '')) if inp.get('file_path') else ''
 
 if ev == 'pre':
-    cmd = inp.get('command', '')
-    if 'gen_calculators.py' in cmd:
-        say('Blocked: tools/gen_calculators.py is out of date — it would wipe the visit counter, data-dl beacon, '
-            'Reference charts block and phone handling from the 4 calculator pages (see CLAUDE.md). '
-            'Edit the calculator HTML pages directly, or first bring the generator in sync.')
     if path == 'features.html':
         say('Blocked: features.html is generated. Edit index.html or tools/features_main.html / tools/features_parts/*, '
             'then run python3 tools/gen_features.py (the post-edit hook does it for you).')
+    if path in CALC_PAGES:
+        say(f'Blocked: {path} is generated. Change tools/gen_calculators.py instead '
+            '(the post-edit hook regenerates the calculators and the chart pages).')
     if path in CHART_PAGES:
         say(f'Blocked: {path} is generated. Change tools/charts-data.json or tools/gen_charts.py instead '
             '(the post-edit hook regenerates the pages and runs check_charts.py).')
@@ -59,7 +59,10 @@ if ev == 'post':
     if path == 'index.html' or path.startswith('tools/features_') or path == 'tools/gen_features.py':
         c, o = run('tools/gen_features.py')
         out.append(('gen_features.py', c, o))
-    if path in ('tools/charts-data.json', 'tools/gen_charts.py', 'metal-weight-calculator.html'):
+    if path == 'tools/gen_calculators.py':
+        c, o = run('tools/gen_calculators.py', '.')
+        out.append(('gen_calculators.py', c, o))
+    if path in ('tools/charts-data.json', 'tools/gen_charts.py', 'tools/gen_calculators.py'):
         c, o = run('tools/gen_charts.py')
         out.append(('gen_charts.py', c, o))
         if c == 0:

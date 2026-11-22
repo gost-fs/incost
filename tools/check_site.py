@@ -9,7 +9,7 @@ Checks:
   4. every page has the visit counter; every download button has the data-dl beacon
   5. translations: each data-i key exists in uk, de, es, pl; MODS has the same cards in all 5 languages;
      every card key in FGK exists in MODS
-  6. generated pages are up to date (gen_charts.py, gen_features.py run in a temp copy → no difference)
+  6. generated pages are up to date (gen_calculators.py, gen_charts.py, gen_features.py run in a temp copy → no difference)
 """
 import os, re, sys, glob, shutil, tempfile, subprocess, filecmp
 
@@ -103,8 +103,8 @@ tmp = tempfile.mkdtemp()
 try:
     work = os.path.join(tmp, 'site')
     shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('.git', '.claude'))
-    for script in ('gen_charts.py', 'gen_features.py'):
-        r = subprocess.run([sys.executable, '-I', os.path.join(work, 'tools', script)], cwd=work,
+    for script in ('gen_calculators.py', 'gen_charts.py', 'gen_features.py'):
+        r = subprocess.run([sys.executable, '-I', os.path.join(work, 'tools', script), *(['.'] if script == 'gen_calculators.py' else [])], cwd=work,
                            capture_output=True, text=True)
         if r.returncode:
             fail(f'generate: {script} failed: {(r.stderr or r.stdout).strip().splitlines()[-1:]}')

@@ -46,12 +46,7 @@ var q=document.getElementById("q");if(q){q.addEventListener("input",function(){v
 def finder(ph):
     return f'<div class="find"><input id="q" type="search" placeholder="{E(ph)}" aria-label="{E(ph)}" autocomplete="off"><small>Filters every table on this page</small></div>'
 
-TAIL = '''<script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-dl]");if(!a)return;try{navigator.sendBeacon("https://api.incost.app/dl?src="+encodeURIComponent(a.getAttribute("data-dl")),"")}catch(x){}});</script>
-'''
-# the visit counter and the phone handling are copied verbatim from a calculator page, so every page behaves the same
-_calc = open(os.path.join(ROOT, 'metal-weight-calculator.html'), encoding='utf-8').read()
-_i = _calc.index('<script>document.addEventListener("click"'); _j = _calc.rindex('</body>')
-TAIL = _calc[_i:_j]
+TAIL = ns['TAIL']  # download beacon, phone handling and visit counter — defined once in gen_calculators.py
 
 CHARTS = []  # (file, title, short)
 
