@@ -1,0 +1,38 @@
+  <!-- ROI -->
+  <section id="roi">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="roi.k">Savings calculator</p>
+        <h2 data-i="roi.h">See when Pro pays for itself.</h2>
+        <p data-i="roi.p">Move the sliders to match your week.</p>
+      </div>
+      <div class="roi rv">
+        <div class="roi-in">
+          <div class="sl">
+            <div class="sl-top"><label for="q" data-i="roi.q">Quotes per week</label><output id="qo" for="q">10</output></div>
+            <input id="q" type="range" min="1" max="60" value="10">
+          </div>
+          <div class="sl">
+            <div class="sl-top"><label for="m" data-i="roi.m">Minutes per quote today</label><output id="mo" for="m">20 min</output></div>
+            <input id="m" type="range" min="5" max="90" step="5" value="20">
+          </div>
+          <div class="sl">
+            <div class="sl-top"><label for="r" data-i="roi.r">Your hourly cost</label><output id="ro" for="r">$45</output></div>
+            <input id="r" type="range" min="15" max="150" step="5" value="45">
+          </div>
+        </div>
+        <div class="roi-out" aria-live="polite">
+          <div>
+            <div class="lbl" data-i="roi.saved">Time saved every month</div>
+            <div class="big" id="hrs">12 h</div>
+          </div>
+          <div class="roi-row">
+            <div><span class="lbl" data-i="roi.worth">Worth per month</span><b id="usd">$553</b></div>
+            <div><span class="lbl" data-i="roi.pay">Pro pays for itself after</span><b id="pay">2 quotes</b></div>
+          </div>
+          <span class="roi-mult" id="mult"></span>
+          <p class="roi-note" data-i="roi.note">Assumes about 3 minutes per quote in InCost and Pro at $19.99 per month. Your results will vary.</p>
+        </div>
+      </div>
+    </div>
+  </section>

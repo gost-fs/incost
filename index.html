@@ -206,6 +206,24 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgroun
 .cmp .no{color:var(--ink-2);opacity:.5}
 
 /* free tools */
+.tool .d{font-size:15px;color:var(--ink-2)}
+.tool span.go{font-size:14px;font-weight:600;color:var(--accent);margin-top:4px}
+.morel{margin-top:28px}
+.cmp-det{border:1px solid var(--line);border-radius:18px;background:var(--bg);padding:0 22px}
+.cmp-det>summary{cursor:pointer;list-style:none;padding:18px 0;margin:0;font-size:19px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.cmp-det>summary::-webkit-details-marker{display:none}
+.cmp-det>summary::after{content:"+";font-size:26px;line-height:1;color:var(--accent)}
+.cmp-det[open]>summary::after{content:"−"}
+.cmp-det[open]{padding-bottom:18px}
+.fgnav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.fgnav a{padding:9px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);font-size:15px;background:var(--bg)}
+.fgnav a:hover{border-color:var(--accent);color:var(--accent)}
+.fsearch{width:100%;max-width:460px;font:inherit;font-size:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);margin-bottom:8px}
+.fsearch:focus{outline:2px solid var(--accent);outline-offset:1px}
+.fgrp{scroll-margin-top:90px;margin-top:44px;padding-block:0;content-visibility:visible}
+.fgrp>h2{font-size:clamp(22px,2.6vw,28px);margin:0 0 18px}
+.fnone{color:var(--ink-2);margin-top:24px}
+.fhead{padding-top:56px}
 .toolgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .charts{margin-top:28px}.charts h3{font-size:18px;margin:0 0 12px}.chartl{display:flex;flex-wrap:wrap;gap:10px}.chartl a{padding:9px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);font-size:15px;background:var(--bg)}.chartl a:hover{border-color:var(--accent);color:var(--accent)}
 .tool{display:grid;gap:8px;align-content:start;padding:22px;border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);background:var(--bg);transition:transform .3s var(--ease),border-color .3s}
@@ -277,6 +295,8 @@ input[type=range]{width:100%;accent-color:var(--accent);height:24px}
 .faq p{color:var(--ink-2);padding-bottom:20px;max-width:65ch}
 
 /* contact */
+.cfd>summary{list-style:none;cursor:pointer}.contact:has(.cfd:not([open])){grid-template-columns:1fr}.contact:has(.cfd:not([open])) .chans{grid-template-columns:1fr 1fr;max-width:900px}.contact:has(.cfd:not([open])) .resp{grid-column:1/-1}@media (max-width:700px){.contact:has(.cfd:not([open])) .chans{grid-template-columns:1fr}}.cfd>summary::-webkit-details-marker{display:none}.cfd[open]>summary{display:none}.cfd .cform{margin-top:0}
+@media (max-width:560px){#tools .toolgrid{grid-template-columns:1fr 1fr;gap:10px}#tools .tool{padding:16px}#tools .tool b{font-size:16px}#tools .tool span:last-child{display:none}}
 .contact{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;align-items:start}
 .contact>*{min-width:0}
 .chans{display:grid;gap:14px}
@@ -357,7 +377,7 @@ main.swap{opacity:.4}
     </a>
     <ul>
       <li><a href="#how" data-i="nav.how">How it works</a></li>
-      <li><a href="#modules" data-i="nav.features">Features</a></li>
+      <li><a href="features.html" data-i="nav.features">Features</a></li>
       <li><a href="#tools" data-i="nav.tools">Calculators</a></li>
       <li><a href="#pricing" data-i="nav.pricing">Pricing</a></li>
       <li><a href="#faq" data-i="nav.faq">FAQ</a></li>
@@ -492,6 +512,17 @@ main.swap{opacity:.4}
     </div>
   </section>
 
+  <!-- WHO IT'S FOR -->
+  <section id="who" style="padding-top:0">
+    <div class="wrap">
+      <div class="head rv">
+        <p class="kicker" data-i="who.k">Who it's for</p>
+        <h2 data-i="who.h">Built for the people who quote parts.</h2>
+      </div>
+      <div class="toolgrid who"><a class="tool rv" href="features.html#g-sheet"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M7 20V9l5-5 5 5v11"/><path d="M12 4v6"/><path d="M10 12l2-2 2 2"/></svg></span><b data-i="w1h">Laser and sheet metal shops</b><span class="d" data-i="w1p">Open a DXF or PDF drawing: cut length, pierces, nesting, bending and a quote your customer can accept online.</span><span class="go" data-i="who.go">See what it does →</span></a><a class="tool rv" href="features.html#g-3d"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 21h12M8 17h8M9 13h6M9 3h6v4H9z"/></svg></span><b data-i="w2h">3D printing</b><span class="d" data-i="w2p">Exact time and grams from Bambu Studio, OrcaSlicer, PrusaSlicer or Cura, materials by technology and a price for every part.</span><span class="go" data-i="who.go">See what it does →</span></a><a class="tool rv" href="#features" data-tab="3"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.8 2.8M16.2 16.2L19 19M5 19l2.8-2.8M16.2 7.8L19 5"/></svg></span><b data-i="w3h">Machining</b><span class="d" data-i="w3p">Milling and turning from stock size and operations: cycle time per operation, setup per order and your shop rate.</span><span class="go" data-i="who.go">See what it does →</span></a><a class="tool rv" href="features.html#g-design"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l3-1 12-12-2-2L4 18z"/><path d="M14 6l2 2"/><path d="M15 21h6"/></svg></span><b data-i="w4h">Design engineers</b><span class="d" data-i="w4p">Drawings from 3D models, 40 engineer calculators, a steel advisor and the part cost before the design is released.</span><span class="go" data-i="who.go">See what it does →</span></a></div>
+    </div>
+  </section>
+
   <!-- FEATURES -->
   <section id="features" style="background:var(--bg-2)">
     <div class="wrap">
@@ -510,20 +541,10 @@ main.swap{opacity:.4}
         </div>
         <div class="panel" id="pnl" role="tabpanel" aria-labelledby="t0"></div>
       </div>
+      <p class="morel"><a class="btn btn-secondary" href="features.html" data-i="ft.all">See all features</a></p>
     </div>
   </section>
 
-  <!-- MODULES -->
-  <section id="modules">
-    <div class="wrap">
-      <div class="head rv">
-        <p class="kicker" data-i="md.k">Inside InCost</p>
-        <h2 data-i="md.h">Much more than a cost calculator.</h2>
-        <p data-i="md.p">Everything a technologist and design engineer does every day, in one desktop app.</p>
-      </div>
-      <div class="mods" id="mods"></div>
-    </div>
-  </section>
 
   <!-- FREE TOOLS -->
   <section id="tools">
@@ -538,44 +559,6 @@ main.swap{opacity:.4}
     </div>
   </section>
 
-  <!-- ROI -->
-  <section id="roi">
-    <div class="wrap">
-      <div class="head rv">
-        <p class="kicker" data-i="roi.k">Savings calculator</p>
-        <h2 data-i="roi.h">See when Pro pays for itself.</h2>
-        <p data-i="roi.p">Move the sliders to match your week.</p>
-      </div>
-      <div class="roi rv">
-        <div class="roi-in">
-          <div class="sl">
-            <div class="sl-top"><label for="q" data-i="roi.q">Quotes per week</label><output id="qo" for="q">10</output></div>
-            <input id="q" type="range" min="1" max="60" value="10">
-          </div>
-          <div class="sl">
-            <div class="sl-top"><label for="m" data-i="roi.m">Minutes per quote today</label><output id="mo" for="m">20 min</output></div>
-            <input id="m" type="range" min="5" max="90" step="5" value="20">
-          </div>
-          <div class="sl">
-            <div class="sl-top"><label for="r" data-i="roi.r">Your hourly cost</label><output id="ro" for="r">$45</output></div>
-            <input id="r" type="range" min="15" max="150" step="5" value="45">
-          </div>
-        </div>
-        <div class="roi-out" aria-live="polite">
-          <div>
-            <div class="lbl" data-i="roi.saved">Time saved every month</div>
-            <div class="big" id="hrs">12 h</div>
-          </div>
-          <div class="roi-row">
-            <div><span class="lbl" data-i="roi.worth">Worth per month</span><b id="usd">$553</b></div>
-            <div><span class="lbl" data-i="roi.pay">Pro pays for itself after</span><b id="pay">2 quotes</b></div>
-          </div>
-          <span class="roi-mult" id="mult"></span>
-          <p class="roi-note" data-i="roi.note">Assumes about 3 minutes per quote in InCost and Pro at $19.99 per month. Your results will vary.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ACCURACY -->
   <section id="accuracy" style="padding-top:0">
@@ -585,14 +568,12 @@ main.swap{opacity:.4}
         <h2 data-i="ac.h">A wrong price costs real money. So every number is open.</h2>
         <p data-i="ac.p">InCost never gives you a black-box total. You see where each dollar comes from, and you can check it.</p>
       </div>
-      <div class="trust trust6">
+      <div class="trust">
         <div class="rv"><h3 data-i="ac1h">Every line is visible</h3><p data-i="ac1p">Material, cutting, pierces, setup, bending, overhead and margin are shown line by line with the inputs behind them. The price justification PDF always adds up exactly to the quoted price.</p></div>
-        <div class="rv"><h3 data-i="ac2h">Your machines, your rates</h3><p data-i="ac2p">No hidden averages. Cutting speeds by power and gas, machine rates, setup times and material prices are yours to set and are saved for every next quote.</p></div>
-        <div class="rv"><h3 data-i="ac3h">Calibrated by actual times</h3><p data-i="ac3p">After a job, enter how long it really took. InCost compares plan with actual and corrects future quotes for that machine.</p></div>
         <div class="rv"><h3 data-i="ac4h">Checked against independent math</h3><p data-i="ac4p">On real shop drawings, part areas and cut lengths match an independent calculation to within 0.0005%. Overlapping lines and gaps in your DXF are flagged before you quote. Every release passes automated tests in US, EU and metric modes.</p></div>
-        <div class="rv"><h3 data-i="ac5h">Your data stays yours</h3><p data-i="ac5p">Drawings, costs and margins stay on your PC. Only what you choose to share leaves it, such as a quote link, which carries only what your customer sees.</p></div>
         <div class="rv"><h3 data-i="ac6h">Safe to run</h3><p data-i="ac6p">No installer and no admin rights. It works offline, and in-app updates install only if they carry the developer's digital signature.</p></div>
       </div>
+      <p class="morel"><a href="features.html#accuracy" data-i="ac.more">How we check accuracy →</a></p>
     </div>
   </section>
 
@@ -639,10 +620,10 @@ main.swap{opacity:.4}
           <p class="fine" data-i="pro.fine">Secure checkout by Freemius. Cancel anytime.</p>
         </div>
       </div>
-      <div class="cmp-wrap rv">
-        <h3 class="cmp-h" data-i="cmp.h">What you get with Pro</h3>
+      <details class="cmp-wrap cmp-det">
+        <summary class="cmp-h" data-i="cmp.open">Compare Free and Pro in detail</summary>
         <div class="cmp-scroll"><table class="cmp" id="cmp"></table></div>
-      </div>
+      </details>
     </div>
   </section>
 
@@ -686,7 +667,8 @@ main.swap{opacity:.4}
           </div>
           <p class="resp"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.5V8l2.4 1.6"/></svg><span data-i="ct.resp">Replies within 1–2 business days.</span></p>
         </div>
-        <form class="cform rv" id="cform" novalidate>
+        <details class="cfd rv"><summary class="btn btn-secondary" data-i="ct.fh">Send a message</summary>
+        <form class="cform" id="cform" novalidate>
           <h3 data-i="ct.fh">Send a message</h3>
           <div class="r2">
             <div class="f"><label for="cn" data-i="ct.name">Name</label><input id="cn" type="text" autocomplete="name" data-ip="ph.name" placeholder="Jane Smith"></div>
@@ -708,6 +690,7 @@ main.swap{opacity:.4}
           <div class="status" id="cstat" role="status" aria-live="polite" hidden></div>
           <p class="priv" data-i="ct.priv">We only use your email to reply.</p>
         </form>
+        </details>
       </div>
     </div>
   </section>
@@ -757,7 +740,7 @@ main.swap{opacity:.4}
 <footer>
   <div class="wrap foot">
     <span>© 2026 InCost · <span id="fmail">hello@incost.app</span></span>
-    <nav><a href="#features" data-i="nav.features">Features</a><a href="#pricing" data-i="nav.pricing">Pricing</a><a href="#faq" data-i="nav.faq">FAQ</a><a href="#contact" data-i="nav.contact">Contact</a><a href="#tools" data-i="tl.k">Free online calculators</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund.html">Refunds</a><a href="#get" data-i="cta.free">Download free</a></nav>
+    <nav><a href="features.html" data-i="nav.features">Features</a><a href="#pricing" data-i="nav.pricing">Pricing</a><a href="#faq" data-i="nav.faq">FAQ</a><a href="#contact" data-i="nav.contact">Contact</a><a href="#tools" data-i="tl.k">Free online calculators</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund.html">Refunds</a><a href="#get" data-i="cta.free">Download free</a></nav>
   </div>
 </footer>
 
@@ -766,13 +749,14 @@ main.swap{opacity:.4}
 
 <script>
 (function(){
-  var $=function(i){return document.getElementById(i)};
+  var $=function(i){return document.getElementById(i)||document.createElement(i==="lang"?"select":"div")};
   var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   var LANG="en";
 
   /* ===== translations (English is read from the page itself) ===== */
   var D={
   uk:{
+    "who.k":"Для кого","who.h":"Для тих, хто рахує ціну деталей.","who.go":"Що вміє →","w1h":"Лазерні та листові цехи","w1p":"Відкрийте DXF або PDF-креслення: довжина різу, врізки, розкрій, гнуття і пропозиція, яку клієнт приймає онлайн.","w2h":"3D-друк","w2p":"Точний час і грами з Bambu Studio, OrcaSlicer, PrusaSlicer або Cura, матеріали за технологією і ціна кожної деталі.","w3h":"Механообробка","w3p":"Фрезерування і токарка за розміром заготовки й операціями: час циклу на операцію, налагодження на замовлення і ставка цеху.","w4h":"Конструктори","w4p":"Креслення з 3D-моделей, 40 інженерних калькуляторів, радник зі сталі й собівартість деталі ще до випуску креслення.","ft.all":"Усі можливості","cmp.open":"Детальне порівняння Free і Pro","ac.more":"Як ми перевіряємо точність →","fp.k":"Усі можливості","fp.h":"Усе, що є в InCost.","fp.p":"<span id=\"fcount\">39</span> можливостей в одній програмі для Windows: прорахунок, листовий метал, 3D-друк, конструювання і щоденна робота цеху.","fp.s":"Пошук: розкрій, PDF, болт…","fp.none":"Нічого не знайдено. Спробуйте інше слово.",
     "ss.t":"Windows захистив ваш ПК",
     "ss.more":"Докладніше",
     "ss.run":"Усе одно запустити",
@@ -844,6 +828,7 @@ main.swap{opacity:.4}
     "ct.mailto":"Має відкритися ваша поштова програма з готовим листом. Якщо не відкрилася, скопіюйте повідомлення і надішліть на {email}.","ct.copyMsg":"Копіювати повідомлення","s6":"Креслення зі STEP","md.k":"Що всередині","md.h":"Набагато більше, ніж калькулятор собівартості.","md.p":"Усе, що щодня роблять технолог і конструктор, в одній програмі.","cmp.h":"Що дає Pro","fx1":"Усі розрахунки собівартості на екрані","fx2":"Креслення з 3D-моделі на екрані","fx3":"40 калькуляторів конструктора і конвертер одиниць","fx4":"До 5 збережених розрахунків","px1":"Усе з Free без обмежень","px2":"PDF-пропозиції, звіти й маршрутні карти з вашим логотипом","px3":"PDF-креслення → ціна, експорт креслень у PDF і DXF","px4":"Автоматична розкладка і повний DXF-редактор","px5":"Пакетний розрахунок цілих папок","px6":"Протоколи випробувань і бланки сертифікатів EN 10204 з ваших даних","px7":"Усі інструменти будівельника, підготовка 3D-друку, командна робота","tl.k":"Безкоштовні онлайн-калькулятори","tl.h":"Швидкі розрахунки просто в браузері.","tl.p":"Нічого не треба завантажувати. А коли захочете рахувати реальні креслення, InCost зробить те саме з ваших DXF і STEP.","tl.ch":"Довідкові таблиці (англійською)","tl1":"Сталь, алюміній, нержавійка, латунь: лист, пруток, труба, кутник.","tl2":"Філамент, електрика, знос принтера, робота і ціна для клієнта.","tl3":"Ціна листової деталі за довжиною різу, врізками і ставкою лазера.","tl4":"Заготовка, час циклу і налагодження, ціна за штуку залежно від партії.","nav.tools":"Калькулятори","hero.tools":"Безкоштовні онлайн-калькулятори: вага металу, 3D-друк, лазер і ЧПК","q7":"Як встановити InCost?","a7x":"Завантажте ZIP, розпакуйте в будь-яку папку і запустіть InCost. Інсталятор і права адміністратора не потрібні. Нові версії приходять у самій програмі автоматично."
   },
   de:{
+    "who.k":"Für wen","who.h":"Für alle, die Teile kalkulieren.","who.go":"Was es kann →","w1h":"Laser- und Blechbetriebe","w1p":"DXF- oder PDF-Zeichnung öffnen: Schnittlänge, Einstiche, Schachtelung, Biegen und ein Angebot, das der Kunde online annimmt.","w2h":"3D-Druck","w2p":"Exakte Zeit und Gramm aus Bambu Studio, OrcaSlicer, PrusaSlicer oder Cura, Material nach Technologie und ein Preis für jedes Teil.","w3h":"Zerspanung","w3p":"Fräsen und Drehen nach Rohteilgröße und Arbeitsgängen: Zykluszeit je Arbeitsgang, Rüsten je Auftrag und Ihr Stundensatz.","w4h":"Konstrukteure","w4p":"Zeichnungen aus 3D-Modellen, 40 Ingenieurrechner, ein Stahlberater und die Teilekosten, bevor die Konstruktion freigegeben wird.","ft.all":"Alle Funktionen","cmp.open":"Free und Pro im Detail vergleichen","ac.more":"So prüfen wir die Genauigkeit →","fp.k":"Alle Funktionen","fp.h":"Alles, was in InCost steckt.","fp.p":"<span id=\"fcount\">39</span> Funktionen in einer Windows-App: Kalkulation, Blech, 3D-Druck, Konstruktion und der Alltag in der Werkstatt.","fp.s":"Suche: Schachtelung, PDF, Schraube…","fp.none":"Nichts gefunden. Versuchen Sie ein anderes Wort.",
     "ss.t":"Windows hat Ihren PC geschützt",
     "ss.more":"Weitere Informationen",
     "ss.run":"Trotzdem ausführen",
@@ -915,6 +900,7 @@ main.swap{opacity:.4}
     "ct.mailto":"Ihr E-Mail-Programm sollte sich mit der fertigen Nachricht öffnen. Falls nicht, kopieren Sie sie und senden Sie sie an {email}.","ct.copyMsg":"Nachricht kopieren","s6":"Zeichnungen aus STEP","md.k":"In InCost","md.h":"Viel mehr als ein Kostenrechner.","md.p":"Alles, was Technologen und Konstrukteure täglich tun, in einer Desktop-App.","cmp.h":"Was Pro bietet","fx1":"Alle Kostenkalkulationen am Bildschirm","fx2":"Zeichnungen aus 3D-Modellen am Bildschirm","fx3":"40 Konstrukteurs-Rechner und Einheitenumrechner","fx4":"Bis zu 5 gespeicherte Kalkulationen","px1":"Alles aus Free ohne Grenzen","px2":"PDF-Angebote, Berichte und Laufkarten mit Ihrem Logo","px3":"PDF-Zeichnung → Preis, Zeichnungen als PDF und DXF exportieren","px4":"Automatische Verschachtelung und voller DXF-Editor","px5":"Stapelkalkulation ganzer Ordner","px6":"Prüfberichte und Zeugnis-Dokumente nach EN 10204 aus Ihren Daten","px7":"Alle Statik-Werkzeuge, 3D-Druck-Vorbereitung und Teammodus","tl.k":"Kostenlose Online-Rechner","tl.h":"Schnelle Zahlen direkt im Browser.","tl.p":"Kein Download nötig. Für echte Zeichnungen kalkuliert InCost dasselbe aus Ihren DXF- und STEP-Dateien.","tl.ch":"Referenztabellen (Englisch)","tl1":"Stahl, Aluminium, Edelstahl, Messing: Blech, Stab, Rohr, Winkel.","tl2":"Filament, Strom, Maschinenverschleiß, Arbeit und Verkaufspreis.","tl3":"Preis eines Blechteils aus Schnittlänge, Einstichen und Lasersatz.","tl4":"Rohteil, Zykluszeit und Rüsten, Stückpreis nach Menge.","nav.tools":"Rechner","hero.tools":"Kostenlose Online-Rechner: Metallgewicht, 3D-Druck, Laser und CNC","q7":"Wie installiere ich InCost?","a7x":"ZIP herunterladen, in einen beliebigen Ordner entpacken und InCost starten. Kein Installer und keine Administratorrechte nötig. Neue Versionen kommen automatisch in der App an."
   },
   es:{
+    "who.k":"Para quién","who.h":"Para quien cotiza piezas.","who.go":"Qué hace →","w1h":"Talleres de láser y chapa","w1p":"Abre un DXF o un plano PDF: longitud de corte, perforaciones, anidado, plegado y una cotización que el cliente acepta en línea.","w2h":"Impresión 3D","w2p":"Tiempo y gramos exactos de Bambu Studio, OrcaSlicer, PrusaSlicer o Cura, materiales por tecnología y un precio para cada pieza.","w3h":"Mecanizado","w3p":"Fresado y torneado según el tamaño del material y las operaciones: tiempo de ciclo por operación, preparación por pedido y tu tarifa.","w4h":"Ingenieros de diseño","w4p":"Planos desde modelos 3D, 40 calculadoras de ingeniería, un asesor de aceros y el costo de la pieza antes de liberar el diseño.","ft.all":"Todas las funciones","cmp.open":"Comparar Free y Pro en detalle","ac.more":"Cómo comprobamos la precisión →","fp.k":"Todas las funciones","fp.h":"Todo lo que hay en InCost.","fp.p":"<span id=\"fcount\">39</span> funciones en una sola app para Windows: cotización, chapa, impresión 3D, diseño y el día a día del taller.","fp.s":"Buscar: anidado, PDF, tornillo…","fp.none":"No se encontró nada. Prueba con otra palabra.",
     "ss.t":"Windows protegió su PC",
     "ss.more":"Más información",
     "ss.run":"Ejecutar de todas formas",
@@ -986,6 +972,7 @@ main.swap{opacity:.4}
     "ct.mailto":"Debería abrirse tu app de correo con el mensaje listo. Si no se abrió, copia el mensaje y envíalo a {email}.","ct.copyMsg":"Copiar mensaje","s6":"Planos desde STEP","md.k":"Dentro de InCost","md.h":"Mucho más que una calculadora de costos.","md.p":"Todo lo que hacen a diario un tecnólogo y un ingeniero de diseño, en una sola app.","cmp.h":"Qué incluye Pro","fx1":"Todos los cálculos de costo en pantalla","fx2":"Planos desde modelos 3D en pantalla","fx3":"40 calculadoras de ingeniería y conversor de unidades","fx4":"Hasta 5 cálculos guardados","px1":"Todo lo de Free, sin límites","px2":"Cotizaciones, informes y hojas de ruta PDF con tu logo","px3":"Plano PDF → precio, y planos exportados a PDF y DXF","px4":"Anidado automático y editor DXF completo","px5":"Cotización por lotes de carpetas enteras","px6":"Informes de ensayo y documentos de certificado EN 10204 con sus datos","px7":"Todas las herramientas estructurales, preparación 3D y modo equipo","tl.k":"Calculadoras en línea gratis","tl.h":"Números rápidos, directo en el navegador.","tl.p":"Sin descargas. Cuando quieras cotizar planos reales, InCost hace lo mismo con tus archivos DXF y STEP.","tl.ch":"Tablas de referencia (en inglés)","tl1":"Acero, aluminio, inoxidable, latón: placa, barra, tubo y ángulo.","tl2":"Filamento, electricidad, desgaste, mano de obra y precio de venta.","tl3":"Precio de una pieza de chapa por longitud de corte, perforaciones y tarifa.","tl4":"Material, tiempo de ciclo y preparación, precio por pieza según cantidad.","nav.tools":"Calculadoras","hero.tools":"Calculadoras gratis: peso de metal, impresión 3D, láser y CNC","q7":"¿Cómo instalo InCost?","a7x":"Descarga el ZIP, descomprímelo en cualquier carpeta y ejecuta InCost. No necesitas instalador ni permisos de administrador. Las nuevas versiones llegan automáticamente dentro de la app."
   },
   pl:{
+    "who.k":"Dla kogo","who.h":"Dla tych, którzy wyceniają detale.","who.go":"Co potrafi →","w1h":"Warsztaty laserowe i blacharskie","w1p":"Otwórz DXF lub rysunek PDF: długość cięcia, przebicia, rozkrój, gięcie i oferta, którą klient akceptuje online.","w2h":"Druk 3D","w2p":"Dokładny czas i gramy z Bambu Studio, OrcaSlicer, PrusaSlicer lub Cura, materiały według technologii i cena każdej części.","w3h":"Obróbka skrawaniem","w3p":"Frezowanie i toczenie według wymiaru półfabrykatu i operacji: czas cyklu na operację, przygotowanie na zlecenie i stawka warsztatu.","w4h":"Konstruktorzy","w4p":"Rysunki z modeli 3D, 40 kalkulatorów inżynierskich, doradca doboru stali i koszt części, zanim projekt trafi do produkcji.","ft.all":"Wszystkie funkcje","cmp.open":"Szczegółowe porównanie Free i Pro","ac.more":"Jak sprawdzamy dokładność →","fp.k":"Wszystkie funkcje","fp.h":"Wszystko, co jest w InCost.","fp.p":"<span id=\"fcount\">39</span> funkcji w jednej aplikacji dla Windows: wycena, blacha, druk 3D, konstrukcja i codzienna praca warsztatu.","fp.s":"Szukaj: rozkrój, PDF, śruba…","fp.none":"Nic nie znaleziono. Spróbuj innego słowa.",
     "ss.t":"Windows ochronił ten komputer",
     "ss.more":"Więcej informacji",
     "ss.run":"Uruchom mimo to",
@@ -1126,6 +1113,7 @@ main.swap{opacity:.4}
     (function s(tm){var k=Math.min(1,(tm-t0)/450),e=1-Math.pow(1-k,3);shown=from+(to-from)*e;$("unit").textContent=money(shown,2);if(k<1)raf=requestAnimationFrame(s)})(t0);
   }
   function calc(){
+    if(!document.getElementById("mat"))return; /* page without the live quote */
     var mm=UNIT==="mm",k=mm?1/25.4:1,m=MAT[$("mat").value];
     var w=n("w",mm?12:.5,mm?1500:60)*k,h=n("h",mm?12:.5,mm?1500:60)*k,th=(+$("th").value)*k;
     var ho=Math.round(n("holes",0,8)),q=Math.round(n("qty",1)),hd=mm?6/25.4:.25,off=mm?12/25.4:.5;
@@ -1521,6 +1509,42 @@ main.swap{opacity:.4}
     });
     $("mods").innerHTML=h;
   }
+  /* features page: the same cards grouped, with a search box */
+  var FGK={quote:["prev","tpl","pdf","target","justify","qlink","follow","show","quote","batch","localcur"],
+    sheet:["shop","ops","sim","nestvar","flat","tap","dxf","tilegen","cad"],
+    "3d":["p3mat","slicer","maker"],
+    design:["drw","lib","steel","eng","civ","adv","qc"],
+    shop:["week","acc","month","asm","trav","stock","team","start","learn"]};
+  var FGN={en:{quote:"Quoting and sales",sheet:"Sheet metal and laser","3d":"3D printing and makers",design:"Design and engineering",shop:"Running the shop",more:"More"},
+    uk:{quote:"Прорахунок і продажі",sheet:"Листовий метал і лазер","3d":"3D-друк і майстри",design:"Конструювання й інженерія",shop:"Робота цеху",more:"Інше"},
+    de:{quote:"Kalkulation und Vertrieb",sheet:"Blech und Laser","3d":"3D-Druck und Maker",design:"Konstruktion und Technik",shop:"Werkstattalltag",more:"Weiteres"},
+    es:{quote:"Cotización y ventas",sheet:"Chapa y láser","3d":"Impresión 3D y artesanos",design:"Diseño e ingeniería",shop:"Gestión del taller",more:"Más"},
+    pl:{quote:"Wycena i sprzedaż",sheet:"Blacha i laser","3d":"Druk 3D i rękodzieło",design:"Konstrukcja i inżynieria",shop:"Praca warsztatu",more:"Inne"}};
+  function renderGroups(){
+    var box=document.getElementById("fmods");if(!box)return;
+    var L=MODS[LANG]||MODS.en,N=FGN[LANG]||FGN.en,by={},seen={},h="",nav="";
+    L.forEach(function(m){by[m[0]]=m});
+    var card=function(m){
+      var nw=NEWM[m[0]]||m[0]==="drw"?' <span class="new">'+esc(NEWW[LANG]||NEWW.en)+'</span>':'';
+      if(m[0]==="drw")return '<article class="mod hero-mod"><div style="display:grid;gap:12px;align-content:start"><span class="ic">'+icon(m[0])+'</span><h3>'+esc(m[1])+nw+'</h3><p>'+esc(m[2])+'</p><div class="chips"><span>STEP</span><span>IGES</span><span>STL</span><span>→ PDF</span><span>→ DXF</span><span>ISO</span><span>ANSI</span></div></div>'+DRW_SVG+'</article>';
+      return '<article class="mod"><span class="ic">'+icon(m[0])+'</span><h3>'+esc(m[1])+nw+'</h3><p>'+esc(m[2])+'</p></article>';
+    };
+    var grp=function(g,keys){var c=keys.filter(function(k){return by[k]}).map(function(k){seen[k]=1;return card(by[k])}).join("");
+      if(!c)return;nav+='<a href="#g-'+g+'">'+esc(N[g])+'</a>';h+='<section class="fgrp" id="g-'+g+'"><h2>'+esc(N[g])+'</h2><div class="mods">'+c+'</div></section>'};
+    for(var g in FGK)grp(g,FGK[g]);
+    grp("more",L.map(function(m){return m[0]}).filter(function(k){return !seen[k]}));
+    box.innerHTML=h;$("fgnav").innerHTML=nav;$("fcount").textContent=L.length;filterMods();
+  }
+  function filterMods(){
+    var box=document.getElementById("fmods");if(!box)return;
+    var q=($("fsq").value||"").trim().toLowerCase(),any=false;
+    [].forEach.call(box.querySelectorAll(".fgrp"),function(sec){var n=0;
+      [].forEach.call(sec.querySelectorAll(".mod"),function(a){var ok=!q||a.textContent.toLowerCase().indexOf(q)>=0;a.hidden=!ok;if(ok)n++});
+      sec.hidden=!n;if(n)any=true});
+    $("fnone").hidden=any;
+  }
+  $("fsq").addEventListener("input",filterMods);
+  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-tab]");if(a)show(+a.getAttribute("data-tab"))});
   function cell(v){
     if(v===1)return '<svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="var(--good)" stroke-width="2.2" role="img" aria-label="yes"><path d="M3.5 9.5l3.5 3.5 7.5-8"/></svg>';
     if(v===0)return '<span class="no" aria-label="no">—</span>';
@@ -1585,7 +1609,7 @@ main.swap{opacity:.4}
     var go=function(){
       nodes.forEach(function(el){var v=D[lang][el.getAttribute("data-i")];if(v==null)v=D.en[el.getAttribute("data-i")];if(v!=null)el.innerHTML=v});
       phs.forEach(function(el){el.placeholder=tr(el.getAttribute("data-ip"))});
-      st.hidden=true;renderContact();renderMods();renderCmp();
+      st.hidden=true;renderContact();renderMods();renderGroups();renderCmp();
       lastPay=lastMult="";setUnits(lang==="en"?"in":"mm",true);roi();show(cur);bill(yearly);
       document.querySelector("main").classList.remove("swap");
     };
@@ -1597,6 +1621,7 @@ main.swap{opacity:.4}
   var saved=null;
   try{saved=localStorage.getItem("incost-lang");if(!D[saved])saved=null}catch(e){}
   apply(saved||"en",false);
+  if(/^#g-/.test(location.hash)){var gh=document.getElementById(location.hash.slice(1));if(gh)setTimeout(function(){gh.scrollIntoView()},0)}
   if(!saved){
     var cached=null;try{cached=sessionStorage.getItem("incost-geo")}catch(e){}
     var useCountry=function(cc){var l=GEO_LANG[String(cc||"").toUpperCase()];if(l&&l!==LANG)apply(l,true)};
